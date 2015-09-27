@@ -12,73 +12,74 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
   </head>
-  <body ng-app="starter">
+  <body ng-app="hueSquare">
 
-          <div id="main-container">
-          <div class="game-header">
-            <div class="game-title">
-              <span>h</span><span>u</span><span>e</span><div></div>
-            </div>
-            <div class="game-stats-container">
-              <div class="game-moves">
-                <p>moves</p>
-                <p class="moves"></p>
-              </div>
-              <div class="game-wins">
-                <p>wins</p>
-                <p class="wins"></p>
-              </div>
-              <div class="game-levels">
-                <p>level</p>
-                <p class="levels"></p>
-              </div>
-            </div>
-          </div>
-          <div class="game-menu">
-            <div class="undo">
-              <i class="fa fa-undo undo-button"></i>
-            </div>
-            <div class="restart">
-              <i class="fa fa-refresh restart-button"></i>
-            </div>
-            <div class="redo">
-              <i class="fa fa-repeat redo-button"></i>
-            </div>
-          </div>
-          <div id="game-container">
-            <div class="game-message">
-              <p></p>
-              <div class="options">
-                <div class="right-option">
-                  <a class="button retry">try again</a>
-                </div>
-                <div class="left-option">
-                  <a class="button next">next puzzle</a>
-                </div>
-                <div class="bottom-option">
-                  <a class="button solution">show solution</a>
-                </div>
-              </div>
-            </div>
-            <div id="board-container"></div>
-          </div>
-          <div class="game-instructions">
-            <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>
-          </div>
-          <div class="game-notes">
-            <div class="notes">
-              <p>
-                Designed and built by <a href="http://www.jeffreyluong.com" target="_blank">Jeffrey Luong</a>.
-              </p>
-            </div>
-          </div>
-
+      <div id="main-container">
+      <div class="game-header">
+        <div class="game-title">
+          <span>h</span><span>u</span><span>e</span><div></div>
         </div>
-        
+        <div class="game-stats-container">
+          <div class="game-moves">
+            <p>moves</p>
+            <p class="moves"></p>
+          </div>
+          <div class="game-wins">
+            <p>wins</p>
+            <p class="wins"></p>
+          </div>
+          <div class="game-levels">
+            <p>level</p>
+            <p class="levels"></p>
+          </div>
+        </div>
+      </div>
+      <div class="game-menu">
+        <div class="undo">
+          <i class="fa fa-undo undo-button"></i>
+        </div>
+        <div class="restart">
+          <i class="fa fa-refresh restart-button"></i>
+        </div>
+        <div class="redo">
+          <i class="fa fa-repeat redo-button"></i>
+        </div>
+      </div>
+      <div id="game-container">
+        <div class="game-message">
+          <p></p>
+          <div class="options">
+            <div class="right-option">
+              <a class="button retry">try again</a>
+            </div>
+            <div class="left-option">
+              <a class="button next">next puzzle</a>
+            </div>
+            <div class="bottom-option">
+              <a class="button solution">show solution</a>
+            </div>
+          </div>
+        </div>
+        <div id="board-container"></div>
+      </div>
+      <div class="game-instructions">
+        <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>
+      </div>
+      <div class="game-notes">
+        <div class="notes">
+          <p>
+            Designed and built by <a href="http://www.jeffreyluong.com" target="_blank">Jeffrey Luong</a>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
   </body>
 </html>
