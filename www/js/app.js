@@ -5,19 +5,26 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('hueSquare', ['ionic', 'ngCordova']);
 
-app.run(function($ionicPlatform, $cordovaStatusbar) {
+// Constants
+app.constant('baseColors', {
+  arrColors: [360, 230, 60]
+})
+
+// Run app
+.run(function($ionicPlatform, $cordovaStatusbar) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+
+    // Hides status bar
     $cordovaStatusbar.hide();
 
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-
 
   });
 })

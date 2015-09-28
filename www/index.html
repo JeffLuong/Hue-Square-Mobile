@@ -9,13 +9,19 @@
 
 
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="js/lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="cordova.js"></script>
 
+    <!-- modal scripts -->
+    <script src="js/lib/modal/classManager.js"></script>
+    <script src="js/lib/modal/cssParser.js"></script>
+    <script src="js/lib/modal/modalEffects.js"></script>
+
     <!-- your app's js -->
+    <script src="js/controllers/game-manager.js"></script>
     <script src="js/app.js"></script>
   </head>
   <body ng-app="hueSquare">
@@ -28,15 +34,15 @@
         <div class="game-stats-container">
           <div class="game-moves">
             <p>moves</p>
-            <p class="moves"></p>
+            <p class="moves" ng-bind="moves"></p>
           </div>
           <div class="game-wins">
             <p>wins</p>
-            <p class="wins"></p>
+            <p class="wins" ng-bind="totalWins"></p>
           </div>
           <div class="game-levels">
             <p>level</p>
-            <p class="levels"></p>
+            <p class="levels" ng-bind="level"></p>
           </div>
         </div>
       </div>
@@ -70,13 +76,6 @@
       </div>
       <div class="game-instructions">
         <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>
-      </div>
-      <div class="game-notes">
-        <div class="notes">
-          <p>
-            Designed and built by <a href="http://www.jeffreyluong.com" target="_blank">Jeffrey Luong</a>.
-          </p>
-        </div>
       </div>
 
     </div>
