@@ -1,3 +1,5 @@
+console.log("game.js loaded...");
+
 // For game levels and settings
 angular.module('hueSquare')
 

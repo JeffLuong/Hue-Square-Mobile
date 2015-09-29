@@ -1,7 +1,9 @@
+console.log("tile.js loaded...");
+
 // For tile object
 angular.module('hueSquare')
 
-  .factory('tile', function(baseColors) {
+  .factory('Tile', function(baseColors) {
     'use strict';
 
     var Tile = function(position, color) {

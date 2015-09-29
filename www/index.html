@@ -21,11 +21,17 @@
     <script src="js/lib/modal/modalEffects.js"></script>
 
     <!-- your app's js -->
-    <script src="js/controllers/game-manager.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/services/render.js"></script>
+    <script src="js/services/tile.js"></script>
+    <script src="js/services/board.js"></script>
+    <script src="js/services/game_data.js"></script>
+    <script src="js/services/game.js"></script>
+    <script src="js/controllers/game-manager.js"></script>
   </head>
-  
+
   <body ng-app="hueSquare">
+    <ion-content ng-controller="gameManager as game">
 
       <div id="main-container">
       <div class="game-header">
@@ -79,7 +85,9 @@
         <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>
       </div>
 
-    </div>
+      </div>
+
+    </ion-content>
 
   </body>
 </html>

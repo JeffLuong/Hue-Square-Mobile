@@ -1,12 +1,13 @@
+console.log("board.js loaded...");
+
 // For board object
 angular.module('hueSquare')
 
-  .factory('tile', function(baseColors) {
+  .factory('Board', function(baseColors) {
     'use strict';
 
     var Board = function(size) {
       this.size  = size;
-      this.board = this.makeBoard();
 
       this.makeBoard = function() {
         var emptyBoard = [];
@@ -55,6 +56,7 @@ angular.module('hueSquare')
         return currState;
       }
 
+      this.board = this.makeBoard();
     };
 
     return (Board);

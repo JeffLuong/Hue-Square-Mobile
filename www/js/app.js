@@ -15,7 +15,7 @@ app.constant('baseColors', {
   $ionicPlatform.ready(function() {
 
     // Hides status bar
-    $cordovaStatusbar.hide();
+    // $cordovaStatusbar.hide();
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -25,6 +25,8 @@ app.constant('baseColors', {
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    console.log("app.js is loaded...");
 
   });
 })

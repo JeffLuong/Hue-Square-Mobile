@@ -1,7 +1,9 @@
+console.log("game-data.js loaded...");
+
 // Game states & local storage
 angular.module('hueSquare')
 
-  .factory('gameData', function(baseColors) {
+  .factory('GameData', function(baseColors) {
     'use strict';
 
     window.tempStorage = {
@@ -28,7 +30,7 @@ angular.module('hueSquare')
       }
     }
 
-    var GameDats = function() {
+    var GameData = function() {
       this.currLvlKey   = "currLvl";
       this.userStatsKey = "stats";
       this.gameKey      = "gameState";
@@ -80,5 +82,5 @@ angular.module('hueSquare')
 
     };
 
-    return (Board);
+    return (GameData);
   });
