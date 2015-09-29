@@ -39,6 +39,7 @@ angular.module('hueSquare')
       };
 
       this.addTile = function(tile) {
+        console.log("inserting tile...");
         this.board[tile.x][tile.y] = tile;
       };
 
@@ -48,7 +49,8 @@ angular.module('hueSquare')
       };
 
       this.serializeBoard = function(board) {
-        currState = {
+        console.log("serializing board...");
+        var currState = {
           size       : this.size,
           savedBoard : board
         };

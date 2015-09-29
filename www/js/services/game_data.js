@@ -61,6 +61,15 @@ angular.module('hueSquare')
       };
 
       // Game State functions
+      this.getCurrGame = function() {
+        var gameJSON = this.storage.getItem(this.gameKey);
+        if (gameJSON) {
+          return JSON.parse(gameJSON);
+        } else {
+          return null;
+        };
+      };
+
       this.storeGame = function(game) {
         this.storage.setItem(this.gameKey, JSON.stringify(game));
       };
