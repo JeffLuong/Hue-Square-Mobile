@@ -3,11 +3,11 @@ console.log("game.js loaded...");
 // For game levels and settings
 angular.module('hueSquare')
 
-  .factory('game', function(baseColors) {
+  .factory('Game', function(baseColors) {
     'use strict';
 
-    var game = {
-      initLevels: function() {
+    var Game = function() {
+      this.initLevels = function() {
         var that = this;
         var levels = {
           1: { scale: 0.80, size: 2 }, //moveRange is num of moves ai takes
@@ -21,8 +21,9 @@ angular.module('hueSquare')
           }
         };
 
+        return levels;
       }
-    }
+    };
 
-    return game;
+    return (Game);
   });

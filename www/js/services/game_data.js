@@ -44,8 +44,10 @@ angular.module('hueSquare')
         try {
           storage.setItem(test, "yes");
           storage.removeItem(test);
+          console.log("supported");
           return true;
         } catch (err) {
+          console.log("not supported");
           return false;
         }
       };
