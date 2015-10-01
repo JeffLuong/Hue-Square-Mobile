@@ -92,5 +92,6 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
 
   this.initGame(this.currLvl); // Initialize game
   this.data.storeGame(this.serializeState({x: 0, y: 0}));
+  
   console.log(this.board);
 });
