@@ -1,17 +1,39 @@
-console.log("row directive loaded...");
+console.log("square directive loaded...");
 angular.module('hueSquare')
 
-  .directive('rowRender', function($timeout, GameData) {
+  .directive('rowRender', function($timeout) {
     return {
       require: '^board',
-      restrict: 'AE',
+      restrict: 'A',
       template:
-      "<div ng-repeat='tile in tiles' class='tile'></div>",
-      link: function($rootScope, $scope, $element, $compile) {
-        console.log("THISSS");
+      "<div ng-repeat='square in squares' class='board-sq' square-render>" +
+      "</div>",
+      link: function(scope, element, attr) {
+        var row    = element[0],
+            rowNum = scope.row.rowNum,
+            size   = scope.row.size;
+        row.style.height = "calc(100% / " + size + ")";
+        row.classList.add("row" + (rowNum + 1));
+      },
 
+      controller: function($rootScope, $scope, $element) {
+        var rowArr = $scope.row.rowArr,
+            size   = $scope.row.size;
+
+        // Controller functions
+        function addSquares() {
+          $scope.squares = [];
+          for (var y = 0; y < size; y++) {
+            $scope.squares.push({
+              width: size,
+              tile: rowArr[y],
+              squareNum: y
+            });
+          };
+        };
+
+        addSquares();
       }
 
-
-    }
+    };
   });

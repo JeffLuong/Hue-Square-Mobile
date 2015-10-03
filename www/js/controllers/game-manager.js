@@ -58,6 +58,7 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
         if (savedBoard) {
           var color = this.gameBoard[y][x].color;
         } else {
+          console.log("randomly generating colors...");
           var color = this.genColor();
         }
         var tile = new Tile(this.boardObj.returnPosition(y, x), color);
@@ -65,6 +66,7 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
         this.boardObj.addTile(tile);
       };
     };
+    console.log(this.board);
   }
 
   this.serializeState = function(currPosition) {
@@ -92,6 +94,5 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
 
   this.initGame(this.currLvl); // Initialize game
   this.data.storeGame(this.serializeState({x: 0, y: 0}));
-  
-  console.log(this.board);
+
 });

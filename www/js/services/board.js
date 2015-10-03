@@ -39,8 +39,7 @@ angular.module('hueSquare')
       };
 
       this.addTile = function(tile) {
-        console.log("inserting tile...");
-        this.board[tile.x][tile.y] = tile;
+        this.board[tile.y][tile.x] = tile;
       };
 
       // Check if within bounds...returns true/false

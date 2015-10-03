@@ -29,6 +29,7 @@
     <script src="js/services/game.js"></script>
 
     <script src="js/directives/board.js"></script>
+    <script src="js/directives/row.js"></script>
     <script src="js/directives/square.js"></script>
     <script src="js/directives/tile.js"></script>
 
@@ -37,6 +38,16 @@
 
   <body ng-app="hueSquare">
     <ion-content ng-controller="gameManager as game">
+
+      <div id="loading">
+        <div class="loading-container">
+          <div class="loading-square">
+            <div class="loading-diamond">
+
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div id="main-container">
       <div class="game-header">

@@ -6,39 +6,33 @@ angular.module('hueSquare')
     return {
       restrict: 'A',
       template:
-      "<div ng-repeat='row in rows' class='board-row' square-render>" +
+      "<div ng-repeat='row in rows' class='board-row' row-render>" +
       "</div>",
-      controller: function($rootScope, $scope, $element, $compile) {
+      controller: function($rootScope, $scope, $element) {
         var game      = new GameData,
             currGame  = game.getCurrGame(),
             board     = currGame.board.savedBoard,
             numOfRows = currGame.board.savedBoard.length;
 
-          console.log(board);
-
         // Row functions
         function initRows() {
-          addSquares();
-        }
+          addRows(board);
+        };
 
-        function addSquares() {
-          $scope.rows    = [];
+        function addRows(board) {
+          $scope.rows = [];
+          $scope.squares = [];
+          console.log(board);
           for (var y = 0; y < numOfRows; y++) {
             $scope.rows.push({
-              rowHeight: numOfRows
+              size: numOfRows,
+              rowArr: board[y],
+              rowNum: y
             });
-          }
-
-          console.log($scope.rows);
-        }
-
-        function addColors() {
-
-        }
+          };
+        };
 
         initRows();
       }
-
-
-    }
+    };
   });
