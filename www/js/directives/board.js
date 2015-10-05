@@ -13,7 +13,7 @@ angular.module('hueSquare')
             currGame  = game.getCurrGame(),
             board     = currGame.board.savedBoard,
             numOfRows = currGame.board.savedBoard.length;
-
+          console.log($rootScope.$broadcast);
         // Row functions
         function initRows() {
           addRows(board);

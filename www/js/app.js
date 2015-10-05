@@ -41,7 +41,7 @@ app.constant('baseColors', {
     //   $("#loading").fadeOut(250);
     //   $("#main-container").fadeIn(350);
     // });
-    console.log($("body"));
+    console.log(angular.element);
     console.log("app.js is loaded...");
 
   });
