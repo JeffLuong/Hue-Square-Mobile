@@ -13,6 +13,9 @@ angular.module('hueSquare')
             currGame  = game.getCurrGame(),
             board     = currGame.board.savedBoard,
             numOfRows = currGame.board.savedBoard.length;
+
+          // Use $broadcast to dispatch events downards
+          // Use $emit to dispatch events upwards
           console.log($rootScope.$broadcast);
         // Row functions
         function initRows() {
@@ -21,8 +24,6 @@ angular.module('hueSquare')
 
         function addRows(board) {
           $scope.rows = [];
-          $scope.squares = [];
-          console.log(board);
           for (var y = 0; y < numOfRows; y++) {
             $scope.rows.push({
               size: numOfRows,
