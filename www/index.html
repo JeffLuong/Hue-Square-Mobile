@@ -39,7 +39,7 @@
   <body ng-app="hueSquare">
     <ion-content ng-controller="gameManager as game">
 
-      <div id="loading">
+      <!-- <div id="loading">
         <div class="loading-container">
           <div class="loading-square">
             <div class="loading-diamond">
@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div id="main-container">
       <div class="game-header">
@@ -57,27 +57,27 @@
         <div class="game-stats-container">
           <div class="game-moves">
             <p>moves</p>
-            <p class="moves" ng-bind="moves"></p>
+            <p class="moves" ng-bind="game.moves.undoMoves.length"></p>
           </div>
           <div class="game-wins">
             <p>wins</p>
-            <p class="wins" ng-bind="totalWins"></p>
+            <p class="wins" ng-bind="game.totalWins"></p>
           </div>
           <div class="game-levels">
             <p>level</p>
-            <p class="levels" ng-bind="level"></p>
+            <p class="levels" ng-bind="game.currLvl"></p>
           </div>
         </div>
       </div>
       <div class="game-menu">
         <div class="undo">
-          <i class="fa fa-undo undo-button"></i>
+          <i class="icon ion-ios-undo undo-button"></i>
         </div>
         <div class="restart">
-          <i class="fa fa-refresh restart-button"></i>
+          <i class="icon ion-refresh restart-button"></i>
         </div>
         <div class="redo">
-          <i class="fa fa-repeat redo-button"></i>
+          <i class="icon ion-ios-redo redo-button"></i>
         </div>
       </div>
       <div id="game-container">
@@ -95,7 +95,7 @@
             </div>
           </div>
         </div>
-        <div id="board-container" board></div>
+        <div id="board-container" board on-swipe="game.onSwipe()"></div>
       </div>
       <div class="game-instructions">
         <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>

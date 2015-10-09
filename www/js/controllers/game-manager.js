@@ -10,18 +10,20 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
   this.game     = new Game;
 
   this.gameLvls = this.game.initLevels();
-
   // Check if any user stats are stored in local storage
   this.userStatsStored = this.data.getUserStats();
-  if (this.userStatsStored.level) {
+  console.log(this.userStatsStored);
+  if (this.userStatsStored) {
+    console.log("GETTING USER STORED STATS");
     this.currLvl = this.userStatsStored.level;
   } else {
+    console.log("NO USER STORED STATS");
     this.currLvl = 1;
   }
 
   this.wins      = 0;
   this.totalWins = 0;
-  this.rounds    = 2; // Number of rounds until board increase
+  this.rounds    = 3; // Number of rounds until board increase
 
   this.initGame = function (level) {
     console.log("game starting...");
@@ -32,6 +34,7 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
     //   console.log("fetching saved game state...");
     //   this.boardObj         = new Board(prevState.board.size)
     // } else {
+      console.log(this.gameLvls[level]);
       this.size             = this.gameLvls[level].size;
       this.boardObj         = new Board(this.size);
       this.board            = this.boardObj.board;
@@ -82,7 +85,7 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
 
     var userStats = {
       totalWins: this.totalWins,
-      level:     this.setting,
+      level:     this.currLvl,
       wins:      this.wins
     }
 
@@ -91,6 +94,10 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
     console.log(currGame);
     return currGame;
   };
+
+  this.onSwipe = function () {
+    console.log("SWIPED!!!");
+  }
 
   this.initGame(this.currLvl); // Initialize game
   this.data.storeGame(this.serializeState({x: 0, y: 0}));

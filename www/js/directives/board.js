@@ -9,17 +9,23 @@ angular.module('hueSquare')
       "<div ng-repeat='row in rows' class='board-row' row-render>" +
       "</div>",
       controller: function($rootScope, $scope, $element) {
-        var game      = new GameData,
-            currGame  = game.getCurrGame(),
-            board     = currGame.board.savedBoard,
-            numOfRows = currGame.board.savedBoard.length;
+        var game       = new GameData,
+            currGame   = game.getCurrGame(),
+            savedBoard = currGame.board.savedBoard,
+            numOfRows  = currGame.board.savedBoard.length,
+            boardElem  = $element[0];
 
-          // Use $broadcast to dispatch events downards
-          // Use $emit to dispatch events upwards
-          console.log($rootScope.$broadcast);
+        console.log(boardElem);
+        // Event Listeners
+        // boardElem.addEventListener('')
+        function onSwipe(e) {
+          console.log("Swiped!");
+          // $rootScope.$broadcast('game.swipe-' + direction, vector);
+        }
+
         // Row functions
         function initRows() {
-          addRows(board);
+          addRows(savedBoard);
         };
 
         function addRows(board) {

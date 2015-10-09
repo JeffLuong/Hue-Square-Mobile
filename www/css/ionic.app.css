@@ -7779,8 +7779,8 @@ p {
   text-align: center;
   padding: 10px 0 0;
   margin-right: 5px;
-  width: 0;
-  height: 0;
+  width: 75px;
+  height: 75px;
   /*display: inline-block;*/
   float: right;
   background-color: #E91E63;
@@ -7789,10 +7789,6 @@ p {
 
 .game-moves {
   margin-right: 15px; }
-
-.animateStats {
-  width: 75px;
-  height: 75px; }
 
 .game-moves p, .game-wins p, .game-levels p {
   font-size: 1.25em;
