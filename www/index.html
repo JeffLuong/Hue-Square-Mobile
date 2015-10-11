@@ -95,7 +95,11 @@
             </div>
           </div>
         </div>
-        <div id="board-container" board on-swipe="game.onSwipe()"></div>
+        <div id="board-container" board 
+                                  on-swipe-right="game.onSwipe('right')"
+                                  on-swipe-left="game.onSwipe('left')"
+                                  on-swipe-up="game.onSwipe('up')"
+                                  on-swipe-down="game.onSwipe('down')"></div>
       </div>
       <div class="game-instructions">
         <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>

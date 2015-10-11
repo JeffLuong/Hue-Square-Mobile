@@ -1,7 +1,7 @@
 console.log("game-manager.js loaded...");
 var appModule = angular.module('hueSquare');
 
-appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData, baseColors) {
+appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Tile, GameData, baseColors) {
 
   console.log("game-manager controller loaded...");
 
@@ -95,8 +95,9 @@ appModule.controller('gameManager', function($scope, Game, Board, Tile, GameData
     return currGame;
   };
 
-  this.onSwipe = function () {
-    console.log("SWIPED!!!");
+
+  this.onSwipe = function (direction) {
+    $rootScope.$broadcast('game.onSwipe(' + direction + ')');
   }
 
   this.initGame(this.currLvl); // Initialize game

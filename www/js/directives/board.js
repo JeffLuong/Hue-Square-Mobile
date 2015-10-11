@@ -15,12 +15,17 @@ angular.module('hueSquare')
             numOfRows  = currGame.board.savedBoard.length,
             boardElem  = $element[0];
 
-        console.log(boardElem);
-        // Event Listeners
-        // boardElem.addEventListener('')
-        function onSwipe(e) {
-          console.log("Swiped!");
-          // $rootScope.$broadcast('game.swipe-' + direction, vector);
+        $rootScope.$on('game.onSwipe', swipe);
+
+        function swipe(direction) {
+          console.log("root scope swiped!");
+          console.log(getVectors(direction));
+          var vector = getVectors(direction);
+          console.log(vector);
+        }
+
+        function getVectors(direction) {
+          return direction;
         }
 
         // Row functions
