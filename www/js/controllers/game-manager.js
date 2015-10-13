@@ -97,7 +97,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
 
   this.onSwipe = function (direction) {
-    $rootScope.$broadcast('game.onSwipe(' + direction + ')');
+    $rootScope.$broadcast("game.onSwipe('" + direction + "')");
   }
 
   this.initGame(this.currLvl); // Initialize game
