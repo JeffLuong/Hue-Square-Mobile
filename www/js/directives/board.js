@@ -55,10 +55,6 @@ angular.module('hueSquare')
           return directionKeys[direction];
         }
 
-        function inBounds(position) {
-          return position.x >= 0 && position.y >= 0 && position.x < size && position.y < size;
-        }
-
         // Row functions
         function initRows() {
           addRows(savedBoard);

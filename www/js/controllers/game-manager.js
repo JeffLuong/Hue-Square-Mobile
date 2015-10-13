@@ -4,12 +4,11 @@ var appModule = angular.module('hueSquare');
 appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Tile, GameData, baseColors) {
 
   console.log("game-manager controller loaded...");
-
-  this.tile     = new Tile({x: 0, y:0}, 360);
   this.data     = new GameData;
   this.game     = new Game;
 
   this.gameLvls = this.game.initLevels();
+
   // Check if any user stats are stored in local storage
   this.userStatsStored = this.data.getUserStats();
   console.log(this.userStatsStored);
@@ -32,7 +31,9 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         this.won      = false;
     // if (prevState) {
     //   console.log("fetching saved game state...");
-    //   this.boardObj         = new Board(prevState.board.size)
+    //   this.boardObj         = new Board(prevState.board.size);
+    //   this.board            = prevState.board.savedboard;
+    //   this.initUser(prevState.savedPosition);
     // } else {
       console.log(this.gameLvls[level]);
       this.size             = this.gameLvls[level].size;
@@ -46,7 +47,43 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.winColor;
       this.makeTiles();
     // }
-  }
+  };
+
+  this.initUser = function(savedPosition) {
+    var startPos;
+    if (savedPosition) {
+      startPos = this.getStartPosition(this.size, savedPosition);
+    } else {
+      startPos = this.getStartPosition(this.size);
+    }
+    this.insertUser(this.board, startPos);
+  };
+
+  this.insertUser = function(board, position) {
+    this.userTile = board[position.x][position.y];
+  };
+
+  this.getStartPosition = function(size, savedPosition) {
+    if (savedPosition === undefined) {
+      var x        = 0,
+          y        = 0,
+          position = {x: x, y: y},
+          color    = this.gameBoard[x][y].color;
+          tile     = new Tile(position, color);
+
+      return tile.startPosition();
+
+    } else if (savedPosition) {
+      var x        = savedPosition.x,
+          y        = savedPosition.y,
+          position = {x: x, y: y},
+          color    = this.gameBoard[x][y].color;
+          tile     = new Tile(position, color);
+          tile.lastPosition = position;
+
+      return tile.startPosition();
+    }
+  };
 
   this.genColor = function() {
     var colors = baseColors.arrColors;
@@ -70,7 +107,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       };
     };
     console.log(this.board);
-  }
+  };
 
   this.serializeState = function(currPosition) {
     console.log("serializing...");
@@ -98,7 +135,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   this.onSwipe = function (direction) {
     $rootScope.$broadcast("game.onSwipe('" + direction + "')");
-  }
+  };
 
   this.initGame(this.currLvl); // Initialize game
   this.data.storeGame(this.serializeState({x: 0, y: 0}));
