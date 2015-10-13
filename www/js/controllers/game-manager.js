@@ -10,15 +10,15 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   this.gameLvls = this.game.initLevels();
 
   // Check if any user stats are stored in local storage
-  this.userStatsStored = this.data.getUserStats();
+  // this.userStatsStored = this.data.getUserStats();
   console.log(this.userStatsStored);
-  if (this.userStatsStored) {
-    console.log("GETTING USER STORED STATS");
-    this.currLvl = this.userStatsStored.level;
-  } else {
-    console.log("NO USER STORED STATS");
+  // if (this.userStatsStored) {
+  //   console.log("GETTING USER STORED STATS");
+  //   this.currLvl = this.userStatsStored.level;
+  // } else {
+    // console.log("NO USER STORED STATS");
     this.currLvl = 1;
-  }
+  // }
 
   this.wins      = 0;
   this.totalWins = 0;
@@ -35,7 +35,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     //   this.board            = prevState.board.savedboard;
     //   this.initUser(prevState.savedPosition);
     // } else {
-      console.log(this.gameLvls[level]);
       this.size             = this.gameLvls[level].size;
       this.boardObj         = new Board(this.size);
       this.board            = this.boardObj.board;
@@ -46,6 +45,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.aiMoves          = [];
       this.winColor;
       this.makeTiles();
+      this.initUser();
     // }
   };
 
@@ -68,16 +68,17 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       var x        = 0,
           y        = 0,
           position = {x: x, y: y},
-          color    = this.gameBoard[x][y].color;
+          color    = this.board[x][y].color;
           tile     = new Tile(position, color);
 
+      console.log(this.board);
       return tile.startPosition();
 
     } else if (savedPosition) {
       var x        = savedPosition.x,
           y        = savedPosition.y,
           position = {x: x, y: y},
-          color    = this.gameBoard[x][y].color;
+          color    = this.board[x][y].color;
           tile     = new Tile(position, color);
           tile.lastPosition = position;
 
@@ -96,7 +97,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     for (var y = 0; y < this.size; y++) {
       for (var x = 0; x < this.size; x++) {
         if (savedBoard) {
-          var color = this.gameBoard[y][x].color;
+          var color = this.board[y][x].color;
         } else {
           console.log("randomly generating colors...");
           var color = this.genColor();
@@ -138,6 +139,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.initGame(this.currLvl); // Initialize game
-  this.data.storeGame(this.serializeState({x: 0, y: 0}));
+  // this.data.storeGame(this.serializeState({x: 0, y: 0}));
 
 });
