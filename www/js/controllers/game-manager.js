@@ -12,13 +12,13 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   // Check if any user stats are stored in local storage
   // this.userStatsStored = this.data.getUserStats();
   console.log(this.userStatsStored);
-  // if (this.userStatsStored) {
-  //   console.log("GETTING USER STORED STATS");
-  //   this.currLvl = this.userStatsStored.level;
-  // } else {
-    // console.log("NO USER STORED STATS");
+  if (this.userStatsStored) {
+    console.log("GETTING USER STORED STATS");
+    this.currLvl = this.userStatsStored.level;
+  } else {
+    console.log("NO USER STORED STATS");
     this.currLvl = 1;
-  // }
+  }
 
   this.wins      = 0;
   this.totalWins = 0;
@@ -49,6 +49,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     // }
   };
 
+  // User Initiate Functions
   this.initUser = function(savedPosition) {
     var startPos;
     if (savedPosition) {
@@ -86,12 +87,12 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     }
   };
 
+  // Board Object Functions
   this.genColor = function() {
     var colors = baseColors.arrColors;
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
-  // Make tile objects
   this.makeTiles = function(savedBoard) {
     console.log("making tiles...");
     for (var y = 0; y < this.size; y++) {
@@ -110,6 +111,73 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     console.log(this.board);
   };
 
+  // Game Mechanic Functions
+  this.testIfWon = function(position, color, solution) {
+    var rangeHigh = this.winColor + 2.25,
+        rangeLow  = this.winColor - 2.25;
+    if (position.x === this.winPoint.x && position.y === this.winPoint.y) {
+      this.data.deleteGameState();
+      this.gameOver = true;
+      if (color >= rangeLow && color <= rangeHigh && solution !== true) {
+        this.won = true;
+        this.wins++;
+        this.totalWins++;
+        // this.renderer.rotateGoal(false, true);
+
+        if (this.wins === this.rounds) {
+          this.setting++;
+          this.wins = 0;
+        }
+
+        if (this.setting === 8 && this.wins === 3) {
+          // this.renderer.renderMessage(true, true)
+        } else {
+          // this.renderer.renderMessage(true, false);
+        }
+      } else if (color >= rangeLow || color <= rangeHigh) {
+        // this.renderer.rotateGoal(false, false);
+        // this.renderer.renderMessage(false, false);
+      };
+    };
+    console.log(this.wins);
+  };
+
+  this.restart = function() {
+    this.data.deleteGameState();
+    this.gameOver = false;
+    // this.renderer.clearMessage(); <<<need to think about how to clear message
+    var allMoves = this.moves.undoMoves,
+        length   = allMoves.length;
+
+    //~~~ Executes all undos ~~~//
+    for (var i = 0; i < length; i++) {
+      this.undo();
+    };
+
+    if (this.won === true) {
+      this.renderer.rotateGoal(true, true);
+    } else if (this.won === false) {
+      this.renderer.rotateGoal(true, false);
+    }
+    this.won = false;
+    this.moves.undoMoves = [];
+    this.moves.redoMoves = [];
+  };
+
+   this.nextMap = function() {
+     this.gameOver = false;
+      this.moves.undoMoves = [];
+      this.moves.redoMoves = [];
+      // this.renderer.removeGameBoard(); <<<need to think about how to remove game board
+      this.initGame(this.currLvl);
+      this.won = false;
+   };
+
+   this.returnColor = function(position, board) {
+     return board[position.x][position.y].color;
+   };
+
+  // Save Game
   this.serializeState = function(currPosition) {
     console.log("serializing...");
     var currGame = {
