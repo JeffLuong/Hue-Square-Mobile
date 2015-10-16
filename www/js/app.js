@@ -10,6 +10,13 @@ app.constant('baseColors', {
   arrColors: [360, 230, 60]
 })
 
+.constant('vectors', {
+  "up":    { x:  0, y: -1 },
+  "right": { x:  1, y:  0 },
+  "down":  { x:  0, y:  1 },
+  "left":  { x: -1, y:  0 }
+})
+
 // Run app
 .run(function($ionicPlatform, $cordovaStatusbar) {
   $ionicPlatform.ready(function() {

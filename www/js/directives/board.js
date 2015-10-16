@@ -22,38 +22,38 @@ angular.module('hueSquare')
 
         function swipeRight() {
           console.log("root scope swipe right!");
-          var vector = getVectors('right');
+          var vector = getVector('right');
           console.log(vector);
         }
 
         function swipeLeft() {
           console.log("root scope swipe left!");
-          var vector = getVectors('left');
+          var vector = getVector('left');
           console.log(vector);
         }
 
         function swipeDown() {
           console.log("root scope swipe down!");
-          var vector = getVectors('down');
+          var vector = getVector('down');
           console.log(vector);
         }
 
         function swipeUp() {
           console.log("root scope swipe up!");
-          var vector = getVectors('up');
+          var vector = getVector('up');
           console.log(vector);
         }
 
-        function getVectors(direction) {
-          var directionKeys = {
-            "up":    { x:  0, y: -1 },
-            "right": { x:  1, y:  0 },
-            "down":  { x:  0, y:  1 },
-            "left":  { x: -1, y:  0 }
-          };
-
-          return directionKeys[direction];
-        }
+        // function getVector(direction) {
+        //   var directionKeys = {
+        //     "up":    { x:  0, y: -1 },
+        //     "right": { x:  1, y:  0 },
+        //     "down":  { x:  0, y:  1 },
+        //     "left":  { x: -1, y:  0 }
+        //   };
+        //
+        //   return directionKeys[direction];
+        // };
 
         // Row functions
         function initRows() {
