@@ -98,6 +98,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     if (this.gameOver) {
       return;
     };
+
+    // Actual Move function
     function makeMove(nextPosition, player) {
       if (that.boardObj.inBounds(nextPosition)) {
         mixedColor = that.findAverage(that.returnColor(position, that.board), that.returnColor(nextPosition, that.board));
@@ -300,7 +302,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     for (var i = 0; i < length; i++) {
       this.undo();
     };
-    
+
     // if (this.won === true) {
     //   this.renderer.rotateGoal(true, true);
     // } else if (this.won === false) {
