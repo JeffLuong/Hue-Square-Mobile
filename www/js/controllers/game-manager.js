@@ -46,6 +46,10 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.winColor;
       this.makeTiles();
       this.initUser();
+      this.genSolution(this.currLvl);
+      this.startPoint = this.getStartPosition(this.size);
+      this.getPreviewColors(this.startPoint);
+      this.data.storeGame(this.serializeState(this.startPoint));
     // }
   };
 
@@ -88,7 +92,43 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.moveUser = function(direction, aiPlayer, aiMoves, solution) {
+    var position = null,
+        vector   = this.getVector(direction);
 
+    if (this.gameOver) {
+      return;
+    };
+
+    if (aiPlayer === undefined) {
+      this.moves.redoMoves = [];
+
+      position = this.movedFromStart ? tile.lastPosition : tile.startPosition();
+      var nextPosition = this.findNextPosition(position, vector);
+      var mixedColor;
+
+      if (this.boardObj.inBounds(nextPosition)) {
+        mixedColor = this.findAverage(this.returnColor(position, this.board), this.returnColor(nextPosition, this.board));
+        this.board[nextPosition.x][nextPosition.y].color = mixedColor;
+        tile.saveLastPosition(nextPosition);
+      } else {
+        return;
+      }
+
+      this.getPreviewColors(nextPosition);
+
+      var lastMove = {
+        currPosition : nextPosition,
+        lastPosition : position,
+        lastVector   : vector,
+        lastColor    : this.returnColor(position, this.board),
+        mergedColor  : mixedColor
+      };
+
+      this.movedFromStart = true;
+      this.updateGame(lastMove, nextPosition, mixedColor);
+      this.testIfWon(nextPosition, mixedColor, solution);
+      this.userMoves++;
+    };
   };
 
   this.findNextPosition = function(currPosition, vector) {
@@ -218,11 +258,11 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         // this.renderer.rotateGoal(false, true);
 
         if (this.wins === this.rounds) {
-          this.setting++;
+          this.currLvl++;
           this.wins = 0;
         }
 
-        if (this.setting === 8 && this.wins === 3) {
+        if (this.currLvl === 8 && this.wins === 3) {
           // this.renderer.renderMessage(true, true)
         } else {
           // this.renderer.renderMessage(true, false);
@@ -302,10 +342,91 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     // this.renderer.renderUser(lastMove.currPosition, lastMove.lastPosition, lastMove.lastColor);
     // this.getPreviewColors(lastMove.lastPosition);
     // this.userMoves -=1;
-    // this.renderer.renderStats(this.userMoves, this.setting, this.totalWins);
+    // this.renderer.renderStats(this.userMoves, this.currLvl, this.totalWins);
     //~~~ serialize game ~~~//
     // this.data.storeGame(this.serializeState(lastMove.lastPosition));
     this.updateGame();
+  };
+
+  this.redo = function() {
+    if (this.gameOver) {
+      return;
+    };
+
+    //~~~ Return if there are no redo moves in stored ~~~//
+    if (this.moves.redoMoves.length === 0) {
+      return;
+    }
+
+    //~~~ Store undo moves into redo moves array ~~~//
+    if (this.moves.redoMoves.length !== 0) {
+      console.log("storing redo...");
+      this.moves.undoMoves.unshift(this.moves.redoMoves[0]);
+    }
+
+    //~~~ Remove last move from redo list ~~~//
+    var redoLast = this.moves.redoMoves.shift(),
+        redoPos  = this.findNextPosition(redoLast.lastPosition, redoLast.lastVector);
+
+    //~~~ Save redone position ~~~//
+    tile.saveLastPosition(redoLast.currPosition);
+    //~~~ Save redone colors onto board ~~~//
+    this.board[redoLast.currPosition.x][redoLast.currPosition.y].color = redoLast.mergedColor;
+    this.board[redoLast.lastPosition.x][redoLast.lastPosition.y].color = redoLast.lastColor;
+    //~~~ Render changes ~~~//
+    // this.renderer.undoUser(redoLast.lastPosition, redoLast.lastColor);
+    // this.renderer.renderUser(redoLast.lastPosition, redoLast.currPosition, redoLast.mergedColor);
+    this.getPreviewColors(redoLast.currPosition);
+    this.userMoves++;
+    // this.renderer.renderStats(this.userMoves, this.currLvl, this.totalWins);
+    //~~~ serialize game ~~~//
+    this.data.storeGame(this.serializeState(redoLast.currPosition));
+  };
+
+  // AI Functions
+  this.genSolution = function(level) {
+    var makeDupeBoard = this.boardObj.dupeBoard();
+    this.dupeBoard    = makeDupeBoard.board;
+    this.winPoint     = this.gameLvls.winPoint(this.currLvl);
+
+    while (true) {
+      var move = this.moveAiPlayer(level);
+      if ((tile.aiLastPosition.x === this.winPoint.x) && (tile.aiLastPosition.y === this.winPoint.y)) {
+        break;
+      };
+    };
+    this.winColor = this.returnColor(this.winPoint, this.dupeBoard);
+  };
+
+  this.moveAiPlayer = function(level) {
+    var chance  = Math.random(),
+        move    = null;
+
+    if (chance < level.scale) {
+      var moves = ["right", "down"];
+          move  = moves[Math.floor(Math.random() * 2)];
+      this.moveUser(move, true, null);
+    } else {
+      var moves = ["up", "left"];
+          move  = moves[Math.floor(Math.random() * 2)];
+      this.moveUser(move, true, null);
+    };
+  };
+
+  this.showSolution = function() {
+    this.restart();
+    var length   = this.aiMoves.length,
+        that     = this,
+        solution = true,
+        timeout  = 10;
+
+    for (var i = 0; i < length; i++) {
+      (function(i) {
+        setTimeout(function() {
+          that.moveUser(that.aiMoves[i], undefined, true, solution);
+        }, 750 + (750 * i));
+      })(i);
+    };
   };
 
   // Save Game
@@ -332,7 +453,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     return currGame;
   };
 
-
+  // Swipe functions
   this.onSwipe = function (direction) {
     $rootScope.$broadcast("game.onSwipe('" + direction + "')");
 
@@ -340,7 +461,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     this.moveUser(vector);
   };
 
+  // Initiate Game
   this.initGame(this.currLvl); // Initialize game
-  this.data.storeGame(this.serializeState({x: 0, y: 0}));
+  // this.data.storeGame(this.serializeState({x: 0, y: 0}));
 
 });
