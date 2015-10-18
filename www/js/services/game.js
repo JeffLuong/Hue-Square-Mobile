@@ -8,7 +8,6 @@ angular.module('hueSquare')
 
     var Game = function() {
       this.initLevels = function() {
-        var that = this;
         var levels = {
           1: { scale: 0.80, size: 2 }, //moveRange is num of moves ai takes
           2: { scale: 0.85, size: 3 },
@@ -17,12 +16,12 @@ angular.module('hueSquare')
           5: { scale: 0.94, size: 6 },
           6: { scale: 0.96, size: 7 },
           winPoint: function(level) {
-            return { x: that.levels[level].size - 1, y: that.levels[level].size - 1 };
+            return { x: this[level].size - 1, y: this[level].size - 1 };
           }
         };
 
         return levels;
-      }
+      };
     };
 
     return (Game);

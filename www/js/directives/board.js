@@ -9,6 +9,7 @@ angular.module('hueSquare')
       "<div ng-repeat='row in rows' class='board-row' row-render>" +
       "</div>",
       controller: function($rootScope, $scope, $element) {
+        console.log("BOARD JS GAME DATA");
         var game       = new GameData,
             currGame   = game.getCurrGame(),
             savedBoard = currGame.board.savedBoard,
@@ -22,25 +23,25 @@ angular.module('hueSquare')
 
         function swipeRight() {
           console.log("root scope swipe right!");
-          var vector = getVector('right');
+          // var vector = getVector('right');
           console.log(vector);
         }
 
         function swipeLeft() {
           console.log("root scope swipe left!");
-          var vector = getVector('left');
+          // var vector = getVector('left');
           console.log(vector);
         }
 
         function swipeDown() {
           console.log("root scope swipe down!");
-          var vector = getVector('down');
+          // var vector = getVector('down');
           console.log(vector);
         }
 
         function swipeUp() {
           console.log("root scope swipe up!");
-          var vector = getVector('up');
+          // var vector = getVector('up');
           console.log(vector);
         }
 

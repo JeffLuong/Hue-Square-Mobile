@@ -8,7 +8,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   this.game     = new Game;
 
   this.gameLvls = this.game.initLevels();
-
   // Check if any user stats are stored in local storage
   // this.userStatsStored = this.data.getUserStats();
   // console.log(this.userStatsStored);
@@ -46,9 +45,9 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.winColor;
       this.makeTiles();
       this.initUser();
-      this.genSolution(this.currLvl);
-      this.startPoint = this.getStartPosition(this.size);
-      this.getPreviewColors(this.startPoint);
+      this.genSolution(this.gameLvls[this.currLvl]);
+      // this.startPoint = this.getStartPosition(this.size);
+      // this.getPreviewColors(this.startPoint);
       this.data.storeGame(this.serializeState(this.startPoint));
     // }
   };
@@ -76,7 +75,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
           color    = this.board[x][y].color;
           tile     = new Tile(position, color);
 
-      console.log(this.board);
       return tile.startPosition();
 
     } else if (savedPosition) {
@@ -93,42 +91,62 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   this.moveUser = function(direction, aiPlayer, aiMoves, solution) {
     var position = null,
-        vector   = this.getVector(direction);
+        vector   = this.getVector(direction),
+        mixedColor,
+        that = this;
 
     if (this.gameOver) {
       return;
     };
+    function makeMove(nextPosition, player) {
+      if (that.boardObj.inBounds(nextPosition)) {
+        mixedColor = that.findAverage(that.returnColor(position, that.board), that.returnColor(nextPosition, that.board));
+        that.board[nextPosition.x][nextPosition.y].color = mixedColor;
+        tile.saveLastPosition(nextPosition, player);
+        if (player) {
+          that.aiMoves.push(direction);
+        };
+      } else {
+        return;
+      };
+    };
 
-    if (aiPlayer === undefined) {
+    // If USER PLAYER is making moves
+    if (aiPlayer === undefined || aiPlayer === false || aiPlayer === null) {
       this.moves.redoMoves = [];
 
       position = this.movedFromStart ? tile.lastPosition : tile.startPosition();
       var nextPosition = this.findNextPosition(position, vector);
-      var mixedColor;
 
-      if (this.boardObj.inBounds(nextPosition)) {
-        mixedColor = this.findAverage(this.returnColor(position, this.board), this.returnColor(nextPosition, this.board));
-        this.board[nextPosition.x][nextPosition.y].color = mixedColor;
-        tile.saveLastPosition(nextPosition);
-      } else {
-        return;
+      makeMove(nextPosition, aiPlayer);
+      this.getPreviewColors(nextPosition);
+      this.movedFromStart = true;
+    }
+
+    // If AI PLAYER is making moves
+    else if (aiPlayer) {
+      if (aiMoves) {
+        // MUST REMOVE PREVIEWS
       }
 
-      this.getPreviewColors(nextPosition);
+      position = this.aiMovedFromStart ? tile.aiLastPosition : tile.startPosition();
+      var nextPosition = this.findNextPosition(position, vector);
 
-      var lastMove = {
-        currPosition : nextPosition,
-        lastPosition : position,
-        lastVector   : vector,
-        lastColor    : this.returnColor(position, this.board),
-        mergedColor  : mixedColor
-      };
+      makeMove(nextPosition, aiPlayer);
+      this.aiMovedFromStart = true;
+    }
 
-      this.movedFromStart = true;
-      this.updateGame(lastMove, nextPosition, mixedColor);
-      this.testIfWon(nextPosition, mixedColor, solution);
-      this.userMoves++;
+    var lastMove = {
+      currPosition : nextPosition,
+      lastPosition : position,
+      lastVector   : vector,
+      lastColor    : this.returnColor(position, this.board),
+      mergedColor  : mixedColor
     };
+
+    this.updateGame(lastMove, nextPosition, mixedColor);
+    this.testIfWon(nextPosition, mixedColor, solution);
+    this.userMoves++;
   };
 
   this.findNextPosition = function(currPosition, vector) {
@@ -233,15 +251,12 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         if (savedBoard) {
           var color = this.board[y][x].color;
         } else {
-          console.log("randomly generating colors...");
           var color = this.genColor();
         }
         var tile = new Tile(this.boardObj.returnPosition(y, x), color);
-        console.log("adding", tile);
         this.boardObj.addTile(tile);
       };
     };
-    console.log(this.board);
   };
 
   // Game Mechanic Functions
@@ -272,7 +287,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         // this.renderer.renderMessage(false, false);
       };
     };
-    console.log(this.wins);
   };
 
   this.restart = function() {
@@ -323,7 +337,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
     //~~~ Store undo moves into redo moves array ~~~//
     if (this.moves.undoMoves.length !== 0) {
-      console.log("storing undo...");
       this.moves.redoMoves.unshift(this.moves.undoMoves[0]);
     }
 
@@ -360,7 +373,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
     //~~~ Store undo moves into redo moves array ~~~//
     if (this.moves.redoMoves.length !== 0) {
-      console.log("storing redo...");
       this.moves.undoMoves.unshift(this.moves.redoMoves[0]);
     }
 
@@ -385,13 +397,14 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   // AI Functions
   this.genSolution = function(level) {
+    console.log("Making dupe board....");
     var makeDupeBoard = this.boardObj.dupeBoard();
     this.dupeBoard    = makeDupeBoard.board;
     this.winPoint     = this.gameLvls.winPoint(this.currLvl);
-
     while (true) {
       var move = this.moveAiPlayer(level);
       if ((tile.aiLastPosition.x === this.winPoint.x) && (tile.aiLastPosition.y === this.winPoint.y)) {
+        console.log("Win Position Reached");
         break;
       };
     };
@@ -431,7 +444,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   // Save Game
   this.serializeState = function(currPosition) {
-    console.log("serializing...");
     var currGame = {
       board:         this.boardObj.serializeBoard(this.board),
       moves:         this.moves,
@@ -449,7 +461,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
     // stores user stats
     this.data.storeUserStats(userStats);
-    console.log(currGame);
     return currGame;
   };
 

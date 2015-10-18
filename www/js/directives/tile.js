@@ -12,7 +12,6 @@ angular.module('hueSquare')
             tileXpos  = scope.tile.x,
             tileYpos  = scope.tile.y;
 
-        console.log(scope.tile);;
         tileElem.style.backgroundColor = "hsl(" + tileColor + ", 75%, 60%)";
         tileElem.classList.add("tile-position-" + (tileXpos + 1) + "-" + (tileYpos + 1));
 

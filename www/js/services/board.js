@@ -27,7 +27,7 @@ angular.module('hueSquare')
         for (var row = 0; row < duped.size; row++) {
           for (var col = 0; col < duped.size; col++) {
             var tile = this.board[row][col].dupeTile();
-            duped.addTile(duplicateTile);
+            duped.addTile(tile);
           };
         };
 
@@ -48,7 +48,6 @@ angular.module('hueSquare')
       };
 
       this.serializeBoard = function(board) {
-        console.log("serializing board...");
         var currState = {
           size       : this.size,
           savedBoard : board
