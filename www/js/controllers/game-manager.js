@@ -300,12 +300,12 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     for (var i = 0; i < length; i++) {
       this.undo();
     };
-
-    if (this.won === true) {
-      this.renderer.rotateGoal(true, true);
-    } else if (this.won === false) {
-      this.renderer.rotateGoal(true, false);
-    }
+    
+    // if (this.won === true) {
+    //   this.renderer.rotateGoal(true, true);
+    // } else if (this.won === false) {
+    //   this.renderer.rotateGoal(true, false);
+    // }
     this.won = false;
     this.moves.undoMoves = [];
     this.moves.redoMoves = [];
@@ -473,7 +473,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   // Initiate Game
-  this.initGame(this.currLvl); // Initialize game
-  // this.data.storeGame(this.serializeState({x: 0, y: 0}));
+  this.initGame(this.currLvl);
 
 });
