@@ -1,7 +1,7 @@
 console.log("tile directive loaded...");
 angular.module('hueSquare')
 
-  .directive('tileRender', function($rootScope, $timeout, GameData) {
+  .directive('tileRender', function($rootScope, $timeout, GameData, vectors) {
     return {
       require: '^squareRender',
       restrict: 'A',
@@ -32,9 +32,13 @@ angular.module('hueSquare')
         };
 
         function renderUser(e, vector) {
+          var hasUserClass = tileElem.classList.contains("user");
           // Tests if the element has user class...if yes then render movement
-          if (tileElem.classList.contains("user")) {
-            console.log("rendering USERRRR", vector);
+          if (hasUserClass) {
+            var vectorVal = vectors[vector];
+            tileElem.classList.remove("user");
+            console.log(vectorVal);
+            var newUserTile = angular.element("tile-position-" + ((tileXpos + 1) + vectorVal.x) + "-" + ((tileYpos + 1) + vectorVal.y) )
           } else {
             return;
           }
