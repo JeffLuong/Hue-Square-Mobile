@@ -14,7 +14,7 @@ angular.module('hueSquare')
 
         tileElem.style.backgroundColor = "hsl(" + tileColor + ", 75%, 60%)";
         tileElem.classList.add("tile-position-" + (tileXpos + 1) + "-" + (tileYpos + 1));
-
+        // console.log(scope);
         // Render user tile
         if (tileXpos === 0 && tileYpos === 0) {
           tileElem.classList.add("user");
@@ -27,6 +27,10 @@ angular.module('hueSquare')
           tileElem.classList.add("delayX" + (tileXpos + 1) + "Y" + (tileYpos + 1));
           tileElem.classList.add("animateIn");
         };
+
+        function renderUser() {
+
+        }
       }
     };
   });

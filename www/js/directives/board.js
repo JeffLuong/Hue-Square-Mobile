@@ -24,25 +24,21 @@ angular.module('hueSquare')
         function swipeRight() {
           console.log("root scope swipe right!");
           // var vector = getVector('right');
-          console.log(vector);
         }
 
         function swipeLeft() {
           console.log("root scope swipe left!");
           // var vector = getVector('left');
-          console.log(vector);
         }
 
         function swipeDown() {
           console.log("root scope swipe down!");
           // var vector = getVector('down');
-          console.log(vector);
         }
 
         function swipeUp() {
           console.log("root scope swipe up!");
           // var vector = getVector('up');
-          console.log(vector);
         }
 
         // function getVector(direction) {
