@@ -16,41 +16,12 @@ angular.module('hueSquare')
             numOfRows  = currGame.board.savedBoard.length,
             boardElem  = $element[0];
 
-        $rootScope.$on("game.onSwipe('right')", swipeRight);
-        $rootScope.$on("game.onSwipe('left')", swipeLeft);
-        $rootScope.$on("game.onSwipe('down')", swipeDown);
-        $rootScope.$on("game.onSwipe('up')", swipeUp);
+        $rootScope.$on("game.onSwipe", swipe);
 
-        function swipeRight() {
-          console.log("root scope swipe right!");
-          // var vector = getVector('right');
-        }
-
-        function swipeLeft() {
-          console.log("root scope swipe left!");
-          // var vector = getVector('left');
-        }
-
-        function swipeDown() {
-          console.log("root scope swipe down!");
-          // var vector = getVector('down');
-        }
-
-        function swipeUp() {
-          console.log("root scope swipe up!");
-          // var vector = getVector('up');
-        }
-
-        // function getVector(direction) {
-        //   var directionKeys = {
-        //     "up":    { x:  0, y: -1 },
-        //     "right": { x:  1, y:  0 },
-        //     "down":  { x:  0, y:  1 },
-        //     "left":  { x: -1, y:  0 }
-        //   };
-        //
-        //   return directionKeys[direction];
-        // };
+        function swipe(e, vector) {
+          console.log("root scope swipe right!", vector);
+          $rootScope.$broadcast("game.render-user", vector);
+        };
 
         // Row functions
         function initRows() {

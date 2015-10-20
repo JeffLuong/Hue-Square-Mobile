@@ -5,7 +5,7 @@ angular.module('hueSquare')
     return {
       require: '^rowRender',
       restrict: 'A',
-      template: "<div tile class='tile' tile-render></div>",
+      template: "<div tile class='tile' tile-render ng-style='color'></div>",
       link: function(scope, element, attr) {
         var square    = element[0],
             squareNum = scope.square.squareNum,

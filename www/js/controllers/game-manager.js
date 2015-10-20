@@ -16,7 +16,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   //   this.currLvl = this.userStatsStored.level;
   // } else {
   //   console.log("NO USER STORED STATS");
-    this.currLvl = 1;
+    this.currLvl = 3;
   // }
 
   this.wins      = 0;
@@ -496,7 +496,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   // Swipe functions
   this.onSwipe = function (direction) {
-    $rootScope.$broadcast("game.onSwipe('" + direction + "')");
+    $rootScope.$broadcast("game.onSwipe", direction);
     this.moveUser(direction);
 
   };
