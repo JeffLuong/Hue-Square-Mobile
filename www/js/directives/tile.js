@@ -12,7 +12,7 @@ angular.module('hueSquare')
             tileXpos  = scope.tile.x,
             tileYpos  = scope.tile.y;
 
-        $rootScope.$on("game.render-user", renderUser);
+        // $rootScope.$on("game.render-user", renderUser);
 
         // Somehow use handlebars??
         tileElem.style.backgroundColor = "hsl(" + tileColor + ", 75%, 60%)";
@@ -32,17 +32,28 @@ angular.module('hueSquare')
         };
 
         function renderUser(e, vector) {
-          var hasUserClass = tileElem.classList.contains("user");
-          // Tests if the element has user class...if yes then render movement
-          if (hasUserClass) {
-            var vectorVal = vectors[vector];
-            tileElem.classList.remove("user");
-            console.log(vectorVal);
-            var newUserTile = angular.element("tile-position-" + ((tileXpos + 1) + vectorVal.x) + "-" + ((tileYpos + 1) + vectorVal.y) )
-          } else {
-            return;
-          }
+          var currUserTile = document.querySelector(".user");
+          console.log(currUserTile);
+
+          // console.log("RENDERING");
+          // var hasUserClass = tileElem.classList.contains("user");
+          // // Tests if the element has user class...if yes then render movement
+          // if (hasUserClass) {
+          //   tileElem.classList.remove("user");
+          //   var vectorVal   = vectors[vector],
+          //       newXpos     = (tileXpos + 1) + vectorVal.x,
+          //       newYpos     = (tileYpos + 1) + vectorVal.y,
+          //       newUserTile = document.querySelector(".tile-position-" + newXpos + "-" + newYpos);
+          //       // console.log(counter);
+          //       console.log(newUserTile);
+          //       console.log(e);
+          //
+          //   newUserTile.classList.add("user");
+          // } else {
+          //   return;
+          // }
         };
+
 
       }
 

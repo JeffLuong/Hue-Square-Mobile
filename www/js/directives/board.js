@@ -1,7 +1,7 @@
 console.log("row directive loaded...");
 angular.module('hueSquare')
 
-  .directive('board', function($timeout, GameData) {
+  .directive('board', function($timeout, GameData, vectors) {
     console.log("------------------------");
     return {
       restrict: 'A',
@@ -19,8 +19,19 @@ angular.module('hueSquare')
         $rootScope.$on("game.onSwipe", swipe);
 
         function swipe(e, vector) {
-          console.log("root scope swipe right!", vector);
-          $rootScope.$broadcast("game.render-user", vector);
+          e.preventDefault();
+          var currUserTile = document.querySelector(".user");
+
+          var values = currUserTile.classList[1].split("-");
+          currUserTile.classList.remove("user");
+          var vectorVal   = vectors[vector],
+                newXpos     = (parseInt(values[2])) + vectorVal.x,
+                newYpos     = (parseInt(values[3])) + vectorVal.y,
+                newUserTile = document.querySelector(".tile-position-" + newXpos + "-" + newYpos);
+          console.log(newXpos, newYpos);
+          console.log(newUserTile);
+
+          newUserTile.classList.add("user");
         };
 
         // Row functions

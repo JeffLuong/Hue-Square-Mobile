@@ -90,7 +90,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.moveUser = function(direction, aiPlayer, playOut) {
-    console.log(this.gameOver);
     var position = null,
         vector   = this.getVector(direction),
         mixedColor,
@@ -124,7 +123,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
     // If AI PLAYER is making moves
     if (aiPlayer) {
-      console.log("AI PLAYER is moving...");
+
       if (playOut) {
         // REMOVE PREVIEWS
       }
@@ -138,7 +137,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
     // If USER PLAYER is making moves
     else if (aiPlayer === undefined || aiPlayer === false || aiPlayer === null) {
-      console.log("PLAYER is moving...");
       this.moves.redoMoves = [];
 
       position = this.movedFromStart ? tile.lastPosition : tile.startPosition();
@@ -445,12 +443,10 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     if (chance < level.scale) {
       var moves = ["right", "down"];
           move  = moves[Math.floor(Math.random() * 2)];
-          console.log("AI PLAYER MOVINGGG");
       this.moveUser(move, true, null);
     } else {
       var moves = ["up", "left"];
           move  = moves[Math.floor(Math.random() * 2)];
-          console.log("AI PLAYER MOVINGGG");
       this.moveUser(move, true, null);
     };
   };
