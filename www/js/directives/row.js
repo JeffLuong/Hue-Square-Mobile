@@ -1,4 +1,4 @@
-console.log("square directive loaded...");
+console.log("row directive loaded...");
 angular.module('hueSquare')
 
   .directive('rowRender', function($timeout) {

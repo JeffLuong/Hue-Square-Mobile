@@ -1,20 +1,20 @@
 console.log("tile directive loaded...");
 angular.module('hueSquare')
 
-  .directive('tileRender', function($rootScope, $timeout, GameData, vectors) {
+  .directive('tileRender', function($rootScope, $timeout) {
     return {
       require: '^squareRender',
       restrict: 'A',
-
+      template: "<div preview class='preview' preview-render>" +
+      "</div>",
       link: function(scope, element, attr) {
         var tileElem  = element[0],
             tileColor = scope.tile.color,
             tileXpos  = scope.tile.x,
             tileYpos  = scope.tile.y;
 
-        // $rootScope.$on("game.render-user", renderUser);
+        $rootScope.$on("game.render-user", renderUser);
 
-        // Somehow use handlebars??
         tileElem.style.backgroundColor = "hsl(" + tileColor + ", 75%, 60%)";
         tileElem.classList.add("tile-position-" + (tileXpos + 1) + "-" + (tileYpos + 1));
 
@@ -31,30 +31,28 @@ angular.module('hueSquare')
           tileElem.classList.add("animateIn");
         };
 
-        function renderUser(e, vector) {
-          var currUserTile = document.querySelector(".user");
-          console.log(currUserTile);
+        function renderUser(e, currPosition, newPosition, color) {
+          if (tileXpos === newPosition.x && tileYpos === newPosition.y) {
+            tileElem.classList.add("user");
+            tileElem.style.backgroundColor = "hsl(" + color + ", 75%, 60%)";
+          } else if (tileXpos === currPosition.x && tileYpos === currPosition.y) {
+            tileElem.classList.remove("user");
+          } else {
+            return;
+          };
 
-          // console.log("RENDERING");
-          // var hasUserClass = tileElem.classList.contains("user");
-          // // Tests if the element has user class...if yes then render movement
-          // if (hasUserClass) {
-          //   tileElem.classList.remove("user");
-          //   var vectorVal   = vectors[vector],
-          //       newXpos     = (tileXpos + 1) + vectorVal.x,
-          //       newYpos     = (tileYpos + 1) + vectorVal.y,
-          //       newUserTile = document.querySelector(".tile-position-" + newXpos + "-" + newYpos);
-          //       // console.log(counter);
-          //       console.log(newUserTile);
-          //       console.log(e);
-          //
-          //   newUserTile.classList.add("user");
-          // } else {
-          //   return;
-          // }
         };
 
 
+      },
+
+      controller: function($rootScope, $scope, $element) {
+
+        $rootScope.$on("game.render-user", testing);
+
+        function testing(e, currPosition, newPosition, color) {
+          console.log("TESTTTTTT", e, currPosition, newPosition, color);
+        }
       }
 
     };

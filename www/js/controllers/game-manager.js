@@ -346,8 +346,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.updateGame = function(lastMove, nextPosition, mixedColor) {
-    // this.moves.undoMoves.unshift(lastMove);
-    // this.renderer.renderUser(lastMove.lastPosition, nextPosition, mixedColor);
+    this.moves.undoMoves.unshift(lastMove);
+    $rootScope.$broadcast("game.onSwipe", lastMove.lastPosition, nextPosition, mixedColor);
     this.data.storeGame(this.serializeState(nextPosition));
   };
 
@@ -492,7 +492,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   // Swipe functions
   this.onSwipe = function (direction) {
-    $rootScope.$broadcast("game.onSwipe", direction);
     this.moveUser(direction);
 
   };

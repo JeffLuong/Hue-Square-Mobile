@@ -1,7 +1,7 @@
-console.log("tile directive loaded...");
+console.log("square directive loaded...");
 angular.module('hueSquare')
 
-  .directive('squareRender', function($timeout, GameData) {
+  .directive('squareRender', function($timeout) {
     return {
       require: '^rowRender',
       restrict: 'A',

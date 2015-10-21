@@ -1,4 +1,4 @@
-console.log("row directive loaded...");
+console.log("board directive loaded...");
 angular.module('hueSquare')
 
   .directive('board', function($timeout, GameData, vectors) {
@@ -18,20 +18,22 @@ angular.module('hueSquare')
 
         $rootScope.$on("game.onSwipe", swipe);
 
-        function swipe(e, vector) {
-          e.preventDefault();
-          var currUserTile = document.querySelector(".user");
-
-          var values = currUserTile.classList[1].split("-");
-          currUserTile.classList.remove("user");
-          var vectorVal   = vectors[vector],
-                newXpos     = (parseInt(values[2])) + vectorVal.x,
-                newYpos     = (parseInt(values[3])) + vectorVal.y,
-                newUserTile = document.querySelector(".tile-position-" + newXpos + "-" + newYpos);
-          console.log(newXpos, newYpos);
-          console.log(newUserTile);
-
-          newUserTile.classList.add("user");
+        function swipe(e, currPosition, newPosition, color) {
+          // Maybe make a service or controller for rendering functions?
+          // e.preventDefault();
+          // var currUserTile = document.querySelector(".user");
+          //
+          // var values = currUserTile.classList[1].split("-");
+          // currUserTile.classList.remove("user");
+          // var vectorVal   = vectors[vector],
+          //       newXpos     = (parseInt(values[2])) + vectorVal.x,
+          //       newYpos     = (parseInt(values[3])) + vectorVal.y,
+          //       newUserTile = document.querySelector(".tile-position-" + newXpos + "-" + newYpos);
+          // console.log(newXpos, newYpos);
+          // console.log(newUserTile);
+          //
+          // newUserTile.classList.add("user");
+          $rootScope.$broadcast("game.render-user", currPosition, newPosition, color);
         };
 
         // Row functions
