@@ -7,7 +7,7 @@ angular.module('hueSquare')
       restrict: 'A',
 
       link: function(scope, element, attr) {
-        // console.log("FINISHED LOADING");
+        // console.log(scope);
       }
 
     };

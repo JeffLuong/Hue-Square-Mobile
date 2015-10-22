@@ -31,7 +31,7 @@ angular.module('hueSquare')
           tileElem.classList.add("animateIn");
         };
 
-        function renderUser(e, currPosition, newPosition, color) {
+        function renderUser(e, currPosition, newPosition, color, previews) {
           if (tileXpos === newPosition.x && tileYpos === newPosition.y) {
             tileElem.classList.add("user");
             tileElem.style.backgroundColor = "hsl(" + color + ", 75%, 60%)";
@@ -41,18 +41,46 @@ angular.module('hueSquare')
             return;
           };
 
+          renderPreviews(previews);
         };
+
+        function renderPreviews(previews) {
+          var len = previews.length;
+          for (var i = 0; i < len; i++) {
+            if (
+              ((tileXpos + 1) === previews[i].position.x && tileYpos === previews[i].position.y) || // if it's right of new position
+              (tileXpos === previews[i].position.x && (tileYpos + 1) === previews[i].position.y) || // if it's below the new position
+              ((tileXpos - 1) === previews[i].position.x && tileYpos === previews[i].position.y) || // if it's left of new position
+              (tileXpos === previews[i].position.x && (tileYpos - 1) === previews[i].position.y)    // if it's above the new position
+            ) {
+              // console.log("BLAHHHH", previews[i]);
+              // insertPreviews(previews[i]);
+              console.log(tileElem);
+            }
+          }
+        };
+
+        // preview functions
+        function insertPreviews(preview) {
+          scope.preview = {
+            color: preview.color,
+            x:     preview.position.x,
+            y:     preview.position.y
+          }
+        };
+
 
 
       },
 
       controller: function($rootScope, $scope, $element) {
-
-        $rootScope.$on("game.render-user", testing);
-
-        function testing(e, currPosition, newPosition, color) {
-          console.log("TESTTTTTT", e, currPosition, newPosition, color);
-        }
+        // var preview = $scope.tile.preview;
+        //
+        // $rootScope.$on("game.render-user", testing);
+        //
+        // function testing(e, currPosition, newPosition, color, previews) {
+        //   console.log("TESTTTTTT", previews);
+        // }
       }
 
     };

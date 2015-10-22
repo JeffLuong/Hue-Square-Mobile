@@ -140,10 +140,10 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.moves.redoMoves = [];
 
       position = this.movedFromStart ? tile.lastPosition : tile.startPosition();
-      var nextPosition = this.findNextPosition(position, vector);
-
+      var nextPosition = this.findNextPosition(position, vector),
+          previews     = this.getPreviewColors(nextPosition);
+          
       makeMove(nextPosition, aiPlayer);
-      this.getPreviewColors(nextPosition);
       this.movedFromStart = true;
 
       // Serialize move to be stored
@@ -155,7 +155,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         mergedColor  : mixedColor
       };
 
-      this.updateGame(lastMove, nextPosition, mixedColor);
+      this.updateGame(lastMove, nextPosition, mixedColor, previews);
       this.testIfWon(nextPosition, mixedColor, playOut);
       this.userMoves++;
     };
@@ -208,14 +208,17 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   this.getPreviewColors = function(position) {
     var neighbors     = this.findNeighbors(position);
         length        = neighbors.length,
-        previewColors = [];
+        previews = [];
 
     for (var i = 0; i < length; i++) {
       var color = this.findAverage(this.board[position.y][position.x].color, this.returnColor(neighbors[i], this.board));
-      previewColors.push(color);
+      previews.push({
+        position: neighbors[i],
+        color: color
+      });
     };
 
-    // this.renderer.renderPreview(this.gameBoard, neighbors, previewColors);
+    return previews;
   };
 
   this.findAverage = function(color1, color2) {
@@ -345,9 +348,9 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     this.won = false;
   };
 
-  this.updateGame = function(lastMove, nextPosition, mixedColor) {
+  this.updateGame = function(lastMove, nextPosition, mixedColor, previews) {
     this.moves.undoMoves.unshift(lastMove);
-    $rootScope.$broadcast("game.onSwipe", lastMove.lastPosition, nextPosition, mixedColor);
+    $rootScope.$broadcast("game.onSwipe", lastMove.lastPosition, nextPosition, mixedColor, previews);
     this.data.storeGame(this.serializeState(nextPosition));
   };
 
@@ -413,7 +416,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     //~~~ Render changes ~~~//
     // this.renderer.undoUser(redoLast.lastPosition, redoLast.lastColor);
     // this.renderer.renderUser(redoLast.lastPosition, redoLast.currPosition, redoLast.mergedColor);
-    this.getPreviewColors(redoLast.currPosition);
+    // this.getPreviewColors(redoLast.currPosition);
     this.userMoves++;
     // this.renderer.renderStats(this.userMoves, this.currLvl, this.totalWins);
     //~~~ serialize game ~~~//
