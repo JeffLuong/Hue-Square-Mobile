@@ -41,60 +41,12 @@ angular.module('hueSquare')
             return;
           };
 
-          // renderPreviews(previews);
+          $rootScope.$broadcast("game.render-previews", previews);
         };
-
-        // function renderPreviews(previews) {
-        //   var len = previews.length;
-        //   for (var i = 0; i < len; i++) {
-        //     if (
-        //       ((tileXpos + 1) === previews[i].position.x && tileYpos === previews[i].position.y) || // if it's right of new position
-        //       (tileXpos === previews[i].position.x && (tileYpos + 1) === previews[i].position.y) || // if it's below the new position
-        //       ((tileXpos - 1) === previews[i].position.x && tileYpos === previews[i].position.y) || // if it's left of new position
-        //       (tileXpos === previews[i].position.x && (tileYpos - 1) === previews[i].position.y)    // if it's above the new position
-        //     ) {
-        //       // console.log("BLAHHHH", previews[i]);
-        //       // insertPreviews(previews[i]);
-        //       console.log(tileElem);
-        //     }
-        //   }
-        // };
-
-        // preview functions
-        // function insertPreviews(preview) {
-        //   scope.preview = {
-        //     color: preview.color,
-        //     x:     preview.position.x,
-        //     y:     preview.position.y
-        //   }
-        // };
-
-
-
       },
 
       controller: function($rootScope, $scope, $element) {
 
-        // $rootScope.$on("game.render-user", renderPreviews);
-        //
-        // function renderPreviews(e, currPosition, newPosition, color, previews) {
-        //   console.log("RENDERINGGGGGG");
-        //   var len = previews.length;
-        //     for (var i = 0; i < len; i++) {
-        //       if (((tileXpos + 1) === previews[i].position.x && tileYpos === previews[i].position.y)) {  // if it's right of new position
-        //         console.log(tileElem);
-        //         console.log(document.getElementsByClassName("tile-position-" + (tileXpos + 1) + "-" + tileYpos));
-        //         // $scope.previews = previews;
-        //       } else if ((tileXpos === previews[i].position.x && (tileYpos + 1) === previews[i].position.y)) { // if it's below the new position
-        //
-        //       } else if (((tileXpos - 1) === previews[i].position.x && tileYpos === previews[i].position.y)) { // if it's left of new position
-        //
-        //       } else if ((tileXpos === previews[i].position.x && (tileYpos - 1) === previews[i].position.y)) { // if it's above the new position
-        //
-        //       };
-        //     };
-          // console.log("TESTTTTTT", previews);
-        // };
       }
 
     };

@@ -47,7 +47,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.initUser();
       this.genSolution(this.gameLvls[this.currLvl]);
       this.startPoint = this.getStartPosition(this.size);
-      // this.getPreviewColors(this.startPoint);
+      this.getPreviewColors(this.startPoint);
       this.data.storeGame(this.serializeState(this.startPoint));
     // }
   };
@@ -140,10 +140,11 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.moves.redoMoves = [];
 
       position = this.movedFromStart ? tile.lastPosition : tile.startPosition();
-      var nextPosition = this.findNextPosition(position, vector),
-          previews     = this.getPreviewColors(nextPosition);
-          
+      var nextPosition = this.findNextPosition(position, vector);
+
       makeMove(nextPosition, aiPlayer);
+      var previews = this.getPreviewColors(nextPosition);
+
       this.movedFromStart = true;
 
       // Serialize move to be stored
