@@ -13,6 +13,7 @@ angular.module('hueSquare')
             tileXpos  = scope.tile.x,
             tileYpos  = scope.tile.y;
 
+            // console.log(scope);
         $rootScope.$on("game.render-user", renderUser);
 
         tileElem.style.backgroundColor = "hsl(" + tileColor + ", 75%, 60%)";

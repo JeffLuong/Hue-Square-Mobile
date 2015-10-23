@@ -7823,7 +7823,7 @@ p {
   -webkit-justify-content: center;
   -moz-justify-content: center;
   -oz-justify-content: center;
-  transition: all .175s ease-in-out; }
+  transition: all .15s ease-in-out; }
 
 .user {
   margin: none;

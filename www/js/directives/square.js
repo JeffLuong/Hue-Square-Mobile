@@ -17,7 +17,7 @@ angular.module('hueSquare')
       controller: function($rootScope, $scope, $element) {
         var tile = $scope.square.tile,
             size = $scope.square.width;
-            
+
         // Tile Functions
         function insertTiles() {
           $scope.tile = {
@@ -25,7 +25,8 @@ angular.module('hueSquare')
             lastPosition:   tile.lastPosition,
             color:          tile.color,
             x:              tile.x,
-            y:              tile.y
+            y:              tile.y,
+            previews:       $scope.square.previews
           }
         };
 

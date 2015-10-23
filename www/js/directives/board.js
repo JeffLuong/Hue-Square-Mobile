@@ -15,7 +15,7 @@ angular.module('hueSquare')
             savedBoard = currGame.board.savedBoard,
             numOfRows  = currGame.board.savedBoard.length,
             boardElem  = $element[0];
-
+console.log(previews);
         $rootScope.$on("game.onSwipe", swipe);
 
         function swipe(e, currPosition, newPosition, color, previews) {
@@ -33,9 +33,11 @@ angular.module('hueSquare')
             $scope.rows.push({
               size: numOfRows,
               rowArr: board[y],
-              rowNum: y
+              rowNum: y,
+              previews: previews
             });
           };
+
         };
 
         initRows();

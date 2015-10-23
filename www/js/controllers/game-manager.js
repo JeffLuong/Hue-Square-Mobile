@@ -47,7 +47,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.initUser();
       this.genSolution(this.gameLvls[this.currLvl]);
       this.startPoint = this.getStartPosition(this.size);
-      this.getPreviewColors(this.startPoint);
+      var previews = this.getPreviewColors(this.startPoint);
       this.data.storeGame(this.serializeState(this.startPoint));
     // }
   };

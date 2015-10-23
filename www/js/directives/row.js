@@ -12,13 +12,15 @@ angular.module('hueSquare')
         var row    = element[0],
             rowNum = scope.row.rowNum,
             size   = scope.row.size;
+
         row.style.height = "calc(100% / " + size + ")";
         row.classList.add("row" + (rowNum + 1));
       },
 
       controller: function($rootScope, $scope, $element) {
-        var rowArr = $scope.row.rowArr,
-            size   = $scope.row.size;
+        var rowArr   = $scope.row.rowArr,
+            size     = $scope.row.size,
+            previews = $scope.row.previews;
 
         // Controller functions
         function addSquares() {
@@ -27,7 +29,8 @@ angular.module('hueSquare')
             $scope.squares.push({
               width: size,
               tile: rowArr[y],
-              squareNum: y
+              squareNum: y,
+              previews: previews
             });
           };
         };
