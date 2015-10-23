@@ -35,7 +35,7 @@ angular.module('hueSquare')
           tile.append(goal);
         }
 
-        // Timeout for animating tiles
+        // Timeout for animating-in tiles
         $timeout(animateTiles, 250);
 
         function animateTiles() {
@@ -47,17 +47,6 @@ angular.module('hueSquare')
           if (tileXpos === newPosition.x && tileYpos === newPosition.y) {
             tileElem.classList.add("user");
             tileElem.style.backgroundColor = "hsl(" + color + ", 75%, 60%)";
-            if (tileXpos === winPoint.x && tileYpos === winPoint.y) {
-              if (color === winColor) {
-                var restart = false,
-                    won     = true;
-              } else if (color !== winColor) {
-                var restart = false,
-                    won     = false;
-              }
-
-              $rootScope.$broadcast("game.game-over", restart, won);
-            }
           } else if (tileXpos === lastPosition.x && tileYpos === lastPosition.y) {
             tileElem.classList.remove("user");
           } else {
@@ -70,12 +59,14 @@ angular.module('hueSquare')
         function animateGoal(e, restart, won) {
           if (!restart && won) {
             var goal = document.getElementsByClassName("game-goal")[0];
+            console.log("animating win");
             goal.classList.add("rotate");
             setTimeout(function() {
               goal.classList.remove("shadow");
             }, 750);
           } else if (!restart && !won) {
             var goal = document.getElementsByClassName("game-goal")[0];
+            console.log("animating lost");
             setTimeout(function() {
               goal.classList.remove("shadow");
             }, 750);

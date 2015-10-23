@@ -285,16 +285,17 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   // Game Mechanic Functions
   this.testIfWon = function(position, color, solution) {
     var rangeHigh = this.winColor + 2.25,
-        rangeLow  = this.winColor - 2.25;
+        rangeLow  = this.winColor - 2.25,
+        restart;
     if (position.x === this.winPoint.x && position.y === this.winPoint.y) {
       this.data.deleteGameState();
-      console.log("hitting");
       this.gameOver = true;
       if (color >= rangeLow && color <= rangeHigh && solution !== true) {
+        restart  = false;
         this.won = true;
         this.wins++;
         this.totalWins++;
-        // this.renderer.rotateGoal(false, true);
+        this.endGame(restart, this.won);
 
         if (this.wins === this.rounds) {
           this.currLvl++;
@@ -307,11 +308,18 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
           // this.renderer.renderMessage(true, false);
         }
       } else if (color >= rangeLow || color <= rangeHigh) {
-        // this.renderer.rotateGoal(false, false);
+        restart  = false;
+        this.won = false;
+        this.endGame(restart, this.won);
         // this.renderer.renderMessage(false, false);
       };
     };
   };
+
+  this.endGame = function(restart, won) {
+    console.log("Broadcasting...");
+    $rootScope.$broadcast("game.game-over", restart, won);
+  }
 
   this.restart = function() {
     this.data.deleteGameState();
