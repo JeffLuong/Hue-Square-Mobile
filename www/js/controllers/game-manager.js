@@ -16,7 +16,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   //   this.currLvl = this.userStatsStored.level;
   // } else {
   //   console.log("NO USER STORED STATS");
-    this.currLvl = 3;
+    this.currLvl = 1;
   // }
 
   this.wins      = 0;
@@ -102,12 +102,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     // Actual Move function
     function makeMove(newPosition, AI) {
       // User dupeBoard if AI is making moves, otherwise use actual game board
-      // var board = AI ? that.dupeBoard : that.board;
-      if (AI) {
-        board = that.dupeBoard;
-      } else {
-        board = that.board;
-      }
+      var board = AI ? that.dupeBoard : that.board;
 
       if (that.boardObj.inBounds(newPosition)) {
         mixedColor = that.findAverage(that.returnColor(position, board), that.returnColor(newPosition, board));

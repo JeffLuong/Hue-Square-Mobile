@@ -9,20 +9,22 @@ angular.module('hueSquare')
       link: function(scope, element, attr) {
         var previewElem = element[0],
             previewXpos = scope.tile.x,
-            previewYpos = scope.tile.y;
-
-        previewElem.classList.add("prev-position-" + (previewXpos + 1) + "-" + (previewYpos + 1));
-        // console.log(scope);
-
-        renderPreviews(null, scope.tile.previews); // render previews based on current position
+            previewYpos = scope.tile.y,
+            size        = scope.square.width;
 
         $rootScope.$on("game.render-previews", renderPreviews);
 
+        previewElem.classList.add("prev-position-" + (previewXpos + 1) + "-" + (previewYpos + 1));
+        renderPreviews(null, scope.tile.previews); // render previews based on current position
+
+        if (previewXpos === (size - 1) && (previewYpos === (size - 1))) {
+          previewElem.remove();
+        }
+
         function renderPreviews(e, previews) {
-          console.log("rendering previews");
           // resets all previews to display none
           previewElem.style.display = "none";
-          
+
           // sets neighboring previews to display block and change color
           var len = previews.length;
           for (var i = 0; i < len; i++) {

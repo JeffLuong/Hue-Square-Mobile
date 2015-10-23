@@ -11,10 +11,12 @@ angular.module('hueSquare')
         var tileElem  = element[0],
             tileColor = scope.tile.color,
             tileXpos  = scope.tile.x,
-            tileYpos  = scope.tile.y;
+            tileYpos  = scope.tile.y,
+            winPoint  = scope.$parent.$parent.game.winPoint,
+            winColor  = scope.$parent.$parent.game.winColor;
 
-            // console.log(scope);
         $rootScope.$on("game.render-user", renderUser);
+        $rootScope.$on("game.game-over", animateGoal);
 
         tileElem.style.backgroundColor = "hsl(" + tileColor + ", 75%, 60%)";
         tileElem.classList.add("tile-position-" + (tileXpos + 1) + "-" + (tileYpos + 1));
@@ -22,6 +24,15 @@ angular.module('hueSquare')
         // Render user tile
         if (tileXpos === 0 && tileYpos === 0) {
           tileElem.classList.add("user");
+        }
+
+        // Render Goal Diamond
+        if (tileXpos === winPoint.x && tileYpos === winPoint.y) {
+          var goal = angular.element("<div class='game-goal shadow'>"),
+              tile = angular.element(tileElem);
+
+          goal[0].style.backgroundColor = "hsl(" + winColor + ", 75%, 60%)"; // angular element 'goal' is an array of elements
+          tile.append(goal);
         }
 
         // Timeout for animating tiles
@@ -32,11 +43,22 @@ angular.module('hueSquare')
           tileElem.classList.add("animateIn");
         };
 
-        function renderUser(e, currPosition, newPosition, color, previews) {
+        function renderUser(e, lastPosition, newPosition, color, previews) {
           if (tileXpos === newPosition.x && tileYpos === newPosition.y) {
             tileElem.classList.add("user");
             tileElem.style.backgroundColor = "hsl(" + color + ", 75%, 60%)";
-          } else if (tileXpos === currPosition.x && tileYpos === currPosition.y) {
+            if (tileXpos === winPoint.x && tileYpos === winPoint.y) {
+              if (color === winColor) {
+                var restart = false,
+                    won     = true;
+              } else if (color !== winColor) {
+                var restart = false,
+                    won     = false;
+              }
+
+              $rootScope.$broadcast("game.game-over", restart, won);
+            }
+          } else if (tileXpos === lastPosition.x && tileYpos === lastPosition.y) {
             tileElem.classList.remove("user");
           } else {
             return;
@@ -44,10 +66,25 @@ angular.module('hueSquare')
 
           $rootScope.$broadcast("game.render-previews", previews);
         };
+
+        function animateGoal(e, restart, won) {
+          if (!restart && won) {
+            var goal = document.getElementsByClassName("game-goal")[0];
+            goal.classList.add("rotate");
+            setTimeout(function() {
+              goal.classList.remove("shadow");
+            }, 750);
+          } else if (!restart && !won) {
+            var goal = document.getElementsByClassName("game-goal")[0];
+            setTimeout(function() {
+              goal.classList.remove("shadow");
+            }, 750);
+          }
+        };
       },
 
       controller: function($rootScope, $scope, $element) {
-
+        // Need this controller for preview directive
       }
 
     };

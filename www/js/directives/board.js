@@ -2,7 +2,6 @@ console.log("board directive loaded...");
 angular.module('hueSquare')
 
   .directive('board', function($timeout, GameData, vectors) {
-    console.log("------------------------");
     return {
       restrict: 'A',
       template:
@@ -15,7 +14,7 @@ angular.module('hueSquare')
             savedBoard = currGame.board.savedBoard,
             numOfRows  = currGame.board.savedBoard.length,
             boardElem  = $element[0];
-console.log(previews);
+
         $rootScope.$on("game.onSwipe", swipe);
 
         function swipe(e, currPosition, newPosition, color, previews) {
