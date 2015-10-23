@@ -17,8 +17,8 @@ angular.module('hueSquare')
 
         $rootScope.$on("game.onSwipe", swipe);
 
-        function swipe(e, currPosition, newPosition, color, previews) {
-          $rootScope.$broadcast("game.render-user", currPosition, newPosition, color, previews);
+        function swipe(e, currPosition, newPosition, color, previews, color2) {
+          $rootScope.$broadcast("game.render-user", currPosition, newPosition, color, previews, color2);
         };
 
         // Row functions

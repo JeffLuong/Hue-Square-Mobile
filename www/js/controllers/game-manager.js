@@ -16,7 +16,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   //   this.currLvl = this.userStatsStored.level;
   // } else {
   //   console.log("NO USER STORED STATS");
-    this.currLvl = 1;
+    this.currLvl = 5;
   // }
 
   this.wins      = 0;
@@ -39,7 +39,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.board            = this.boardObj.board;
       this.movedFromStart   = false;
       this.aiMovedFromStart = false;
-      this.userMoves        = 0;
       this.moves            = { undoMoves: [], redoMoves: [] };
       this.aiMoves          = [];
       this.winColor;
@@ -153,7 +152,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
       this.updateGame(lastMove, nextPosition, mixedColor, previews);
       this.testIfWon(nextPosition, mixedColor, playOut);
-      this.userMoves++;
+      console.log(this.moves.undoMoves.length);
     };
   };
 
@@ -317,13 +316,15 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.endGame = function(restart, won) {
-    console.log("Broadcasting...");
+    console.log("Broadcasting end of game...");
     $rootScope.$broadcast("game.game-over", restart, won);
   }
 
   this.restart = function() {
+    console.log("restarting");
     this.data.deleteGameState();
     this.gameOver = false;
+    var restart = true;
     // this.renderer.clearMessage(); <<<need to think about how to clear message
     var allMoves = this.moves.undoMoves,
         length   = allMoves.length;
@@ -333,11 +334,9 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.undo();
     };
 
-    // if (this.won === true) {
-    //   this.renderer.rotateGoal(true, true);
-    // } else if (this.won === false) {
-    //   this.renderer.rotateGoal(true, false);
-    // }
+    // broadcast end game at restart
+    this.endGame(restart, this.won);
+
     this.won = false;
     this.moves.undoMoves = [];
     this.moves.redoMoves = [];
@@ -352,13 +351,19 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     this.won = false;
   };
 
-  this.updateGame = function(lastMove, nextPosition, mixedColor, previews) {
-    this.moves.undoMoves.unshift(lastMove);
-    $rootScope.$broadcast("game.onSwipe", lastMove.lastPosition, nextPosition, mixedColor, previews);
+  this.updateGame = function(lastMove, nextPosition, mixedColor, previews, undo, redo, color) {
+    if (!undo || undo === undefined || redo) {
+      this.moves.undoMoves.unshift(lastMove);
+      $rootScope.$broadcast("game.onSwipe", lastMove.lastPosition, nextPosition, mixedColor, previews);
+    } else if (undo) {
+      $rootScope.$broadcast("game.onSwipe", lastMove.currPosition, nextPosition, mixedColor, previews, color);
+    }
+
     this.data.storeGame(this.serializeState(nextPosition));
   };
 
   this.undo = function() {
+    console.log("undoing");
     if (this.gameOver) {
       return;
     }
@@ -376,24 +381,26 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     var lastMove     = this.moves.undoMoves.shift(),
         lastPos      = this.findLastPosition(lastMove.currPosition, lastMove.lastVector),
         unMixedColor = this.reverseAverage(lastMove.mergedColor, lastMove.lastColor);
-
+        
     //~~~ Save undone position ~~~//
     tile.saveLastPosition(lastMove.lastPosition);
     //~~~ Save undone colors onto board ~~~//
     this.board[lastMove.lastPosition.y][lastMove.lastPosition.x].color = lastMove.lastColor;
     this.board[lastMove.currPosition.y][lastMove.currPosition.x].color = unMixedColor;
     //~~~ Render changes ~~~//
-    // this.renderer.undoUser(lastMove.currPosition, unMixedColor);
-    // this.renderer.renderUser(lastMove.currPosition, lastMove.lastPosition, lastMove.lastColor);
-    // this.getPreviewColors(lastMove.lastPosition);
-    // this.userMoves -=1;
-    // this.renderer.renderStats(this.userMoves, this.currLvl, this.totalWins);
+    var previews  = this.getPreviewColors(lastMove.lastPosition),
+        undoColor = lastMove.lastColor,
+        undo      = true,
+        redo      = false;
+
+    this.updateGame(lastMove, lastMove.lastPosition , undoColor, previews, undo, redo, unMixedColor);
+
     //~~~ serialize game ~~~//
-    // this.data.storeGame(this.serializeState(lastMove.lastPosition));
-    this.updateGame();
+    this.data.storeGame(this.serializeState(lastMove.lastPosition));
   };
 
   this.redo = function() {
+    console.log("redoing");
     if (this.gameOver) {
       return;
     };
@@ -401,11 +408,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     //~~~ Return if there are no redo moves in stored ~~~//
     if (this.moves.redoMoves.length === 0) {
       return;
-    }
-
-    //~~~ Store undo moves into redo moves array ~~~//
-    if (this.moves.redoMoves.length !== 0) {
-      this.moves.undoMoves.unshift(this.moves.redoMoves[0]);
     }
 
     //~~~ Remove last move from redo list ~~~//
@@ -418,11 +420,13 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     this.board[redoLast.currPosition.y][redoLast.currPosition.x].color = redoLast.mergedColor;
     this.board[redoLast.lastPosition.y][redoLast.lastPosition.x].color = redoLast.lastColor;
     //~~~ Render changes ~~~//
-    // this.renderer.undoUser(redoLast.lastPosition, redoLast.lastColor);
-    // this.renderer.renderUser(redoLast.lastPosition, redoLast.currPosition, redoLast.mergedColor);
-    // this.getPreviewColors(redoLast.currPosition);
-    this.userMoves++;
-    // this.renderer.renderStats(this.userMoves, this.currLvl, this.totalWins);
+    var previews = this.getPreviewColors(redoLast.currPosition),
+        redo      = true,
+        undo      = false;
+
+    this.updateGame(redoLast, redoLast.currPosition , redoLast.mergedColor, previews, undo, redo);
+
+    console.log(this.moves.undoMoves.length);
     //~~~ serialize game ~~~//
     this.data.storeGame(this.serializeState(redoLast.currPosition));
   };
