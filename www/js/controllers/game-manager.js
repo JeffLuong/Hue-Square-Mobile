@@ -16,7 +16,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   //   this.currLvl = this.userStatsStored.level;
   // } else {
   //   console.log("NO USER STORED STATS");
-    this.currLvl = 5;
+    this.currLvl = 3;
   // }
 
   this.wins      = 0;
@@ -152,7 +152,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
       this.updateGame(lastMove, nextPosition, mixedColor, previews);
       this.testIfWon(nextPosition, mixedColor, playOut);
-      console.log(this.moves.undoMoves.length);
     };
   };
 
@@ -315,13 +314,14 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     };
   };
 
-  this.endGame = function(restart, won) {
+  this.endGame = function(restart, won, wonGame) {
     console.log("Broadcasting end of game...");
-    $rootScope.$broadcast("game.game-over", restart, won);
+    $rootScope.$broadcast("game.game-over", restart, won, wonGame);
   }
 
   this.restart = function() {
     console.log("restarting");
+    $rootScope.$broadcast("game.new-game");
     this.data.deleteGameState();
     this.gameOver = false;
     var restart = true;
@@ -363,7 +363,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.undo = function() {
-    console.log("undoing");
     if (this.gameOver) {
       return;
     }
@@ -381,7 +380,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     var lastMove     = this.moves.undoMoves.shift(),
         lastPos      = this.findLastPosition(lastMove.currPosition, lastMove.lastVector),
         unMixedColor = this.reverseAverage(lastMove.mergedColor, lastMove.lastColor);
-        
+
     //~~~ Save undone position ~~~//
     tile.saveLastPosition(lastMove.lastPosition);
     //~~~ Save undone colors onto board ~~~//
@@ -393,14 +392,13 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         undo      = true,
         redo      = false;
 
-    this.updateGame(lastMove, lastMove.lastPosition , undoColor, previews, undo, redo, unMixedColor);
+    this.updateGame(lastMove, lastMove.lastPosition, undoColor, previews, undo, redo, unMixedColor);
 
     //~~~ serialize game ~~~//
     this.data.storeGame(this.serializeState(lastMove.lastPosition));
   };
 
   this.redo = function() {
-    console.log("redoing");
     if (this.gameOver) {
       return;
     };
@@ -426,7 +424,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
     this.updateGame(redoLast, redoLast.currPosition , redoLast.mergedColor, previews, undo, redo);
 
-    console.log(this.moves.undoMoves.length);
     //~~~ serialize game ~~~//
     this.data.storeGame(this.serializeState(redoLast.currPosition));
   };
@@ -463,6 +460,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.showSolution = function() {
+
     this.restart();
     var length   = this.aiMoves.length,
         that     = this,

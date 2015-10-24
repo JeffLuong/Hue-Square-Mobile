@@ -41,6 +41,12 @@ angular.module('hueSquare')
         function animateTiles() {
           tileElem.classList.add("delayX" + (tileXpos + 1) + "Y" + (tileYpos + 1));
           tileElem.classList.add("animateIn");
+
+          $timeout(removeDelay, 300);
+        };
+
+        function removeDelay() {
+            tileElem.classList.remove("delayX" + (tileXpos + 1) + "Y" + (tileYpos + 1));
         };
 
         function renderUser(e, lastPosition, newPosition, color, previews, color2) {
@@ -48,7 +54,7 @@ angular.module('hueSquare')
             tileElem.classList.add("user");
             if (color2 === null || color2 === undefined) {
               tileElem.style.backgroundColor = "hsl(" + color + ", 75%, 60%)";
-            } else if (color2) { // If color2 exists, then it is a redo or undo
+            } else if (color2 === 0 || color2) { // If color2 exists, then it is a redo or undo
               var prevTile = document.getElementsByClassName("tile-position-" + (lastPosition.x + 1) + "-" + (lastPosition.y + 1))[0];
               prevTile.style.backgroundColor = "hsl(" + color2 + ", 75%, 60%)";
             }

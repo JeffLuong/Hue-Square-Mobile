@@ -82,17 +82,17 @@
         </div>
       </div>
       <div id="game-container">
-        <div class="game-message">
+        <div id="game-message">
           <p></p>
           <div class="options">
             <div class="right-option">
-              <a class="button retry">try again</a>
+              <a class="custom-button retry" ng-click="game.restart()">try again</a>
             </div>
             <div class="left-option">
-              <a class="button next">next puzzle</a>
+              <a class="custom-button next" ng-click="game.nextMap()">next puzzle</a>
             </div>
             <div class="bottom-option">
-              <a class="button solution">show solution</a>
+              <a class="custom-button solution" ng-click="game.showSolution()">show solution</a>
             </div>
           </div>
         </div>

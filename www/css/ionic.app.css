@@ -7823,7 +7823,7 @@ p {
   -webkit-justify-content: center;
   -moz-justify-content: center;
   -oz-justify-content: center;
-  transition: all .15s ease-in-out; }
+  transition: all .125s ease-in-out; }
 
 .user {
   margin: none;
@@ -8051,10 +8051,9 @@ p {
   height: 50%;
   display: none; }
 
-a.button {
+a.custom-button {
   margin: 20px auto 0;
   font-size: 1.25em;
-  transition: all .5s ease;
   padding: 5px; }
 
 .next, .retry, .solution {
@@ -8063,7 +8062,7 @@ a.button {
 .block {
   display: block; }
 
-a.button:hover {
+a.custom-button:hover {
   border-bottom: 1px solid white;
   cursor: pointer; }
 
@@ -8122,7 +8121,6 @@ button {
   transition: all .25s ease-in-out; }
 
 button:hover {
-  /*background: #ee4c83;*/
   -webkit-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5); }
@@ -8167,7 +8165,7 @@ button:focus {
   .game-message p {
     padding-top: 60px;
     font-size: 1.5em; }
-  a.button {
+  a.custom-button {
     font-size: 1em; }
   .options {
     padding-top: 20px; }
