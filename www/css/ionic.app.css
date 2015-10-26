@@ -8009,7 +8009,7 @@ p {
   -moz-animation-fill-mode: both;
   animation-fill-mode: both; }
 
-.game-message p {
+.game-message > p {
   font-size: 3em;
   height: calc(100% / 2);
   padding-top: 100px;
@@ -8162,7 +8162,7 @@ button:focus {
     height: 20px; }
   .game-message {
     margin-top: 0; }
-  .game-message p {
+  .game-message > p {
     padding-top: 60px;
     font-size: 1.5em; }
   a.custom-button {

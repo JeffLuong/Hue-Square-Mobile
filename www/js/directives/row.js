@@ -1,7 +1,7 @@
 console.log("row directive loaded...");
 angular.module('hueSquare')
 
-  .directive('rowRender', function($timeout) {
+  .directive('rowRender', function($timeout, $rootScope) {
     return {
       require: '^board',
       restrict: 'A',
@@ -13,20 +13,19 @@ angular.module('hueSquare')
             rowNum = scope.row.rowNum,
             size   = scope.row.size;
 
+
         row.style.height = "calc(100% / " + size + ")";
         row.classList.add("row" + (rowNum + 1));
-      },
 
-      controller: function($rootScope, $scope, $element) {
-        var rowArr   = $scope.row.rowArr,
-            size     = $scope.row.size,
-            previews = $scope.row.previews;
+        // Square functions
+        var rowArr   = scope.row.rowArr,
+            size     = scope.row.size,
+            previews = scope.row.previews;
 
-        // Controller functions
         function addSquares() {
-          $scope.squares = [];
+          scope.squares = [];
           for (var y = 0; y < size; y++) {
-            $scope.squares.push({
+            scope.squares.push({
               width: size,
               tile: rowArr[y],
               squareNum: y,
@@ -36,6 +35,10 @@ angular.module('hueSquare')
         };
 
         addSquares();
+      },
+
+      controller: function($rootScope, $scope, $element) {
+        // Need this controller for square directive
       }
 
     };

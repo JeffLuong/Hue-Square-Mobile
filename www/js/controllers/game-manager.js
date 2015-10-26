@@ -9,15 +9,12 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   this.gameLvls = this.game.initLevels();
   // Check if any user stats are stored in local storage
-  // this.userStatsStored = this.data.getUserStats();
-  // console.log(this.userStatsStored);
-  // if (this.userStatsStored) {
-  //   console.log("GETTING USER STORED STATS");
-  //   this.currLvl = this.userStatsStored.level;
-  // } else {
-  //   console.log("NO USER STORED STATS");
-    this.currLvl = 3;
-  // }
+  this.userStatsStored = this.data.getUserStats();
+  if (this.userStatsStored) {
+    this.currLvl = this.userStatsStored.level;
+  } else {
+    this.currLvl = 1;
+  }
 
   this.wins      = 0;
   this.totalWins = 0;
@@ -25,15 +22,26 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   this.initGame = function (level) {
     console.log("game starting...");
-    // var prevState     = this.data.getCurrGame();
-        this.gameOver = false;
-        this.won      = false;
-    // if (prevState) {
-    //   console.log("fetching saved game state...");
-    //   this.boardObj         = new Board(prevState.board.size);
-    //   this.board            = prevState.board.savedboard;
-    //   this.initUser(prevState.savedPosition);
-    // } else {
+    var prevState     = this.data.getCurrGame();
+      this.gameOver = false;
+      this.won      = false;
+    if (prevState) {
+      this.boardObj         = new Board(prevState.board.size);
+      this.board            = prevState.board.savedBoard;
+      this.movedFromStart   = true;
+      this.moves            = prevState.moves;
+      this.aiMoves          = prevState.aiMoves;
+      if (this.userStatsStored) {
+        this.wins           = this.userStatsStored.wins;
+        this.totalWins      = this.userStatsStored.totalWins;
+      }
+      this.winColor         = prevState.winColor;
+      this.winPoint         = prevState.winPoint;
+      this.makeTiles(prevState.board.savedBoard);
+      this.initUser(prevState.savedPosition);
+      var previews = this.getPreviewColors(prevState.savedPosition);
+      this.data.storeGame(this.serializeState(prevState.savedPosition));
+    } else {
       this.size             = this.gameLvls[level].size;
       this.boardObj         = new Board(this.size);
       this.board            = this.boardObj.board;
@@ -48,7 +56,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.startPoint = this.getStartPosition(this.size);
       var previews = this.getPreviewColors(this.startPoint);
       this.data.storeGame(this.serializeState(this.startPoint));
-    // }
+    }
   };
 
   // User Tile Functions
@@ -120,6 +128,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
       if (playOut) {
         // REMOVE PREVIEWS
+        console.log(previews);
       }
 
       position = this.aiMovedFromStart ? tile.aiLastPosition : tile.startPosition();
@@ -266,7 +275,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   // Board Object Functions
   this.makeTiles = function(savedBoard) {
-    console.log("making tiles...");
     for (var y = 0; y < this.size; y++) {
       for (var x = 0; x < this.size; x++) {
         if (savedBoard) {
@@ -293,7 +301,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         this.won = true;
         this.wins++;
         this.totalWins++;
-        this.endGame(restart, this.won);
 
         if (this.wins === this.rounds) {
           this.currLvl++;
@@ -301,29 +308,29 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         }
 
         if (this.currLvl === 8 && this.wins === 3) {
-          // this.renderer.renderMessage(true, true)
+          this.wonGame = true;
         } else {
-          // this.renderer.renderMessage(true, false);
+          this.wonGame = false;
         }
+
+        this.endGame(restart, this.won, this.wonGame);
+
       } else if (color >= rangeLow || color <= rangeHigh) {
         restart  = false;
         this.won = false;
         this.endGame(restart, this.won);
-        // this.renderer.renderMessage(false, false);
       };
     };
   };
 
   this.endGame = function(restart, won, wonGame) {
-    console.log("Broadcasting end of game...");
     $rootScope.$broadcast("game.game-over", restart, won, wonGame);
   }
 
   this.restart = function() {
-    console.log("restarting");
-    $rootScope.$broadcast("game.new-game");
     this.data.deleteGameState();
     this.gameOver = false;
+    this.won = false;
     var restart = true;
     // this.renderer.clearMessage(); <<<need to think about how to clear message
     var allMoves = this.moves.undoMoves,
@@ -336,18 +343,23 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
     // broadcast end game at restart
     this.endGame(restart, this.won);
+    $rootScope.$broadcast("game.new-game"); // for clearing the show solution
 
-    this.won = false;
     this.moves.undoMoves = [];
     this.moves.redoMoves = [];
   };
 
   this.nextMap = function() {
+    var restart = true,
+        won     = true,
+        wonGame = false;
+    this.endGame(restart, won, wonGame);
     this.gameOver = false;
     this.moves.undoMoves = [];
     this.moves.redoMoves = [];
-    // this.renderer.removeGameBoard(); <<<need to think about how to remove game board
     this.initGame(this.currLvl);
+    // Broadcast to start a new game and board
+    $rootScope.$broadcast("game.start-game");
     this.won = false;
   };
 
@@ -430,14 +442,12 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   // AI Functions
   this.genSolution = function(level) {
-    console.log("Making dupe board....");
     var makeDupeBoard = this.boardObj.dupeBoard();
     this.dupeBoard    = makeDupeBoard.board;
     this.winPoint     = this.gameLvls.winPoint(this.currLvl);
     while (true) {
       var move = this.moveAiPlayer(level);
       if ((tile.aiLastPosition.x === this.winPoint.x) && (tile.aiLastPosition.y === this.winPoint.y)) {
-        console.log("Win Position Reached");
         break;
       };
     };

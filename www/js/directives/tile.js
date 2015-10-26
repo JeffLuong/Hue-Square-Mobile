@@ -15,6 +15,7 @@ angular.module('hueSquare')
             winPoint  = scope.$parent.$parent.game.winPoint,
             winColor  = scope.$parent.$parent.game.winColor;
 
+        // $rootScope.$on("game.insert-tiles", animateTiles);
         $rootScope.$on("game.render-user", renderUser);
         $rootScope.$on("game.game-over", animateGoal);
 
@@ -28,10 +29,10 @@ angular.module('hueSquare')
 
         // Render Goal Diamond
         if (tileXpos === winPoint.x && tileYpos === winPoint.y) {
-          var goal = angular.element("<div class='game-goal shadow'>"),
+          var goal = angular.element("<div class='game-goal shadow'>")[0],
               tile = angular.element(tileElem);
 
-          goal[0].style.backgroundColor = "hsl(" + winColor + ", 75%, 60%)"; // angular element 'goal' is an array of elements
+          goal.style.backgroundColor = "hsl(" + winColor + ", 75%, 60%)"; // angular element 'goal' is an array of elements
           tile.append(goal);
         }
 
@@ -68,21 +69,28 @@ angular.module('hueSquare')
         };
 
         function animateGoal(e, restart, won) {
+          var goal = document.getElementsByClassName("game-goal")[0];
           if (!restart && won) {
-            var goal = document.getElementsByClassName("game-goal")[0];
-            console.log("animating win");
             goal.classList.add("rotate");
             setTimeout(function() {
               goal.classList.remove("shadow");
             }, 750);
+          } else if (restart && won) {
+            goal.classList.remove("rotate");
+            setTimeout(function() {
+              goal.classList.add("shadow");
+            }, 500);
           } else if (!restart && !won) {
-            var goal = document.getElementsByClassName("game-goal")[0];
-            console.log("animating lost");
             setTimeout(function() {
               goal.classList.remove("shadow");
             }, 750);
+          } else if (restart && !won) {
+            setTimeout(function() {
+              goal.classList.add("shadow");
+            }, 500);
           }
         };
+
       },
 
       controller: function($rootScope, $scope, $element) {

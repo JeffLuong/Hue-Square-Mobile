@@ -28,6 +28,7 @@ angular.module('hueSquare')
             y:              tile.y,
             previews:       $scope.square.previews
           }
+
         };
 
         insertTiles();
