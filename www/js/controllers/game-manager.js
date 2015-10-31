@@ -349,6 +349,15 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     this.moves.redoMoves = [];
   };
 
+  this.restartGame = function() {
+    this.restart();
+    this.wins      = 0;
+    this.totalWins = 0;
+    this.currLvl   = 1;
+
+    this.initGame(this.currLvl);
+  }
+
   this.nextMap = function() {
     var restart = true,
         won     = true,

@@ -20,7 +20,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
+@import "base/colors";
 
 * {
   font: inherit;
@@ -32,7 +32,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 body {
   margin: 0;
-  background-color: #F8F8F8;
+  background-color: $background;
 }
 
 html {
@@ -154,22 +154,21 @@ p {
 }
 
 .game-title span:first-child {
-  color: #E91E63;
+  color: $red;
 }
 
 .game-title span:nth-child(2) {
-  color: #2196F3;
+  color: $blue;
 }
 
 .game-title span:nth-child(3) {
-  /*color: #4CAF50;*/
-  color: hsl(60, 55%, 70%);
+  color: $yellow;
 }
 
 .game-title :nth-child(4) {
   width: 40px;
   height: 40px;
-  background-color: #0298db;
+  background-color: $blue;
   display: inline-block;
   margin-left: .125em;
   /*margin-right: 1.75em;*/
@@ -187,7 +186,7 @@ p {
   height: 75px;
   /*display: inline-block;*/
   float: right;
-  background-color: #E91E63;
+  background-color: $red;
   transition: all .5s ease-in-out;
   overflow: hidden;
 }
@@ -234,7 +233,7 @@ p {
   -webkit-justify-content: center;
   -moz-justify-content: center;
   -oz-justify-content: center;
-  transition: all .125s ease-in-out;
+  transition: all .175s ease-in-out;
 }
 
 .user {
@@ -244,6 +243,7 @@ p {
   -moz-box-shadow: 2px 4px 25px -1px rgba(0,0,0,0.65);
   box-shadow: 2px 4px 25px -1px rgba(0,0,0,0.65);
 }
+/* USER MIXINS FOR SHAODWS? */
 
 .preview {
   width: 25%;
@@ -272,7 +272,7 @@ p {
 
 .redo, .undo, .restart {
   width: calc(100% / 3);
-  color: #0298db;
+  color: $blue;
   display: flex;
   display: -webkit-flex;
   display: -moz-flex;
@@ -290,7 +290,7 @@ p {
 }
 
 .redo-button:hover, .undo-button:hover, .restart-button:hover {
-  color: #E91E63;
+  color: $red;
   cursor: pointer;
 }
 
@@ -476,7 +476,7 @@ p {
 .game-message {
   display: none;
   position: absolute;
-  background: rgba(219, 218, 238, 0.45);
+  background: $overlay;
   z-index: 100;
   margin: 15px;
   top: 0;
@@ -592,25 +592,25 @@ a.custom-button:hover {
 }
 
 .game-instructions p:first-child {
-  color: #0298db;
+  color: $blue;
 }
 
 .game-instructions p:nth-child(2) {
-  color: #E91E63;
+  color: $red;
 }
 
 .game-instructions p:last-child {
-  color: #0298db;
+  color: $blue;
   border-bottom: none;
 }
 
 .game-instructions p span {
-  color: #0298db;
+  color: $blue;
   font-weight: 500;
 }
 
 .game-instructions p:last-child span {
-  color: #E91E63;
+  color: $red;
 }
 
 .ui-icon-loading + h1 {
@@ -620,7 +620,7 @@ a.custom-button:hover {
 button {
 	border: none;
 	padding: 0.6em 1.2em;
-	background-color: #E91E63;
+	background-color: $red;
 	color: white;
 	font-size: 1em;
 	letter-spacing: 1px;
@@ -645,13 +645,13 @@ button:focus {
 }
 
 .game-notes .notes p {
-  color: #0298db;
+  color: $blue;
   font-weight: 400;
 }
 
 .game-notes .notes p a {
  text-decoration: none;
- color: #E91E63;
+ color: $red;
 }
 
 /**************** MEDIA QUERIES ****************/

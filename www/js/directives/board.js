@@ -19,7 +19,8 @@ angular.module('hueSquare')
                 options     = won ? "next" : "retry",
                 retry       = document.querySelector(".retry"),
                 next        = document.querySelector(".next"),
-                messageElem = document.querySelector(".game-message p");
+                messageElem = document.querySelector(".game-message p"),
+                bottomOpt1  = document.querySelector(".bottom-option-1");
 
             if (won && wonGame === false && !restart) {
               retry.innerHTML = "play again";
@@ -28,12 +29,13 @@ angular.module('hueSquare')
             } else if (!won && !wonGame && !restart) {
               next.innerHTML = "skip puzzle";
               retry.innerHTML = "try again";
-              document.querySelector(".bottom-option").classList.add("block");
+              bottomOpt1.classList.add("block");
               messageElem.innerHTML = message;
             } else if (won && wonGame && !restart) {
               retry.classList.remove("retry");
               next.classList.remove("next");
               messageElem.innerHTML = winGame;
+              bottomOpt2.classList.add("block");
             } else if (restart) {
               console.log("next map!!!");
             }
