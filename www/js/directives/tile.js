@@ -13,9 +13,10 @@ angular.module('hueSquare')
             tileXpos  = scope.tile.x,
             tileYpos  = scope.tile.y,
             winPoint  = scope.$parent.$parent.game.winPoint,
-            winColor  = scope.$parent.$parent.game.winColor;
+            winColor  = scope.$parent.$parent.game.winColor,
+            userXpos  = scope.$parent.row.userPosition.x,
+            userYpos  = scope.$parent.row.userPosition.y;
 
-        // $rootScope.$on("game.insert-tiles", animateTiles);
         $rootScope.$on("game.render-user", renderUser);
         $rootScope.$on("game.game-over", animateGoal);
 
@@ -23,7 +24,7 @@ angular.module('hueSquare')
         tileElem.classList.add("tile-position-" + (tileXpos + 1) + "-" + (tileYpos + 1));
 
         // Render user tile
-        if (tileXpos === 0 && tileYpos === 0) {
+        if (tileXpos === userXpos && tileYpos === userYpos) {
           tileElem.classList.add("user");
         }
 

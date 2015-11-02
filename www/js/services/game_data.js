@@ -75,6 +75,7 @@ angular.module('hueSquare')
       };
 
       this.deleteGameState = function() {
+        console.log("deleteing game state...");
         this.storage.removeItem(this.gameKey);
       };
 

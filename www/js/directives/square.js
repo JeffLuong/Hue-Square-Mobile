@@ -18,6 +18,7 @@ angular.module('hueSquare')
         var tile = $scope.square.tile,
             size = $scope.square.width;
 
+
         // Tile Functions
         function insertTiles() {
           $scope.tile = {

@@ -1,9 +1,8 @@
 console.log("game-manager.js loaded...");
 var appModule = angular.module('hueSquare');
 
-appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Tile, GameData, baseColors, vectors) {
+appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Tile, GameData, baseColors, vectors, $timeout) {
 
-  console.log("game-manager controller loaded...");
   this.data     = new GameData;
   this.game     = new Game;
 
@@ -18,29 +17,44 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   this.wins      = 0;
   this.totalWins = 0;
-  this.rounds    = 3; // Number of rounds until board increase
+  this.rounds    = 1; // Number of rounds until board increase
+  this.beatGame  = false;
 
   this.initGame = function (level) {
-    console.log("game starting...");
-    var prevState     = this.data.getCurrGame();
-      this.gameOver = false;
-      this.won      = false;
+    var prevState   = this.data.getCurrGame();
+    this.gameOver   = false;
+    this.won        = false;
     if (prevState) {
-      this.boardObj         = new Board(prevState.board.size);
-      this.board            = prevState.board.savedBoard;
-      this.movedFromStart   = true;
-      this.moves            = prevState.moves;
-      this.aiMoves          = prevState.aiMoves;
+      this.beatGame = prevState.beatGame;
+      this.boardObj       = new Board(prevState.board.size);
+      this.board          = prevState.board.savedBoard;
+      this.movedFromStart = true;
+      this.moves          = prevState.moves;
+      this.aiMoves        = prevState.aiMoves;
       if (this.userStatsStored) {
-        this.wins           = this.userStatsStored.wins;
-        this.totalWins      = this.userStatsStored.totalWins;
+        this.wins         = this.userStatsStored.wins;
+        this.totalWins    = this.userStatsStored.totalWins;
       }
-      this.winColor         = prevState.winColor;
-      this.winPoint         = prevState.winPoint;
+      this.winColor       = prevState.winColor;
+      this.winPoint       = prevState.winPoint;
       this.makeTiles(prevState.board.savedBoard);
       this.initUser(prevState.savedPosition);
       var previews = this.getPreviewColors(prevState.savedPosition);
       this.data.storeGame(this.serializeState(prevState.savedPosition));
+
+      if (this.beatGame){
+        var restart = false;
+        this.won    = true;
+
+        // Don't like how this is done...cannot run this.endGame, doesn't broadcast...
+        document.querySelector(".game-message").classList.toggle("game-over");
+        document.querySelector(".retry").classList.add("display-none");
+        document.querySelector(".next").classList.add("display-none");
+        document.querySelector(".game-message p").innerHTML = "You beat the game!";
+        document.querySelector(".bottom-option-2").classList.add("block");
+        return;
+      }
+
     } else {
       this.size             = this.gameLvls[level].size;
       this.boardObj         = new Board(this.size);
@@ -56,7 +70,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.startPoint = this.getStartPosition(this.size);
       var previews = this.getPreviewColors(this.startPoint);
       this.data.storeGame(this.serializeState(this.startPoint));
-    }
+    };
   };
 
   // User Tile Functions
@@ -128,7 +142,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
       if (playOut) {
         // REMOVE PREVIEWS
-        console.log(previews);
       }
 
       position = this.aiMovedFromStart ? tile.aiLastPosition : tile.startPosition();
@@ -159,8 +172,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         mergedColor  : mixedColor
       };
 
-      this.updateGame(lastMove, nextPosition, mixedColor, previews);
       this.testIfWon(nextPosition, mixedColor, playOut);
+      this.updateGame(lastMove, mixedColor, previews, null, null, null, this.beatGame);
     };
   };
 
@@ -209,9 +222,9 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.getPreviewColors = function(position) {
-    var neighbors     = this.findNeighbors(position);
-        length        = neighbors.length,
-        previews = [];
+    var neighbors = this.findNeighbors(position);
+        length    = neighbors.length,
+        previews  = [];
 
     for (var i = 0; i < length; i++) {
       var color = this.findAverage(this.board[position.y][position.x].color, this.returnColor(neighbors[i], this.board));
@@ -294,7 +307,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         rangeLow  = this.winColor - 2.25,
         restart;
     if (position.x === this.winPoint.x && position.y === this.winPoint.y) {
-      this.data.deleteGameState();
       this.gameOver = true;
       if (color >= rangeLow && color <= rangeHigh && solution !== true) {
         restart  = false;
@@ -307,19 +319,16 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
           this.wins = 0;
         }
 
-        if (this.currLvl === 8 && this.wins === 3) {
-          this.wonGame = true;
-        } else {
-          this.wonGame = false;
-        }
-
-        this.endGame(restart, this.won, this.wonGame);
+        if (this.currLvl === 4 && this.wins === 0) {
+          this.beatGame = true;
+        };
 
       } else if (color >= rangeLow || color <= rangeHigh) {
         restart  = false;
         this.won = false;
-        this.endGame(restart, this.won);
       };
+
+      this.endGame(restart, this.won, this.beatGame);
     };
   };
 
@@ -328,55 +337,76 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   }
 
   this.restart = function() {
-    this.data.deleteGameState();
-    this.gameOver = false;
-    this.won = false;
-    var restart = true;
-    // this.renderer.clearMessage(); <<<need to think about how to clear message
-    var allMoves = this.moves.undoMoves,
-        length   = allMoves.length;
+    if (!this.movedFromStart) {
+      return;
+    } else {
 
-    //~~~ Executes all undos ~~~//
-    for (var i = 0; i < length; i++) {
-      this.undo();
-    };
+      this.data.deleteGameState();
+      var restart  = true;
 
-    // broadcast end game at restart
-    this.endGame(restart, this.won);
-    $rootScope.$broadcast("game.new-game"); // for clearing the show solution
+      if (this.gameOver) {
+        this.gameOver = false;
+        this.won = false;
 
-    this.moves.undoMoves = [];
-    this.moves.redoMoves = [];
+        // broadcast end game at restart
+        this.endGame(restart, this.won);
+        $rootScope.$broadcast("game.new-game"); // for clearing the show solution
+      }
+
+      var allMoves = this.moves.undoMoves,
+          length   = allMoves.length;
+
+      //~~~ Executes all undos ~~~//
+      for (var i = 0; i < length; i++) {
+        this.undo();
+      };
+
+      this.moves.undoMoves = [];
+      this.moves.redoMoves = [];
+    }
   };
 
   this.restartGame = function() {
     this.restart();
+    this.beatGame  = false;
     this.wins      = 0;
     this.totalWins = 0;
     this.currLvl   = 1;
 
+    // THIS IS NOT A GOOD WAY TO DO THISSS
+    document.querySelector(".game-message").classList.toggle("game-over");
+    document.querySelector(".retry").classList.remove("display-none");
+    document.querySelector(".next").classList.remove("display-none");
+    document.querySelector(".bottom-option-2").classList.remove("block");
+
     this.initGame(this.currLvl);
-  }
+  };
 
   this.nextMap = function() {
+    this.data.deleteGameState();
+
     var restart = true,
-        won     = true,
-        wonGame = false;
-    this.endGame(restart, won, wonGame);
+        won     = true;
+
+    this.endGame(restart, won, this.beatGame);
     this.gameOver = false;
     this.moves.undoMoves = [];
     this.moves.redoMoves = [];
+
     this.initGame(this.currLvl);
     // Broadcast to start a new game and board
     $rootScope.$broadcast("game.start-game");
     this.won = false;
   };
 
-  this.updateGame = function(lastMove, nextPosition, mixedColor, previews, undo, redo, color) {
+  this.updateGame = function(lastMove, mixedColor, previews, undo, redo, color, winResult) {
+
     if (!undo || undo === undefined || redo) {
       this.moves.undoMoves.unshift(lastMove);
+      var nextPosition = lastMove.currPosition;
       $rootScope.$broadcast("game.onSwipe", lastMove.lastPosition, nextPosition, mixedColor, previews);
     } else if (undo) {
+      var nextPosition = lastMove.lastPosition;
       $rootScope.$broadcast("game.onSwipe", lastMove.currPosition, nextPosition, mixedColor, previews, color);
     }
 
@@ -413,7 +443,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         undo      = true,
         redo      = false;
 
-    this.updateGame(lastMove, lastMove.lastPosition, undoColor, previews, undo, redo, unMixedColor);
+    this.updateGame(lastMove, undoColor, previews, undo, redo, unMixedColor);
 
     //~~~ serialize game ~~~//
     this.data.storeGame(this.serializeState(lastMove.lastPosition));
@@ -443,7 +473,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         redo      = true,
         undo      = false;
 
-    this.updateGame(redoLast, redoLast.currPosition , redoLast.mergedColor, previews, undo, redo);
+    this.updateGame(redoLast, redoLast.mergedColor, previews, undo, redo);
 
     //~~~ serialize game ~~~//
     this.data.storeGame(this.serializeState(redoLast.currPosition));
@@ -504,7 +534,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       winColor:      this.winColor,
       winPoint:      this.winPoint,
       savedPosition: currPosition,
-      aiMoves:       this.aiMoves
+      aiMoves:       this.aiMoves,
+      beatGame:      this.beatGame
     };
 
     var userStats = {

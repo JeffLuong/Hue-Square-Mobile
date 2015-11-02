@@ -20,9 +20,10 @@ angular.module('hueSquare')
                 retry       = document.querySelector(".retry"),
                 next        = document.querySelector(".next"),
                 messageElem = document.querySelector(".game-message p"),
-                bottomOpt1  = document.querySelector(".bottom-option-1");
+                bottomOpt1  = document.querySelector(".bottom-option-1"),
+                bottomOpt2  = document.querySelector(".bottom-option-2");
 
-            if (won && wonGame === false && !restart) {
+            if (won && !wonGame && !restart) {
               retry.innerHTML = "play again";
               next.innerHTML = "next puzzle";
               messageElem.innerHTML = message;
@@ -32,8 +33,8 @@ angular.module('hueSquare')
               bottomOpt1.classList.add("block");
               messageElem.innerHTML = message;
             } else if (won && wonGame && !restart) {
-              retry.classList.remove("retry");
-              next.classList.remove("next");
+              retry.classList.add("display-none");
+              next.classList.add("display-none");
               messageElem.innerHTML = winGame;
               bottomOpt2.classList.add("block");
             } else if (restart) {
@@ -44,7 +45,8 @@ angular.module('hueSquare')
           };
 
           function clearSolution(e) {
-            document.querySelector(".bottom-option").classList.remove("block");
+            document.querySelector(".bottom-option-1").classList.remove("block");
+            document.querySelector(".bottom-option-2").classList.remove("block");
           };
       },
 
@@ -62,24 +64,24 @@ angular.module('hueSquare')
         }
 
         function initRows() {
-        console.log("BOARD JS GAME DATA");
           var game       = new GameData,
               currGame   = game.getCurrGame(),
               savedBoard = currGame.board.savedBoard,
               numOfRows  = currGame.board.savedBoard.length,
               boardElem  = $element[0];
 
-          addRows(savedBoard, numOfRows);
+          addRows(savedBoard, numOfRows, currGame.savedPosition);
         };
 
-        function addRows(board, numOfRows) {
+        function addRows(board, numOfRows, userPosition) {
           $scope.rows = [];
           for (var y = 0; y < numOfRows; y++) {
             $scope.rows.push({
               size: numOfRows,
               rowArr: board[y],
               rowNum: y,
-              previews: previews
+              previews: previews,
+              userPosition: userPosition
             });
           };
 

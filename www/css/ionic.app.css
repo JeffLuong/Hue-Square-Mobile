@@ -7719,6 +7719,9 @@ html {
 p {
   margin: 0; }
 
+.display-none {
+  display: none; }
+
 #main-container {
   margin: 0 auto;
   padding-top: 20px;
@@ -8046,7 +8049,7 @@ p {
   height: 50%;
   display: inline-block; }
 
-.bottom-option {
+.bottom-option-1, .bottom-option-2 {
   width: 100%;
   height: 50%;
   display: none; }
@@ -8056,7 +8059,7 @@ a.custom-button {
   font-size: 1.25em;
   padding: 5px; }
 
-.next, .retry, .solution {
+.next, .retry, .solution, .restart-game {
   color: white; }
 
 .block {
