@@ -40,14 +40,28 @@ angular.module('hueSquare')
         $timeout(animateTiles, 250);
 
         function animateTiles() {
-          tileElem.classList.add("delayX" + (tileXpos + 1) + "Y" + (tileYpos + 1));
+          var delay = tileXpos + tileYpos;
+
+          // Calculates Delay time based on tile position.
+          if (delay >= 10) {
+            var splitDelay = delay.toString().split(""),
+                index     = splitDelay.length - 1;
+
+            // Adds decimal point into delay time.
+            splitDelay.splice(index, 0, ".");
+            delay = splitDelay.join("") + "s";
+          } else {
+            delay = "0." + delay.toString() + "s";
+          }
+
+          tileElem.style.transitionDelay = delay;
           tileElem.classList.add("animateIn");
 
           $timeout(removeDelay, 300);
         };
 
         function removeDelay() {
-            tileElem.classList.remove("delayX" + (tileXpos + 1) + "Y" + (tileYpos + 1));
+          tileElem.style.transitionDelay = "0s";
         };
 
         function renderUser(e, lastPosition, newPosition, color, previews, color2) {
