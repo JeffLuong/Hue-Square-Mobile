@@ -1,4 +1,3 @@
-console.log("row directive loaded...");
 angular.module('hueSquare')
 
   .directive('rowRender', function($timeout, $rootScope) {

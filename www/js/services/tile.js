@@ -1,5 +1,3 @@
-console.log("tile service loaded...");
-
 // For tile object
 angular.module('hueSquare')
 

@@ -1,4 +1,3 @@
-console.log("board directive loaded...");
 angular.module('hueSquare')
 
   .directive('board', function($timeout, GameData, vectors, $rootScope) {
@@ -8,45 +7,74 @@ angular.module('hueSquare')
       "<div ng-repeat='row in rows' class='board-row' row-render>" +
       "</div>",
       link: function(scope, element, attr) {
-          var messageContainer = element[0].parentElement.children[0];
+          // Saved Game Data
+          var game       = scope.game.data,
+              currGame   = game.getCurrGame(),
+              gameBeaten = currGame.beatGame,
+              gameOver   = currGame.gameOver;
 
+          // Element Selectors && Text States
+          var messageContainer  = document.querySelector(".game-message"),
+              retryButton       = document.querySelector(".retry"),
+              nextButton        = document.querySelector(".next"),
+              messageText       = document.querySelector(".game-message p"),
+              showSolButton     = document.querySelector(".bottom-option-1"),
+              restartGameButton = document.querySelector(".bottom-option-2"),
+              winMessage        = "You Win!",
+              loseMessage       = "You Lost!",
+              beatGameMessage   = "You beat the game!",
+              playAgain         = "play again",
+              nextPuzzle        = "next puzzle",
+              tryAgain          = "try again",
+              skipPuzzle        = "skip puzzle";
+
+          if (gameOver && gameBeaten) {
+            messageContainer.classList.toggle("game-over");
+            retryButton.classList.add("display-none");
+            nextButton.classList.add("display-none");
+            messageText.innerHTML = "You beat the game!";
+            restartGameButton.classList.add("block");
+          } else if (gameOver) {
+            retryButton.innerHTML = playAgain;
+            nextButton.innerHTML = nextPuzzle;
+            messageContainer.classList.toggle("game-over");
+            messageText.innerHTML = winMessage;
+          }
+
+          // Event Listener
           $rootScope.$on("game.game-over", displayMessage);
-          $rootScope.$on("game.new-game", clearSolution);
 
           function displayMessage(e, restart, won, wonGame) {
-            var message     = won ? "You Win!" : "You Lost!",
-                winGame     = "You beat the game!",
-                options     = won ? "next" : "retry",
-                retry       = document.querySelector(".retry"),
-                next        = document.querySelector(".next"),
-                messageElem = document.querySelector(".game-message p"),
-                bottomOpt1  = document.querySelector(".bottom-option-1"),
-                bottomOpt2  = document.querySelector(".bottom-option-2");
+            var message = won ? winMessage : loseMessage,
+                options = won ? "next" : "retry";
 
             if (won && !wonGame && !restart) {
-              retry.innerHTML = "play again";
-              next.innerHTML = "next puzzle";
-              messageElem.innerHTML = message;
+              retryButton.innerHTML = playAgain;
+              nextButton.innerHTML = nextPuzzle;
+              messageText.innerHTML = message;
             } else if (!won && !wonGame && !restart) {
-              next.innerHTML = "skip puzzle";
-              retry.innerHTML = "try again";
-              bottomOpt1.classList.add("block");
-              messageElem.innerHTML = message;
+              nextButton.innerHTML = skipPuzzle;
+              retryButton.innerHTML = tryAgain;
+              showSolButton.classList.add("block");
+              messageText.innerHTML = message;
             } else if (won && wonGame && !restart) {
-              retry.classList.add("display-none");
-              next.classList.add("display-none");
-              messageElem.innerHTML = winGame;
-              bottomOpt2.classList.add("block");
+              retryButton.classList.add("display-none");
+              nextButton.classList.add("display-none");
+              messageText.innerHTML = beatGameMessage;
+              restartGameButton.classList.add("block");
             } else if (restart) {
-              console.log("next map!!!");
+              clearSolution();
             }
 
             messageContainer.classList.toggle("game-over");
           };
 
-          function clearSolution(e) {
-            document.querySelector(".bottom-option-1").classList.remove("block");
-            document.querySelector(".bottom-option-2").classList.remove("block");
+
+          function clearSolution() {
+            retryButton.classList.remove("display-none");
+            nextButton.classList.remove("display-none");
+            showSolButton.classList.remove("block");
+            restartGameButton.classList.remove("block");
           };
       },
 
@@ -64,7 +92,7 @@ angular.module('hueSquare')
         }
 
         function initRows() {
-          var game       = new GameData,
+          var game       = $scope.game.data,
               currGame   = game.getCurrGame(),
               savedBoard = currGame.board.savedBoard,
               numOfRows  = currGame.board.savedBoard.length,

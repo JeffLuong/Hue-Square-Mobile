@@ -1,4 +1,3 @@
-console.log("game-manager.js loaded...");
 var appModule = angular.module('hueSquare');
 
 appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Tile, GameData, baseColors, vectors, $timeout) {
@@ -17,7 +16,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   this.wins      = 0;
   this.totalWins = 0;
-  this.rounds    = 1; // Number of rounds until board increase
+  this.rounds    = 2; // Number of rounds until board increase
   this.beatGame  = false;
 
   this.initGame = function (level) {
@@ -25,9 +24,10 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
     this.gameOver   = false;
     this.won        = false;
     if (prevState) {
-      this.beatGame = prevState.beatGame;
+      this.beatGame       = prevState.beatGame;
       this.boardObj       = new Board(prevState.board.size);
       this.board          = prevState.board.savedBoard;
+      this.gameOver       = prevState.gameOver;
       this.movedFromStart = true;
       this.moves          = prevState.moves;
       this.aiMoves        = prevState.aiMoves;
@@ -41,20 +41,6 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.initUser(prevState.savedPosition);
       var previews = this.getPreviewColors(prevState.savedPosition);
       this.data.storeGame(this.serializeState(prevState.savedPosition));
-
-      if (this.beatGame){
-        var restart = false;
-        this.won    = true;
-
-        // Don't like how this is done...cannot run this.endGame, doesn't broadcast...
-        document.querySelector(".game-message").classList.toggle("game-over");
-        document.querySelector(".retry").classList.add("display-none");
-        document.querySelector(".next").classList.add("display-none");
-        document.querySelector(".game-message p").innerHTML = "You beat the game!";
-        document.querySelector(".bottom-option-2").classList.add("block");
-        return;
-      }
-
     } else {
       this.size             = this.gameLvls[level].size;
       this.boardObj         = new Board(this.size);
@@ -319,7 +305,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
           this.wins = 0;
         }
 
-        if (this.currLvl === 4 && this.wins === 0) {
+        if (this.currLvl === 7 && this.wins === this.rounds) {
           this.beatGame = true;
         };
 
@@ -344,13 +330,17 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.data.deleteGameState();
       var restart  = true;
 
+      if (this.won) {
+        this.wins--;
+        this.totalWins--;
+      }
+
       if (this.gameOver) {
         this.gameOver = false;
         this.won = false;
 
         // broadcast end game at restart
-        this.endGame(restart, this.won);
-        $rootScope.$broadcast("game.new-game"); // for clearing the show solution
+        this.endGame(restart, this.won, this.beatGmae);
       }
 
       var allMoves = this.moves.undoMoves,
@@ -367,29 +357,25 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.restartGame = function() {
+    var gameRestart = true;
     this.restart();
     this.beatGame  = false;
     this.wins      = 0;
     this.totalWins = 0;
     this.currLvl   = 1;
-
-    // THIS IS NOT A GOOD WAY TO DO THISSS
-    document.querySelector(".game-message").classList.toggle("game-over");
-    document.querySelector(".retry").classList.remove("display-none");
-    document.querySelector(".next").classList.remove("display-none");
-    document.querySelector(".bottom-option-2").classList.remove("block");
-
-    this.initGame(this.currLvl);
+    this.nextMap(gameRestart);
   };
 
-  this.nextMap = function() {
+  this.nextMap = function(gameRestart) {
     this.data.deleteGameState();
 
     var restart = true,
         won     = true;
+    if (!gameRestart) {
+      this.endGame(restart, won, this.beatGame);
+      this.gameOver = false;
+    }
 
-    this.endGame(restart, won, this.beatGame);
-    this.gameOver = false;
     this.moves.undoMoves = [];
     this.moves.redoMoves = [];
 
@@ -494,8 +480,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.moveAiPlayer = function(level) {
-    var chance  = Math.random(),
-        move    = null;
+    var chance = Math.random(),
+        move   = null;
 
     if (chance < level.scale) {
       var moves = ["right", "down"];
@@ -535,7 +521,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       winPoint:      this.winPoint,
       savedPosition: currPosition,
       aiMoves:       this.aiMoves,
-      beatGame:      this.beatGame
+      beatGame:      this.beatGame,
+      gameOver:      this.gameOver
     };
 
     var userStats = {

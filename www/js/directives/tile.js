@@ -1,4 +1,3 @@
-console.log("tile directive loaded...");
 angular.module('hueSquare')
 
   .directive('tileRender', function($rootScope, $timeout) {
@@ -57,7 +56,7 @@ angular.module('hueSquare')
             if (color2 === null || color2 === undefined) {
               tileElem.style.backgroundColor = "hsl(" + color + ", 75%, 60%)";
             } else if (color2 === 0 || color2) { // If color2 exists, then it is a redo or undo
-              var prevTile = document.getElementsByClassName("tile-position-" + (lastPosition.x + 1) + "-" + (lastPosition.y + 1))[0];
+              var prevTile = document.querySelector(".tile-position-" + (lastPosition.x + 1) + "-" + (lastPosition.y + 1));
               prevTile.style.backgroundColor = "hsl(" + color2 + ", 75%, 60%)";
             }
           } else if (tileXpos === lastPosition.x && tileYpos === lastPosition.y) {
@@ -70,7 +69,8 @@ angular.module('hueSquare')
         };
 
         function animateGoal(e, restart, won) {
-          var goal = document.getElementsByClassName("game-goal")[0];
+          var goal = document.querySelector(".game-goal");
+
           if (!restart && won) {
             goal.classList.add("rotate");
             setTimeout(function() {
@@ -86,8 +86,9 @@ angular.module('hueSquare')
               goal.classList.remove("shadow");
             }, 750);
           } else if (restart && !won) {
+            goal.classList.add("shadow");
             setTimeout(function() {
-              goal.classList.add("shadow");
+              goal.classList.remove("rotate");
             }, 500);
           }
         };

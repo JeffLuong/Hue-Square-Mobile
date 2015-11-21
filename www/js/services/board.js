@@ -1,5 +1,3 @@
-console.log("board.js loaded...");
-
 // For board object
 angular.module('hueSquare')
 

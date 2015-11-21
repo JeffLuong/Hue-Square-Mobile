@@ -1,4 +1,3 @@
-console.log("preview directive loaded...");
 angular.module('hueSquare')
 
   .directive('previewRender', function($rootScope, $timeout) {
