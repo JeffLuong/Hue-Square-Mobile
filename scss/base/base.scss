@@ -1,0 +1,22 @@
+* {
+  font: inherit;
+  box-sizing: border-box;
+  -oz-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: $background;
+}
+
+html {
+  font-size: 1em;
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+}
+
+p {
+  margin: 0;
+}

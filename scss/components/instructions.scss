@@ -1,0 +1,70 @@
+.game-instructions {
+  margin-top: 20px;
+  padding: 0 15px;
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -oz-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -oz-justify-content: center;
+}
+
+.game-instructions p {
+  padding: 0 15px 15px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 300px;
+  line-height: 2em;
+  border-bottom: 1px solid lightgray;
+}
+
+.game-instructions p:first-child {
+  color: $blue;
+}
+
+.game-instructions p:nth-child(2) {
+  color: $red;
+}
+
+.game-instructions p:last-child {
+  color: $blue;
+  border-bottom: none;
+}
+
+.game-instructions p span {
+  color: $blue;
+  font-weight: 500;
+}
+
+.game-instructions p:last-child span {
+  color: $red;
+}
+
+.ui-icon-loading + h1 {
+  display: none;
+}
+
+.game-notes {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.game-notes .notes p {
+  color: $blue;
+  font-weight: 400;
+}
+
+.game-notes .notes p a {
+ text-decoration: none;
+ color: $red;
+}
+
+@media handheld, screen and (max-width: 520px) {
+
+  .game-instructions p {
+    font-size: .85em;
+  }
+
+}

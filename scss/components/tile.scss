@@ -1,0 +1,95 @@
+.board-row {
+  width: 100%;
+}
+
+.board-sq {
+  position: relative;
+  height: 100%;
+  float: left;
+}
+
+.board-sq {
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -oz-flex;
+}
+
+.tile {
+  margin: auto;
+  width: 0;
+  height: 0;
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -oz-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -oz-justify-content: center;
+  transition: all .175s ease-in-out;
+}
+
+.user {
+  margin: none;
+  z-index: 3;
+  @include shadow(2px 4px 25px -1px rgba(0,0,0,0.65));
+}
+
+.preview {
+  width: 25%;
+  height: 25%;
+  border-radius: 100%;
+  display: none;
+  margin: auto;
+  @include shadow(2px 4px 19px -1px rgba(0,0,0,0.65));
+}
+
+.game-goal {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -oz-transform: rotate(45deg);
+  z-index: 3;
+  color: white;
+  margin: auto;
+  width: 35%;
+  height: 35%;
+  text-align: center;
+  transition: all .25s ease-in-out;
+  display: block !important;
+}
+
+.animateIn {
+  margin: none;
+  width: 100%;
+  height: 100%;
+}
+
+
+.rotate {
+  transition-delay: 0.25s;
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -oz-transform: rotate(0deg);
+  height: 35%;
+}
+
+.shadow {
+   @include shadow(2px 4px 20px -1px rgba(0,0,0,0.50));
+}
+
+@media handheld, screen and (max-width: 520px) {
+  .user {
+    @include shadow(2px 3px 10px -1px rgba(0,0,0,0.65));
+  }
+
+  .preview {
+    @include shadow(2px 4px 8px -1px rgba(0,0,0,0.65));
+  }
+
+  .shadow {
+   @include shadow(2px 3px 10px -1px rgba(0,0,0,0.50));
+  }
+}
