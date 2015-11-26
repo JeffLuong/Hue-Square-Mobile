@@ -1,0 +1,170 @@
+.game-header {
+  width: 100%;
+  @include flexbox-display-flex;
+  @include flexbox-justify(space-between);
+
+  .game-title {
+    font-size: 4.5em;
+    padding-left: 15px;
+    width: 60%;
+    display: inline-block;
+  }
+}
+
+.game-title span:first-child {
+  color: $red;
+}
+
+.game-title span:nth-child(2) {
+  color: $blue;
+}
+
+.game-title span:nth-child(3) {
+  color: $yellow;
+}
+
+.game-title :nth-child(4) {
+  width: 40px;
+  height: 40px;
+  background-color: $blue;
+  display: inline-block;
+  margin-left: .125em;
+}
+
+.game-stats-container {
+  width: 61%;
+}
+
+.game-moves, .game-wins, .game-levels {
+  text-align: center;
+  padding: 10px 0 0;
+  margin-right: 5px;
+  width: 75px;
+  height: 75px;
+  float: right;
+  background-color: $red;
+  transition: all .5s ease-in-out;
+  overflow: hidden;
+}
+
+.game-moves {
+  margin-right: 15px;
+}
+
+.game-moves p, .game-wins p, .game-levels p {
+  font-size: 1.25em;
+  color: white;
+}
+
+.game-moves p + p, .game-wins p + p, .game-levels p + p {
+  font-size: 1.75em;
+}
+
+
+.game-menu {
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  @include flexbox-display-flex;
+  @include flexbox-justify(center);
+}
+
+.redo, .undo, .restart {
+  width: calc(100% / 3);
+  color: $blue;
+  @include flexbox-display-flex;
+  @include flexbox-justify(center);
+  font-size: 2em;
+}
+
+.redo-button, .undo-button, .restart-button {
+  transition: all .35s ease;
+}
+
+.redo-button:hover, .undo-button:hover, .restart-button:hover {
+  color: $red;
+  cursor: pointer;
+}
+
+.undo-button:hover {
+  transform: rotate(-360deg);
+}
+
+.restart-button:hover, .redo-button:hover {
+  transform: rotate(360deg);
+}
+a.custom-button {
+  margin: 20px auto 0;
+  font-size: 1.25em;
+  padding: 5px;
+}
+
+a.custom-button:hover {
+  border-bottom: 1px solid white;
+  cursor: pointer;
+}
+button {
+	border: none;
+	padding: 0.6em 1.2em;
+	background-color: $red;
+	color: white;
+	font-size: 1em;
+	letter-spacing: 1px;
+	cursor: pointer;
+	display: inline-block;
+  transition: all .25s ease-in-out;
+}
+
+button:hover {
+  @include shadow(2px 4px 14px -1px rgba(0,0,0,0.50));
+}
+
+button:focus {
+ outline: none;
+}
+
+@media handheld, screen and (max-width: $mobile-width) {
+
+  .loading-square {
+    height: 280px;
+    width: 280px;
+    margin-top: 9em;
+  }
+
+  .game-menu {
+    margin-top: 15px;
+  }
+
+  .game-title {
+    font-size: 3em;
+    width: 40%;
+  }
+
+  .game-title :last-child{
+    width: 20px;
+    height: 20px;
+  }
+
+  .game-stats-container {
+    width: 65%;
+  }
+
+  .game-moves, .game-wins, .game-levels {
+    padding: 5px 0 0;
+    width: 45px;
+    height: 45px;
+  }
+
+  .game-levels {
+    margin-right: .25em;
+  }
+
+  .game-moves p, .game-wins p, .game-levels p {
+    font-size: .85em;
+  }
+
+  .game-moves p + p, .game-wins p + p, .game-levels p + p {
+    font-size: 1.5em;
+  }
+
+}

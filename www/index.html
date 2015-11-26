@@ -51,63 +51,63 @@
       </div> -->
 
       <div id="main-container">
-      <div class="game-header">
-        <div class="game-title">
-          <span>h</span><span>u</span><span>e</span><div></div>
-        </div>
-        <div class="game-stats-container">
-          <div class="game-moves">
-            <p>moves</p>
-            <p class="moves" ng-bind="game.moves.undoMoves.length"></p>
+        <div class="game-header">
+          <div class="game-title">
+            <span>h</span><span>u</span><span>e</span><div></div>
           </div>
-          <div class="game-wins">
-            <p>wins</p>
-            <p class="wins" ng-bind="game.totalWins"></p>
-          </div>
-          <div class="game-levels">
-            <p>level</p>
-            <p class="levels" ng-bind="game.currLvl"></p>
-          </div>
-        </div>
-      </div>
-      <div class="game-menu">
-        <div class="undo">
-          <i class="icon ion-ios-undo undo-button" ng-click="game.undo()"></i>
-        </div>
-        <div class="restart">
-          <i class="icon ion-refresh restart-button" ng-click="game.restart()"></i>
-        </div>
-        <div class="redo">
-          <i class="icon ion-ios-redo redo-button" ng-click="game.redo()"></i>
-        </div>
-      </div>
-      <div id="game-container">
-        <div class="game-message">
-          <p></p>
-          <div class="options">
-            <div class="right-option">
-              <a class="custom-button retry" ng-click="game.restart()">try again</a>
+          <div class="game-stats-container">
+            <div class="game-moves">
+              <p>moves</p>
+              <p class="moves" ng-bind="game.moves.undoMoves.length"></p>
             </div>
-            <div class="left-option">
-              <a class="custom-button next" ng-click="game.nextMap()">next puzzle</a>
+            <div class="game-wins">
+              <p>wins</p>
+              <p class="wins" ng-bind="game.totalWins"></p>
             </div>
-            <div class="bottom-option-1">
-              <a class="custom-button solution" ng-click="game.showSolution()">show solution</a>
-            </div>
-            <div class="bottom-option-2">
-              <a class="custom-button restart-game" ng-click="game.restartGame()">start again</a>
+            <div class="game-levels">
+              <p>level</p>
+              <p class="levels" ng-bind="game.currLvl"></p>
             </div>
           </div>
         </div>
-        <div id="board-container" board
-                                  on-swipe-right="game.onSwipe('right')"
-                                  on-swipe-left="game.onSwipe('left')"
-                                  on-swipe-up="game.onSwipe('up')"
-                                  on-swipe-down="game.onSwipe('down')"></div>
-      </div>
-      <div class="game-instructions">
-        <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>
-      </div>
+        <div class="game-menu">
+          <div class="undo">
+            <i class="icon ion-ios-undo undo-button" ng-click="game.undo()"></i>
+          </div>
+          <div class="restart">
+            <i class="icon ion-refresh restart-button" ng-click="game.restart()"></i>
+          </div>
+          <div class="redo">
+            <i class="icon ion-ios-redo redo-button" ng-click="game.redo()"></i>
+          </div>
+        </div>
+        <div id="game-container">
+          <div class="game-message">
+            <p></p>
+            <div class="options">
+              <div class="right-option">
+                <a class="custom-button retry" ng-click="game.restart()">try again</a>
+              </div>
+              <div class="left-option">
+                <a class="custom-button next" ng-click="game.nextMap()">next puzzle</a>
+              </div>
+              <div class="bottom-option-1">
+                <a class="custom-button solution" ng-click="game.showSolution()">show solution</a>
+              </div>
+              <div class="bottom-option-2">
+                <a class="custom-button restart-game" ng-click="game.restartGame()">start again</a>
+              </div>
+            </div>
+          </div>
+          <div id="board-container" board
+                                    on-swipe-right="game.onSwipe('right')"
+                                    on-swipe-left="game.onSwipe('left')"
+                                    on-swipe-up="game.onSwipe('up')"
+                                    on-swipe-down="game.onSwipe('down')"></div>
+        </div>
+        <div class="game-instructions">
+          <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>
+        </div>
 
       </div>
 

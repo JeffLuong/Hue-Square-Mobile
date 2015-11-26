@@ -1,14 +1,8 @@
 .game-instructions {
   margin-top: 20px;
   padding: 0 15px;
-  display: flex;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -oz-flex;
-  justify-content: center;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  -oz-justify-content: center;
+  @include flexbox-display-flex;
+  @include flexbox-justify(center);
 }
 
 .game-instructions p {

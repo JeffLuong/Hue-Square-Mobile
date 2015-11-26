@@ -20,15 +20,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "mixins/shadows";
+@import "mixins/flex";
 
 @import "base/colors";
 @import "base/animations";
 @import "base/base";
 
+@import "components/game-header";
 @import "components/board";
 @import "components/tile";
 @import "components/instructions";
-@import "components/buttons";
 
 
 // #loading {

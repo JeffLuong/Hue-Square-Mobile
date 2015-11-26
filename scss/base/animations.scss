@@ -1,16 +1,16 @@
 $prefix:'-moz-', '-webkit-', '-o-', '';
 
-@mixin keyframes($animationName) {
-  @-webkit-keyframes $animationName {
+@mixin keyframes($name) {
+  @-webkit-keyframes $name {
     @content;
   }
-  @-moz-keyframes $animationName {
+  @-moz-keyframes $name {
     @content;
   }
-  @-o-keyframes $animationName {
+  @-o-keyframes $name {
     @content;
   }
-  @keyframes $animationName {
+  @keyframes $name {
     @content;
   }
 }
@@ -24,9 +24,9 @@ $prefix:'-moz-', '-webkit-', '-o-', '';
   }
 }
 
-@mixin animation($animationName, $duration, $timing, $delay, $fill) {
+@mixin animation($name, $duration, $timing, $delay, $fill) {
   @each $p in $prefix {
-    #{$p}animation-name: $animationName;
+    #{$p}animation-name: $name;
     #{$p}animation-duration: $duration;
     #{$p}animation-timing-function: $timing;
     #{$p}animation-delay: $delay;

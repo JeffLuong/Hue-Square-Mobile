@@ -1,0 +1,13 @@
+$prefix:'-moz-', '-webkit-', '-o-', '';
+
+@mixin flexbox-display-flex {
+  @each $p in $prefix {
+    display: #{$p}flex;
+  }
+}
+
+@mixin flexbox-justify($justify) {
+  @each $p in $prefix {
+    #{$p}justify-content: $justify;
+  }
+}

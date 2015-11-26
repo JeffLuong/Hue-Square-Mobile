@@ -9,24 +9,15 @@
 }
 
 .board-sq {
-  display: flex;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -oz-flex;
+  @include flexbox-display-flex;
 }
 
 .tile {
   margin: auto;
   width: 0;
   height: 0;
-  display: flex;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -oz-flex;
-  justify-content: center;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  -oz-justify-content: center;
+  @include flexbox-display-flex;
+  @include flexbox-justify(center);
   transition: all .175s ease-in-out;
 }
 

@@ -1,3 +1,5 @@
+$mobile-width: 520px;
+
 * {
   font: inherit;
   box-sizing: border-box;
@@ -19,4 +21,28 @@ html {
 
 p {
   margin: 0;
+}
+
+#main-container {
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 500px;
+  transition: width .25s ease-out;
+
+  @media handheld, screen and (max-width: $mobile-width) {
+    width: 310px;
+  }
+}
+
+// Toggled Classes
+.display-none {
+  display: none !important;
+}
+
+.block {
+  display: block !important;
+}
+
+.game-over {
+  display: block !important;
 }
