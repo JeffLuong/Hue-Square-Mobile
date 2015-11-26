@@ -62,3 +62,23 @@
   }
 
 }
+
+button {
+	border: none;
+	padding: 0.6em 1.2em;
+	background-color: $red;
+	color: white;
+	font-size: 1em;
+	letter-spacing: 1px;
+	cursor: pointer;
+	display: inline-block;
+  transition: all .25s ease-in-out;
+}
+
+button:hover {
+  @include shadow(2px 4px 14px -1px rgba(0,0,0,0.50));
+}
+
+button:focus {
+ outline: none;
+}

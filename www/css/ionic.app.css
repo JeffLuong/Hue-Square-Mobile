@@ -7744,9 +7744,6 @@ html {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 200; }
 
-p {
-  margin: 0; }
-
 #main-container {
   margin: 0 auto;
   padding-top: 20px;
@@ -7782,6 +7779,10 @@ p {
     padding-left: 15px;
     width: 60%;
     display: inline-block; }
+    @media handheld, screen and (max-width: 520px) {
+      .game-header .game-title {
+        font-size: 3em;
+        width: 40%; } }
     .game-header .game-title span:first-child {
       color: #E91E63; }
     .game-header .game-title span:nth-child(2) {
@@ -7794,8 +7795,15 @@ p {
       background-color: #2196F3;
       display: inline-block;
       margin-left: .125em; }
+      @media handheld, screen and (max-width: 520px) {
+        .game-header .game-title div {
+          width: 20px;
+          height: 20px; } }
   .game-header .game-stats-container {
     width: 61%; }
+    @media handheld, screen and (max-width: 520px) {
+      .game-header .game-stats-container {
+        width: 65%; } }
     .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
       text-align: center;
       padding: 10px 0 0;
@@ -7806,13 +7814,29 @@ p {
       background-color: #E91E63;
       transition: all .5s ease-in-out;
       overflow: hidden; }
+      @media handheld, screen and (max-width: 520px) {
+        .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
+          padding: 5px 0 0;
+          width: 45px;
+          height: 45px; } }
       .game-header .game-stats-container .game-moves > p, .game-header .game-stats-container .game-wins > p, .game-header .game-stats-container .game-levels > p {
         font-size: 1.25em;
-        color: white; }
+        color: white;
+        margin: 0; }
         .game-header .game-stats-container .game-moves > p + p, .game-header .game-stats-container .game-wins > p + p, .game-header .game-stats-container .game-levels > p + p {
-          font-size: 1.75em; }
+          font-size: 1.75em;
+          margin: 10px 0 0; }
+        @media handheld, screen and (max-width: 520px) {
+          .game-header .game-stats-container .game-moves > p, .game-header .game-stats-container .game-wins > p, .game-header .game-stats-container .game-levels > p {
+            font-size: .85em; }
+            .game-header .game-stats-container .game-moves > p + p, .game-header .game-stats-container .game-wins > p + p, .game-header .game-stats-container .game-levels > p + p {
+              font-size: 1.25em;
+              margin: 0; } }
     .game-header .game-stats-container .game-moves {
       margin-right: 15px; }
+    @media handheld, screen and (max-width: 520px) {
+      .game-header .game-stats-container .game-levels {
+        margin-right: .25em; } }
 
 .game-menu {
   width: 100%;
@@ -7828,6 +7852,9 @@ p {
   -o-justify-content: center;
   -ms-justify-content: center;
   justify-content: center; }
+  @media handheld, screen and (max-width: 520px) {
+    .game-menu {
+      margin-top: 15px; } }
   .game-menu .redo, .game-menu .undo, .game-menu .restart {
     width: calc(100% / 3);
     color: #2196F3;
@@ -7854,62 +7881,6 @@ p {
       transform: rotate(360deg); }
     .game-menu .redo .undo-button:hover, .game-menu .undo .undo-button:hover, .game-menu .restart .undo-button:hover {
       transform: rotate(-360deg); }
-
-a.custom-button {
-  margin: 20px auto 0;
-  font-size: 1.25em;
-  padding: 5px; }
-
-a.custom-button:hover {
-  border-bottom: 1px solid white;
-  cursor: pointer; }
-
-button {
-  border: none;
-  padding: 0.6em 1.2em;
-  background-color: #E91E63;
-  color: white;
-  font-size: 1em;
-  letter-spacing: 1px;
-  cursor: pointer;
-  display: inline-block;
-  transition: all .25s ease-in-out; }
-
-button:hover {
-  -moz-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  -o-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  -ms-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5); }
-
-button:focus {
-  outline: none; }
-
-@media handheld, screen and (max-width: 520px) {
-  .loading-square {
-    height: 280px;
-    width: 280px;
-    margin-top: 9em; }
-  .game-menu {
-    margin-top: 15px; }
-  .game-title {
-    font-size: 3em;
-    width: 40%; }
-  .game-title :last-child {
-    width: 20px;
-    height: 20px; }
-  .game-stats-container {
-    width: 65%; }
-  .game-moves, .game-wins, .game-levels {
-    padding: 5px 0 0;
-    width: 45px;
-    height: 45px; }
-  .game-levels {
-    margin-right: .25em; }
-  .game-moves p, .game-wins p, .game-levels p {
-    font-size: .85em; }
-  .game-moves p + p, .game-wins p + p, .game-levels p + p {
-    font-size: 1.5em; } }
 
 #game-container {
   width: 100%;
@@ -7965,14 +7936,18 @@ button:focus {
         width: 49.5%;
         height: 50%;
         display: inline-block; }
-        #game-container .game-message .options .left-option > a, #game-container .game-message .options .right-option > a {
-          color: white; }
       #game-container .game-message .options .bottom-option-1, #game-container .game-message .options .bottom-option-2 {
         width: 100%;
         height: 50%;
         display: none; }
-        #game-container .game-message .options .bottom-option-1 > a, #game-container .game-message .options .bottom-option-2 > a {
-          color: white; }
+      #game-container .game-message .options .left-option > a, #game-container .game-message .options .right-option > a, #game-container .game-message .options .bottom-option-1 > a, #game-container .game-message .options .bottom-option-2 > a {
+        color: white;
+        margin: 20px auto 0;
+        font-size: 1.25em;
+        padding: 5px; }
+        #game-container .game-message .options .left-option > a:hover, #game-container .game-message .options .right-option > a:hover, #game-container .game-message .options .bottom-option-1 > a:hover, #game-container .game-message .options .bottom-option-2 > a:hover {
+          border-bottom: 1px solid white;
+          cursor: pointer; }
     @media handheld, screen and (max-width: 520px) {
       #game-container .game-message {
         margin-top: 0; }
@@ -7983,9 +7958,7 @@ button:focus {
           padding-top: 20px; }
           #game-container .game-message .options .left-option, #game-container .game-message .options .right-option {
             width: 49%; }
-            #game-container .game-message .options .left-option > a, #game-container .game-message .options .right-option > a {
-              font-size: 1.25em; }
-          #game-container .game-message .options .bottom-option-1 > a, #game-container .game-message .options .bottom-option-2 > a {
+          #game-container .game-message .options .left-option > a, #game-container .game-message .options .right-option > a, #game-container .game-message .options .bottom-option-1 > a, #game-container .game-message .options .bottom-option-2 > a {
             font-size: 1.25em; } }
   #game-container #board-container {
     width: 100%;
@@ -8168,3 +8141,24 @@ button:focus {
 @media handheld, screen and (max-width: 520px) {
   .game-instructions p {
     font-size: .85em; } }
+
+button {
+  border: none;
+  padding: 0.6em 1.2em;
+  background-color: #E91E63;
+  color: white;
+  font-size: 1em;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: inline-block;
+  transition: all .25s ease-in-out; }
+
+button:hover {
+  -moz-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5); }
+
+button:focus {
+  outline: none; }

@@ -9,6 +9,11 @@
     width: 60%;
     display: inline-block;
 
+    @media handheld, screen and (max-width: $mobile-width) {
+      font-size: 3em;
+      width: 40%;
+    }
+
     span {
       &:first-child {
         color: $red;
@@ -27,11 +32,21 @@
       background-color: $blue;
       display: inline-block;
       margin-left: .125em;
+
+      @media handheld, screen and (max-width: $mobile-width) {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 
   .game-stats-container {
     width: 61%;
+
+    @media handheld, screen and (max-width: $mobile-width) {
+      width: 65%;
+    }
+
 
     .game-moves,
     .game-wins,
@@ -46,12 +61,29 @@
       transition: all .5s ease-in-out;
       overflow: hidden;
 
+      @media handheld, screen and (max-width: $mobile-width) {
+        padding: 5px 0 0;
+        width: 45px;
+        height: 45px;
+      }
+
       > p {
         font-size: 1.25em;
         color: white;
+        margin: 0;
 
         + p {
           font-size: 1.75em;
+          margin: 10px 0 0;
+        }
+
+        @media handheld, screen and (max-width: $mobile-width) {
+          font-size: .85em;
+
+          + p {
+            font-size: 1.25em;
+            margin: 0;
+          }
         }
       }
     }
@@ -59,8 +91,15 @@
     .game-moves {
       margin-right: 15px;
     }
+
+    .game-levels {
+      @media handheld, screen and (max-width: $mobile-width) {
+        margin-right: .25em;
+      }
+    }
   }
 }
+
 
 .game-menu {
   width: 100%;
@@ -68,6 +107,10 @@
   margin-top: 20px;
   @include flexbox-display-flex;
   @include flexbox-justify(center);
+
+  @media handheld, screen and (max-width: $mobile-width) {
+    margin-top: 15px;
+  }
 
   .redo,
   .undo,
@@ -107,80 +150,4 @@
       }
     }
   }
-}
-
-a.custom-button {
-  margin: 20px auto 0;
-  font-size: 1.25em;
-  padding: 5px;
-}
-
-a.custom-button:hover {
-  border-bottom: 1px solid white;
-  cursor: pointer;
-}
-button {
-	border: none;
-	padding: 0.6em 1.2em;
-	background-color: $red;
-	color: white;
-	font-size: 1em;
-	letter-spacing: 1px;
-	cursor: pointer;
-	display: inline-block;
-  transition: all .25s ease-in-out;
-}
-
-button:hover {
-  @include shadow(2px 4px 14px -1px rgba(0,0,0,0.50));
-}
-
-button:focus {
- outline: none;
-}
-
-@media handheld, screen and (max-width: $mobile-width) {
-
-  .loading-square {
-    height: 280px;
-    width: 280px;
-    margin-top: 9em;
-  }
-
-  .game-menu {
-    margin-top: 15px;
-  }
-
-  .game-title {
-    font-size: 3em;
-    width: 40%;
-  }
-
-  .game-title :last-child{
-    width: 20px;
-    height: 20px;
-  }
-
-  .game-stats-container {
-    width: 65%;
-  }
-
-  .game-moves, .game-wins, .game-levels {
-    padding: 5px 0 0;
-    width: 45px;
-    height: 45px;
-  }
-
-  .game-levels {
-    margin-right: .25em;
-  }
-
-  .game-moves p, .game-wins p, .game-levels p {
-    font-size: .85em;
-  }
-
-  .game-moves p + p, .game-wins p + p, .game-levels p + p {
-    font-size: 1.5em;
-  }
-
 }
