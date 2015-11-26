@@ -1,5 +1,7 @@
+$prefix:'-moz-', '-webkit-', '-o-', '-ms-', '';
+
 @mixin shadow($shadows) {
-  -webkit-box-shadow: $shadows;
-  -moz-box-shadow: $shadows;
-  box-shadow: $shadows;
+  @each $p in $prefix {
+    #{$p}box-shadow: $shadows;
+  }
 }

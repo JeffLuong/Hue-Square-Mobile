@@ -84,56 +84,49 @@ p {
   display: -moz-flex;
   display: -webkit-flex;
   display: -o-flex;
+  display: -ms-flex;
   display: flex;
   -moz-justify-content: space-between;
   -webkit-justify-content: space-between;
   -o-justify-content: space-between;
+  -ms-justify-content: space-between;
   justify-content: space-between; }
   .game-header .game-title {
     font-size: 4.5em;
     padding-left: 15px;
     width: 60%;
     display: inline-block; }
-
-.game-title span:first-child {
-  color: #E91E63; }
-
-.game-title span:nth-child(2) {
-  color: #2196F3; }
-
-.game-title span:nth-child(3) {
-  color: #DDDD88; }
-
-.game-title :nth-child(4) {
-  width: 40px;
-  height: 40px;
-  background-color: #2196F3;
-  display: inline-block;
-  margin-left: .125em; }
-
-.game-stats-container {
-  width: 61%; }
-
-.game-moves, .game-wins, .game-levels {
-  text-align: center;
-  padding: 10px 0 0;
-  margin-right: 5px;
-  width: 75px;
-  height: 75px;
-  float: right;
-  background-color: #E91E63;
-  transition: all .5s ease-in-out;
-  overflow: hidden; }
-
-.game-moves {
-  margin-right: 15px; }
-
-.game-moves p, .game-wins p, .game-levels p {
-  font-size: 1.25em;
-  color: white; }
-
-.game-moves p + p, .game-wins p + p, .game-levels p + p {
-  font-size: 1.75em; }
+    .game-header .game-title span:first-child {
+      color: #E91E63; }
+    .game-header .game-title span:nth-child(2) {
+      color: #2196F3; }
+    .game-header .game-title span:nth-child(3) {
+      color: #DDDD88; }
+    .game-header .game-title div {
+      width: 40px;
+      height: 40px;
+      background-color: #2196F3;
+      display: inline-block;
+      margin-left: .125em; }
+  .game-header .game-stats-container {
+    width: 61%; }
+    .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
+      text-align: center;
+      padding: 10px 0 0;
+      margin-right: 5px;
+      width: 75px;
+      height: 75px;
+      float: right;
+      background-color: #E91E63;
+      transition: all .5s ease-in-out;
+      overflow: hidden; }
+      .game-header .game-stats-container .game-moves > p, .game-header .game-stats-container .game-wins > p, .game-header .game-stats-container .game-levels > p {
+        font-size: 1.25em;
+        color: white; }
+        .game-header .game-stats-container .game-moves > p + p, .game-header .game-stats-container .game-wins > p + p, .game-header .game-stats-container .game-levels > p + p {
+          font-size: 1.75em; }
+    .game-header .game-stats-container .game-moves {
+      margin-right: 15px; }
 
 .game-menu {
   width: 100%;
@@ -142,37 +135,41 @@ p {
   display: -moz-flex;
   display: -webkit-flex;
   display: -o-flex;
+  display: -ms-flex;
   display: flex;
   -moz-justify-content: center;
   -webkit-justify-content: center;
   -o-justify-content: center;
+  -ms-justify-content: center;
   justify-content: center; }
-
-.redo, .undo, .restart {
-  width: calc(100% / 3);
-  color: #2196F3;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -o-flex;
-  display: flex;
-  -moz-justify-content: center;
-  -webkit-justify-content: center;
-  -o-justify-content: center;
-  justify-content: center;
-  font-size: 2em; }
-
-.redo-button, .undo-button, .restart-button {
-  transition: all .35s ease; }
-
-.redo-button:hover, .undo-button:hover, .restart-button:hover {
-  color: #E91E63;
-  cursor: pointer; }
-
-.undo-button:hover {
-  transform: rotate(-360deg); }
-
-.restart-button:hover, .redo-button:hover {
-  transform: rotate(360deg); }
+  .game-menu .redo, .game-menu .undo, .game-menu .restart {
+    width: calc(100% / 3);
+    color: #2196F3;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -o-flex;
+    display: -ms-flex;
+    display: flex;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    -o-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    font-size: 2em; }
+    .game-menu .redo .icon, .game-menu .undo .icon, .game-menu .restart .icon {
+      font-size: 2em;
+      color: #2196F3; }
+    .game-menu .redo .ion-refresh, .game-menu .undo .ion-refresh, .game-menu .restart .ion-refresh {
+      font-size: 10em; }
+    .game-menu .redo .redo-button, .game-menu .redo .undo-button, .game-menu .redo .restart-button, .game-menu .undo .redo-button, .game-menu .undo .undo-button, .game-menu .undo .restart-button, .game-menu .restart .redo-button, .game-menu .restart .undo-button, .game-menu .restart .restart-button {
+      transition: all .35s ease; }
+      .game-menu .redo .redo-button:hover, .game-menu .redo .undo-button:hover, .game-menu .redo .restart-button:hover, .game-menu .undo .redo-button:hover, .game-menu .undo .undo-button:hover, .game-menu .undo .restart-button:hover, .game-menu .restart .redo-button:hover, .game-menu .restart .undo-button:hover, .game-menu .restart .restart-button:hover {
+        color: #E91E63;
+        cursor: pointer; }
+    .game-menu .redo .redo-button:hover, .game-menu .redo .restart-button:hover, .game-menu .undo .redo-button:hover, .game-menu .undo .restart-button:hover, .game-menu .restart .redo-button:hover, .game-menu .restart .restart-button:hover {
+      transform: rotate(360deg); }
+    .game-menu .redo .undo-button:hover, .game-menu .undo .undo-button:hover, .game-menu .restart .undo-button:hover {
+      transform: rotate(-360deg); }
 
 a.custom-button {
   margin: 20px auto 0;
@@ -195,8 +192,10 @@ button {
   transition: all .25s ease-in-out; }
 
 button:hover {
-  -webkit-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5); }
 
 button:focus {
@@ -259,6 +258,11 @@ button:focus {
     -o-animation-timing-function: ease;
     -o-animation-delay: 1200ms;
     -o-animation-fill-mode: both;
+    -ms-animation-name: fadeIn;
+    -ms-animation-duration: 800ms;
+    -ms-animation-timing-function: ease;
+    -ms-animation-delay: 1200ms;
+    -ms-animation-fill-mode: both;
     animation-name: fadeIn;
     animation-duration: 800ms;
     animation-timing-function: ease;
@@ -329,6 +333,7 @@ button:focus {
   display: -moz-flex;
   display: -webkit-flex;
   display: -o-flex;
+  display: -ms-flex;
   display: flex; }
 
 .tile {
@@ -338,18 +343,22 @@ button:focus {
   display: -moz-flex;
   display: -webkit-flex;
   display: -o-flex;
+  display: -ms-flex;
   display: flex;
   -moz-justify-content: center;
   -webkit-justify-content: center;
   -o-justify-content: center;
+  -ms-justify-content: center;
   justify-content: center;
   transition: all .175s ease-in-out; }
 
 .user {
   margin: none;
   z-index: 3;
-  -webkit-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
   -moz-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
+  -webkit-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
+  -o-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
+  -ms-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
   box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65); }
 
 .preview {
@@ -358,8 +367,10 @@ button:focus {
   border-radius: 100%;
   display: none;
   margin: auto;
-  -webkit-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
   -moz-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
+  -webkit-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
+  -o-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
+  -ms-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
   box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65); }
 
 .game-goal {
@@ -390,22 +401,30 @@ button:focus {
   height: 35%; }
 
 .shadow {
-  -webkit-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5); }
 
 @media handheld, screen and (max-width: 520px) {
   .user {
-    -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
     -moz-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
+    -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
+    -o-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
+    -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
     box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65); }
   .preview {
-    -webkit-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
     -moz-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
+    -webkit-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
+    -o-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
+    -ms-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
     box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65); }
   .shadow {
-    -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
+    -o-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
+    -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5); } }
 
 .game-instructions {
@@ -414,10 +433,12 @@ button:focus {
   display: -moz-flex;
   display: -webkit-flex;
   display: -o-flex;
+  display: -ms-flex;
   display: flex;
   -moz-justify-content: center;
   -webkit-justify-content: center;
   -o-justify-content: center;
+  -ms-justify-content: center;
   justify-content: center; }
 
 .game-instructions p {

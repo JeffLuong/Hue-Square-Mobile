@@ -8,58 +8,59 @@
     padding-left: 15px;
     width: 60%;
     display: inline-block;
+
+    span {
+      &:first-child {
+        color: $red;
+      }
+      &:nth-child(2) {
+        color: $blue;
+      }
+      &:nth-child(3) {
+        color: $yellow;
+      }
+    }
+
+    div {
+      width: 40px;
+      height: 40px;
+      background-color: $blue;
+      display: inline-block;
+      margin-left: .125em;
+    }
+  }
+
+  .game-stats-container {
+    width: 61%;
+
+    .game-moves,
+    .game-wins,
+    .game-levels {
+      text-align: center;
+      padding: 10px 0 0;
+      margin-right: 5px;
+      width: 75px;
+      height: 75px;
+      float: right;
+      background-color: $red;
+      transition: all .5s ease-in-out;
+      overflow: hidden;
+
+      > p {
+        font-size: 1.25em;
+        color: white;
+
+        + p {
+          font-size: 1.75em;
+        }
+      }
+    }
+
+    .game-moves {
+      margin-right: 15px;
+    }
   }
 }
-
-.game-title span:first-child {
-  color: $red;
-}
-
-.game-title span:nth-child(2) {
-  color: $blue;
-}
-
-.game-title span:nth-child(3) {
-  color: $yellow;
-}
-
-.game-title :nth-child(4) {
-  width: 40px;
-  height: 40px;
-  background-color: $blue;
-  display: inline-block;
-  margin-left: .125em;
-}
-
-.game-stats-container {
-  width: 61%;
-}
-
-.game-moves, .game-wins, .game-levels {
-  text-align: center;
-  padding: 10px 0 0;
-  margin-right: 5px;
-  width: 75px;
-  height: 75px;
-  float: right;
-  background-color: $red;
-  transition: all .5s ease-in-out;
-  overflow: hidden;
-}
-
-.game-moves {
-  margin-right: 15px;
-}
-
-.game-moves p, .game-wins p, .game-levels p {
-  font-size: 1.25em;
-  color: white;
-}
-
-.game-moves p + p, .game-wins p + p, .game-levels p + p {
-  font-size: 1.75em;
-}
-
 
 .game-menu {
   width: 100%;
@@ -67,32 +68,47 @@
   margin-top: 20px;
   @include flexbox-display-flex;
   @include flexbox-justify(center);
+
+  .redo,
+  .undo,
+  .restart {
+    width: calc(100% / 3);
+    color: $blue;
+    @include flexbox-display-flex;
+    @include flexbox-justify(center);
+    font-size: 2em;
+
+    .icon {
+      font-size: 2em;
+      color: $blue;
+    }
+
+    .redo-button,
+    .undo-button,
+    .restart-button {
+      transition: all .35s ease;
+
+      &:hover {
+        color: $red;
+        cursor: pointer;
+      }
+    }
+
+    .redo-button,
+    .restart-button {
+      &:hover {
+        transform: rotate(360deg);
+      }
+    }
+
+    .undo-button {
+      &:hover {
+        transform: rotate(-360deg);
+      }
+    }
+  }
 }
 
-.redo, .undo, .restart {
-  width: calc(100% / 3);
-  color: $blue;
-  @include flexbox-display-flex;
-  @include flexbox-justify(center);
-  font-size: 2em;
-}
-
-.redo-button, .undo-button, .restart-button {
-  transition: all .35s ease;
-}
-
-.redo-button:hover, .undo-button:hover, .restart-button:hover {
-  color: $red;
-  cursor: pointer;
-}
-
-.undo-button:hover {
-  transform: rotate(-360deg);
-}
-
-.restart-button:hover, .redo-button:hover {
-  transform: rotate(360deg);
-}
 a.custom-button {
   margin: 20px auto 0;
   font-size: 1.25em;

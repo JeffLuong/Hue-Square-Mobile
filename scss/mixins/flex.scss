@@ -1,4 +1,4 @@
-$prefix:'-moz-', '-webkit-', '-o-', '';
+$prefix:'-moz-', '-webkit-', '-o-', '-ms-', '';
 
 @mixin flexbox-display-flex {
   @each $p in $prefix {

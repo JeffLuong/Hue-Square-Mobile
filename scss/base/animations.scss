@@ -1,4 +1,4 @@
-$prefix:'-moz-', '-webkit-', '-o-', '';
+$prefix:'-moz-', '-webkit-', '-o-', '-ms-', '';
 
 @mixin keyframes($name) {
   @-webkit-keyframes $name {
