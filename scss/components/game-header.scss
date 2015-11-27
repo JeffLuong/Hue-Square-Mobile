@@ -62,7 +62,7 @@
       overflow: hidden;
 
       @media handheld, screen and (max-width: $mobile-width) {
-        padding: 5px 0 0;
+        padding: 2px 0 0;
         width: 45px;
         height: 45px;
       }
@@ -140,13 +140,15 @@
     .redo-button,
     .restart-button {
       &:hover {
-        transform: rotate(360deg);
+        @include rotate(360deg);
+        @include transform-origin(37.5% 70%);
       }
     }
 
     .undo-button {
       &:hover {
-        transform: rotate(-360deg);
+        @include rotate(-360deg);
+        @include transform-origin(50% 50%);
       }
     }
   }

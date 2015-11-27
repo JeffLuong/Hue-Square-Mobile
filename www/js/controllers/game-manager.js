@@ -289,8 +289,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
 
   // Game Mechanic Functions
   this.testIfWon = function(position, color, solution) {
-    var rangeHigh = this.winColor + 2.25,
-        rangeLow  = this.winColor - 2.25,
+    var rangeHigh = this.winColor + 3.00,
+        rangeLow  = this.winColor - 3.00,
         restart;
     if (position.x === this.winPoint.x && position.y === this.winPoint.y) {
       this.gameOver = true;

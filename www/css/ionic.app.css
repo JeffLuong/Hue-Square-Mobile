@@ -7816,7 +7816,7 @@ html {
       overflow: hidden; }
       @media handheld, screen and (max-width: 520px) {
         .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
-          padding: 5px 0 0;
+          padding: 2px 0 0;
           width: 45px;
           height: 45px; } }
       .game-header .game-stats-container .game-moves > p, .game-header .game-stats-container .game-wins > p, .game-header .game-stats-container .game-levels > p {
@@ -7878,9 +7878,27 @@ html {
         color: #E91E63;
         cursor: pointer; }
     .game-menu .redo .redo-button:hover, .game-menu .redo .restart-button:hover, .game-menu .undo .redo-button:hover, .game-menu .undo .restart-button:hover, .game-menu .restart .redo-button:hover, .game-menu .restart .restart-button:hover {
-      transform: rotate(360deg); }
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+      -moz-transform-origin: 37.5% 70%;
+      -webkit-transform-origin: 37.5% 70%;
+      -o-transform-origin: 37.5% 70%;
+      -ms-transform-origin: 37.5% 70%;
+      transform-origin: 37.5% 70%; }
     .game-menu .redo .undo-button:hover, .game-menu .undo .undo-button:hover, .game-menu .restart .undo-button:hover {
-      transform: rotate(-360deg); }
+      -moz-transform: rotate(-360deg);
+      -webkit-transform: rotate(-360deg);
+      -o-transform: rotate(-360deg);
+      -ms-transform: rotate(-360deg);
+      transform: rotate(-360deg);
+      -moz-transform-origin: 50% 50%;
+      -webkit-transform-origin: 50% 50%;
+      -o-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+      transform-origin: 50% 50%; }
 
 #game-container {
   width: 100%;
@@ -7980,109 +7998,102 @@ html {
 
 .board-row {
   width: 100%; }
-
-.board-sq {
-  position: relative;
-  height: 100%;
-  float: left; }
-
-.board-sq {
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -o-flex;
-  display: -ms-flex;
-  display: flex; }
-
-.tile {
-  margin: auto;
-  width: 0;
-  height: 0;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -o-flex;
-  display: -ms-flex;
-  display: flex;
-  -moz-justify-content: center;
-  -webkit-justify-content: center;
-  -o-justify-content: center;
-  -ms-justify-content: center;
-  justify-content: center;
-  transition: all .175s ease-in-out; }
-
-.user {
-  margin: none;
-  z-index: 3;
-  -moz-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
-  -webkit-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
-  -o-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
-  -ms-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
-  box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65); }
-
-.preview {
-  width: 25%;
-  height: 25%;
-  border-radius: 100%;
-  display: none;
-  margin: auto;
-  -moz-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
-  -webkit-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
-  -o-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
-  -ms-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
-  box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65); }
-
-.game-goal {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -oz-transform: rotate(45deg);
-  z-index: 3;
-  color: white;
-  margin: auto;
-  width: 35%;
-  height: 35%;
-  text-align: center;
-  transition: all .25s ease-in-out;
-  display: block !important; }
-
-.animateIn {
-  margin: none;
-  width: 100%;
-  height: 100%; }
-
-.rotate {
-  transition-delay: 0.25s;
-  transform: rotate(0deg);
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -oz-transform: rotate(0deg);
-  height: 35%; }
-
-.shadow {
-  -moz-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
-  -o-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
-  -ms-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5); }
-
-@media handheld, screen and (max-width: 520px) {
-  .user {
-    -moz-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
-    -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
-    -o-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
-    -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
-    box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65); }
-  .preview {
-    -moz-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
-    -webkit-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
-    -o-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
-    -ms-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
-    box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65); }
-  .shadow {
-    -moz-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
-    -o-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
-    -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
-    box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5); } }
+  .board-row .board-sq {
+    position: relative;
+    height: 100%;
+    float: left;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -o-flex;
+    display: -ms-flex;
+    display: flex; }
+    .board-row .board-sq .tile {
+      margin: auto;
+      width: 0;
+      height: 0;
+      display: -moz-flex;
+      display: -webkit-flex;
+      display: -o-flex;
+      display: -ms-flex;
+      display: flex;
+      -moz-justify-content: center;
+      -webkit-justify-content: center;
+      -o-justify-content: center;
+      -ms-justify-content: center;
+      justify-content: center;
+      transition: all .175s ease-in-out; }
+      .board-row .board-sq .tile .preview {
+        width: 25%;
+        height: 25%;
+        border-radius: 100%;
+        display: none;
+        margin: auto;
+        -moz-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
+        -webkit-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
+        -o-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
+        -ms-box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65);
+        box-shadow: 2px 4px 19px -1px rgba(0, 0, 0, 0.65); }
+        @media handheld, screen and (max-width: 520px) {
+          .board-row .board-sq .tile .preview {
+            -moz-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
+            -webkit-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
+            -o-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
+            -ms-box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65);
+            box-shadow: 2px 4px 8px -1px rgba(0, 0, 0, 0.65); } }
+      .board-row .board-sq .tile .game-goal {
+        -moz-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        z-index: 3;
+        color: white;
+        margin: auto;
+        width: 35%;
+        height: 35%;
+        text-align: center;
+        transition: all .25s ease-in-out;
+        display: block !important; }
+      .board-row .board-sq .tile .rotate {
+        transition-delay: 0.25s;
+        height: 35%;
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg); }
+      .board-row .board-sq .tile .shadow {
+        -moz-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
+        -webkit-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
+        -o-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
+        -ms-box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 4px 20px -1px rgba(0, 0, 0, 0.5); }
+        @media handheld, screen and (max-width: 520px) {
+          .board-row .board-sq .tile .shadow {
+            -moz-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
+            -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
+            -o-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
+            -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5);
+            box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.5); } }
+    .board-row .board-sq .animateIn {
+      margin: none;
+      width: 100%;
+      height: 100%; }
+    .board-row .board-sq .user {
+      margin: none;
+      z-index: 3;
+      -moz-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
+      -webkit-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
+      -o-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
+      -ms-box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65);
+      box-shadow: 2px 4px 25px -1px rgba(0, 0, 0, 0.65); }
+      @media handheld, screen and (max-width: 520px) {
+        .board-row .board-sq .user {
+          -moz-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
+          -webkit-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
+          -o-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
+          -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
+          box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65); } }
 
 .game-instructions {
   margin-top: 20px;

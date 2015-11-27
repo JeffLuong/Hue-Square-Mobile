@@ -33,3 +33,15 @@ $prefix:'-moz-', '-webkit-', '-o-', '-ms-', '';
     #{$p}animation-fill-mode: $fill;
   }
 }
+
+@mixin rotate($deg) {
+  @each $p in $prefix {
+    #{$p}transform: rotate($deg);
+  }
+}
+
+@mixin transform-origin($position) {
+  @each $p in $prefix {
+    #{$p}transform-origin: $position;
+  }
+}
