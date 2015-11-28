@@ -1,7 +1,16 @@
 var appModule = angular.module('hueSquare');
 
-appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Tile, GameData, baseColors, vectors, $timeout) {
+appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Tile, GameData, baseColors, vectors, $timeout, $ionicModal) {
 
+  // Modal
+  $ionicModal.fromTemplateUrl('instruct-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  // Game Controller
   this.data     = new GameData;
   this.game     = new Game;
 

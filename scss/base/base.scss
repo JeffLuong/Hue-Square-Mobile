@@ -1,4 +1,5 @@
 $mobile-width: 520px;
+$fonts: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 * {
   font: inherit;
@@ -15,7 +16,7 @@ body {
 
 html {
   font-size: 1em;
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $fonts;
   font-weight: 200;
 }
 

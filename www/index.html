@@ -40,6 +40,27 @@
   <body ng-app="hueSquare">
     <ion-content ng-controller="gameManager as game">
 
+      <script id="instruct-modal.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar class="instruct-title">
+            <h1>How to Play</h1>
+          </ion-header-bar>
+          <ion-content class="game-instructions">
+            <p>
+              Move your square tile to the location of the diamond. However, you must be the same color as the diamond when you get there!
+            </p>
+
+            <p>
+              The board will increase in size after every 2 wins.
+            </p>
+
+            <p>
+              Use the <span>circles</span> to help you decide which direction to go! The circles are "previews" of the new color you will make if you go to that direction! Good luck!
+            </p>
+            <button ng-click="modal.hide()" class="modal-close">Got it!</button>
+          </ion-content>
+        </ion-modal-view>
+      </script>
       <!-- <div id="loading">
         <div class="loading-container">
           <div class="loading-square">
@@ -105,8 +126,8 @@
                                     on-swipe-up="game.onSwipe('up')"
                                     on-swipe-down="game.onSwipe('down')"></div>
         </div>
-        <div class="game-instructions">
-          <button class="md-trigger" data-modal="modal-1">INSTRUCTIONS</button>
+        <div class="instructions-btn">
+          <button ng-click="modal.show()" class="modal-trigger" data-modal="modal-1">INSTRUCTIONS</button>
         </div>
 
       </div>

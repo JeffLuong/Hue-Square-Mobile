@@ -1,5 +1,16 @@
+.instruct-title {
+  background-color: $blue-deep;
+  height: 60px;
+
+  > h1 {
+    color: white;
+    font-family: $fonts;
+    margin: 0 auto;
+  }
+}
+
 .game-instructions {
-  margin-top: 20px;
+  background-color: $blue;
   padding: 0 15px;
   @include flexbox-display-flex;
   @include flexbox-justify(center);
@@ -63,6 +74,11 @@
 
 }
 
+.instructions-btn {
+  margin-top: 20px;
+  text-align: center;
+}
+
 button {
 	border: none;
 	padding: 0.6em 1.2em;
@@ -73,12 +89,12 @@ button {
 	cursor: pointer;
 	display: inline-block;
   transition: all .25s ease-in-out;
-}
 
-button:hover {
-  @include shadow(2px 4px 14px -1px rgba(0,0,0,0.50));
-}
+  &:hover {
+    @include shadow(2px 4px 14px -1px rgba(0,0,0,0.50));
+  }
 
-button:focus {
- outline: none;
+  &:focus {
+   outline: none;
+  }
 }

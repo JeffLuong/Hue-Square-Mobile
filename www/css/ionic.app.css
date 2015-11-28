@@ -8095,8 +8095,16 @@ html {
           -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
           box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65); } }
 
+.instruct-title {
+  background-color: #018CC9;
+  height: 60px; }
+  .instruct-title > h1 {
+    color: white;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0 auto; }
+
 .game-instructions {
-  margin-top: 20px;
+  background-color: #2196F3;
   padding: 0 15px;
   display: -moz-flex;
   display: -webkit-flex;
@@ -8153,6 +8161,10 @@ html {
   .game-instructions p {
     font-size: .85em; } }
 
+.instructions-btn {
+  margin-top: 20px;
+  text-align: center; }
+
 button {
   border: none;
   padding: 0.6em 1.2em;
@@ -8163,13 +8175,11 @@ button {
   cursor: pointer;
   display: inline-block;
   transition: all .25s ease-in-out; }
-
-button:hover {
-  -moz-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  -o-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  -ms-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5); }
-
-button:focus {
-  outline: none; }
+  button:hover {
+    -moz-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+    -o-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+    -ms-box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 14px -1px rgba(0, 0, 0, 0.5); }
+  button:focus {
+    outline: none; }
