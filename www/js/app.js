@@ -22,7 +22,7 @@ app.constant('baseColors', {
   $ionicPlatform.ready(function() {
 
     // Hides status bar
-    // $cordovaStatusbar.hide();
+    $cordovaStatusbar.hide();
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

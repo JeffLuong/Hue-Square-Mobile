@@ -7837,6 +7837,9 @@ html {
     @media handheld, screen and (max-width: 520px) {
       .game-header .game-stats-container .game-levels {
         margin-right: .25em; } }
+    @media handheld, screen and (max-width: 520px) {
+      .game-header .game-stats-container .game-wins {
+        margin-right: 3px; } }
 
 .game-menu {
   width: 100%;
@@ -7854,7 +7857,7 @@ html {
   justify-content: center; }
   @media handheld, screen and (max-width: 520px) {
     .game-menu {
-      margin-top: 15px; } }
+      margin: 15px 0; } }
   .game-menu .redo, .game-menu .undo, .game-menu .restart {
     width: calc(100% / 3);
     color: #2196F3;
@@ -8095,74 +8098,32 @@ html {
           -ms-box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65);
           box-shadow: 2px 3px 10px -1px rgba(0, 0, 0, 0.65); } }
 
-.instruct-title {
-  background-color: #018CC9;
-  height: 60px; }
-  .instruct-title > h1 {
-    color: white;
-    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    margin: 0 auto; }
-
-.game-instructions {
-  background-color: #2196F3;
-  padding: 0 15px;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -o-flex;
-  display: -ms-flex;
-  display: flex;
-  -moz-justify-content: center;
-  -webkit-justify-content: center;
-  -o-justify-content: center;
-  -ms-justify-content: center;
-  justify-content: center; }
-
-.game-instructions p {
-  padding: 0 15px 15px;
-  text-align: center;
-  margin-bottom: 15px;
-  font-weight: 300px;
-  line-height: 2em;
-  border-bottom: 1px solid lightgray; }
-
-.game-instructions p:first-child {
-  color: #2196F3; }
-
-.game-instructions p:nth-child(2) {
-  color: #E91E63; }
-
-.game-instructions p:last-child {
-  color: #2196F3;
-  border-bottom: none; }
-
-.game-instructions p span {
-  color: #2196F3;
-  font-weight: 500; }
-
-.game-instructions p:last-child span {
-  color: #E91E63; }
-
-.ui-icon-loading + h1 {
-  display: none; }
-
-.game-notes {
-  margin-top: 30px;
-  text-align: center; }
-
-.game-notes .notes p {
-  color: #2196F3;
-  font-weight: 400; }
-
-.game-notes .notes p a {
-  text-decoration: none;
-  color: #E91E63; }
-
-@media handheld, screen and (max-width: 520px) {
-  .game-instructions p {
-    font-size: .85em; } }
+.modal {
+  background: none; }
+  .modal .instruct-title {
+    background-color: #018CC9;
+    height: 75px; }
+    .modal .instruct-title > h1 {
+      color: white;
+      font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0 auto !important;
+      line-height: 175%; }
+  .modal .game-instructions {
+    background-color: #2196F3;
+    padding: 15px 20px;
+    text-align: center; }
+    .modal .game-instructions p {
+      color: white;
+      font-size: 1.125em;
+      font-weight: 300;
+      margin: 15px auto; }
+      .modal .game-instructions p span {
+        font-weight: 500; }
+    .modal .game-instructions .modal-close {
+      margin-top: 15px; }
 
 .instructions-btn {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center; }
 
 button {

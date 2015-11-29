@@ -47,7 +47,7 @@
           </ion-header-bar>
           <ion-content class="game-instructions">
             <p>
-              Move your square tile to the location of the diamond. However, you must be the same color as the diamond when you get there!
+              Swipe to move your square tile to the location of the diamond. However, you must be the same color as the diamond when you get there!
             </p>
 
             <p>
@@ -55,21 +55,12 @@
             </p>
 
             <p>
-              Use the <span>circles</span> to help you decide which direction to go! The circles are "previews" of the new color you will make if you go to that direction! Good luck!
+              Use the <span>circles</span> to help you decide which direction to go! The circles are <span>previews</span> of the new color you will make if you go to that direction! Good luck!
             </p>
             <button ng-click="modal.hide()" class="modal-close">Got it!</button>
           </ion-content>
         </ion-modal-view>
       </script>
-      <!-- <div id="loading">
-        <div class="loading-container">
-          <div class="loading-square">
-            <div class="loading-diamond">
-
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <div id="main-container">
         <div class="game-header">
@@ -93,13 +84,13 @@
         </div>
         <div class="game-menu">
           <div class="undo">
-            <i class="icon ion-ios-undo undo-button" ng-click="game.undo()"></i>
+            <i class="icon ion-ios-undo-outline undo-button" ng-click="game.undo()"></i>
           </div>
           <div class="restart">
-            <i class="icon ion-refresh restart-button" ng-click="game.restart()"></i>
+            <i class="icon ion-ios-loop-strong restart-button" ng-click="game.restart()"></i>
           </div>
           <div class="redo">
-            <i class="icon ion-ios-redo redo-button" ng-click="game.redo()"></i>
+            <i class="icon ion-ios-redo-outline redo-button" ng-click="game.redo()"></i>
           </div>
         </div>
         <div id="game-container">
