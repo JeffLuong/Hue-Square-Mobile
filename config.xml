@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.huesquare855871" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>hueSquare</name>
+  <name>Hue Square</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Hue Square - A minimalist color mixing game.
     </description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+      Jeffrey Luong
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -39,9 +39,6 @@
     <splash src="resources/ios/splash/Default-568h@2x~iphone.png" height="1136" width="640"/>
     <splash src="resources/ios/splash/Default-667h.png" height="1334" width="750"/>
     <splash src="resources/ios/splash/Default-736h.png" height="2208" width="1242"/>
-    <splash src="resources/ios/splash/Default-Landscape-736h.png" height="1242" width="2208"/>
-    <splash src="resources/ios/splash/Default-Landscape@2x~ipad.png" height="1536" width="2048"/>
-    <splash src="resources/ios/splash/Default-Landscape~ipad.png" height="768" width="1024"/>
     <splash src="resources/ios/splash/Default-Portrait@2x~ipad.png" height="2048" width="1536"/>
     <splash src="resources/ios/splash/Default-Portrait~ipad.png" height="1024" width="768"/>
     <splash src="resources/ios/splash/Default@2x~iphone.png" height="960" width="640"/>
