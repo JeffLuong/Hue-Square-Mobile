@@ -90,22 +90,24 @@ angular.module('hueSquare')
           var goal = document.querySelector(".game-goal");
 
           if (!restart && won) {
-            goal.classList.add("rotate");
-            setTimeout(function() {
+            $timeout(function() {
+              goal.classList.add("rotate");
+            }, 250);
+            $timeout(function() {
               goal.classList.remove("shadow");
             }, 750);
           } else if (restart && won) {
             goal.classList.remove("rotate");
-            setTimeout(function() {
+            $timeout(function() {
               goal.classList.add("shadow");
             }, 500);
           } else if (!restart && !won) {
-            setTimeout(function() {
+            $timeout(function() {
               goal.classList.remove("shadow");
             }, 750);
           } else if (restart && !won) {
             goal.classList.add("shadow");
-            setTimeout(function() {
+            $timeout(function() {
               goal.classList.remove("rotate");
             }, 500);
           }

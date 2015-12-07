@@ -36,12 +36,11 @@
         width: 35%;
         height: 35%;
         text-align: center;
-        transition: all .25s ease-in-out;
+        transition: all .25s ease-in-out !important;
         display: block !important;
       }
 
       .rotate {
-        transition-delay: 0.25s;
         height: 35%;
         @include rotate(0deg);
       }

@@ -8055,10 +8055,9 @@ html {
         width: 35%;
         height: 35%;
         text-align: center;
-        transition: all .25s ease-in-out;
+        transition: all .25s ease-in-out !important;
         display: block !important; }
       .board-row .board-sq .tile .rotate {
-        transition-delay: 0.25s;
         height: 35%;
         -moz-transform: rotate(0deg);
         -webkit-transform: rotate(0deg);
