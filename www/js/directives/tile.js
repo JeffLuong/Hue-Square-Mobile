@@ -40,7 +40,8 @@ angular.module('hueSquare')
         $timeout(animateTiles, 250);
 
         function animateTiles() {
-          var delay = tileXpos + tileYpos;
+          var delay = tileXpos + tileYpos,
+              tile = angular.element(tileElem);
 
           // Calculates Delay time based on tile position.
           if (delay >= 10) {
@@ -54,14 +55,17 @@ angular.module('hueSquare')
             delay = "0." + delay.toString() + "s";
           }
 
-          tileElem.style.transitionDelay = delay;
-          tileElem.classList.add("animateIn");
+          tile.css({
+            "transition-delay" : delay
+          });
+
+          tile.addClass("animateIn");
 
           $timeout(removeDelay, 300);
         };
 
         function removeDelay() {
-          tileElem.style.transitionDelay = "0s";
+          tileElem.classList.add("delay-none");
         };
 
         function renderUser(e, lastPosition, newPosition, color, previews, color2) {
