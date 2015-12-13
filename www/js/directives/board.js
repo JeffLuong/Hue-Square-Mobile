@@ -29,12 +29,14 @@ angular.module('hueSquare')
               skipPuzzle        = "skip puzzle";
 
           if (gameOver && gameBeaten) {
+            console.log("Game over and game won...rendering message");
             messageContainer.classList.toggle("game-over");
             retryButton.classList.add("display-none");
             nextButton.classList.add("display-none");
             messageText.innerHTML = "You beat the game!";
             restartGameButton.classList.add("block");
           } else if (gameOver) {
+            console.log("Game over but game is not beaten...");
             retryButton.innerHTML = playAgain;
             nextButton.innerHTML = nextPuzzle;
             messageContainer.classList.toggle("game-over");

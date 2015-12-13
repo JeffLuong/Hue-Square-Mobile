@@ -17,6 +17,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   this.gameLvls = this.game.initLevels();
   // Check if any user stats are stored in local storage
   this.userStatsStored = this.data.getUserStats();
+
   if (this.userStatsStored) {
     this.currLvl = this.userStatsStored.level;
   } else {
@@ -71,11 +72,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   // User Tile Functions
   this.initUser = function(savedPosition) {
     var startPos;
-    if (savedPosition) {
-      startPos = this.getStartPosition(this.size, savedPosition);
-    } else {
-      startPos = this.getStartPosition(this.size);
-    }
+    startPos = savedPosition ? this.getStartPosition(this.size, savedPosition) : this.getStartPosition(this.size);
+``
     this.insertUser(this.board, startPos);
   };
 
@@ -285,11 +283,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   this.makeTiles = function(savedBoard) {
     for (var y = 0; y < this.size; y++) {
       for (var x = 0; x < this.size; x++) {
-        if (savedBoard) {
-          var color = this.board[y][x].color;
-        } else {
-          var color = this.genColor();
-        }
+        var color = savedBoard ? this.board[y][x].color : this.genColor();
         var tile = new Tile(this.boardObj.returnPosition(y, x), color);
         this.boardObj.addTile(tile);
       };
@@ -310,13 +304,13 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
         this.totalWins++;
 
         if (this.wins === this.rounds) {
-          this.currLvl++;
-          this.wins = 0;
+          if (this.currLvl === 6) {
+            this.beatGame = true;
+          } else {
+            this.currLvl++;
+            this.wins = 0;
+          }
         }
-
-        if (this.currLvl === 7 && this.wins === this.rounds) {
-          this.beatGame = true;
-        };
 
       } else if (color >= rangeLow || color <= rangeHigh) {
         restart  = false;
@@ -409,11 +403,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.undo = function() {
-    if (this.gameOver) {
-      return;
-    }
-    //~~~ Return if there are no undo moves in stored ~~~//
-    if (this.moves.undoMoves.length === 0) {
+    if (this.gameOver || this.moves.undoMoves.length === 0) {
       return;
     }
 
@@ -445,14 +435,9 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
   };
 
   this.redo = function() {
-    if (this.gameOver) {
+    if (this.gameOver || this.moves.redoMoves.length === 0) {
       return;
     };
-
-    //~~~ Return if there are no redo moves in stored ~~~//
-    if (this.moves.redoMoves.length === 0) {
-      return;
-    }
 
     //~~~ Remove last move from redo list ~~~//
     var redoLast = this.moves.redoMoves.shift(),
