@@ -7749,7 +7749,13 @@ html {
   padding-top: 20px;
   width: 500px;
   transition: width .25s ease-out; }
-  @media handheld, screen and (max-width: 520px) {
+  @media handheld, screen and (max-width: 414px) {
+    #main-container {
+      width: 390px; } }
+  @media handheld, screen and (max-width: 375px) {
+    #main-container {
+      width: 365px; } }
+  @media handheld, screen and (max-width: 320px) {
     #main-container {
       width: 310px; } }
 
@@ -7779,12 +7785,25 @@ html {
     padding-left: 15px;
     width: 60%;
     display: inline-block; }
-    @media handheld, screen and (max-width: 520px) {
+    @media handheld, screen and (max-width: 375px) {
       .game-header .game-title {
-        font-size: 3em;
-        width: 40%; } }
+        font-size: 4.25em;
+        width: 55%; } }
+    @media handheld, screen and (max-width: 320px) {
+      .game-header .game-title {
+        font-size: 3.65em;
+        width: 50%; } }
     .game-header .game-title span:first-child {
       color: #E91E63; }
+      @media handheld, screen and (max-width: 414px) {
+        .game-header .game-title span:first-child {
+          line-height: 1.315em; } }
+      @media handheld, screen and (max-width: 375px) {
+        .game-header .game-title span:first-child {
+          line-height: 1.25em; } }
+      @media handheld, screen and (max-width: 320px) {
+        .game-header .game-title span:first-child {
+          line-height: 1em; } }
     .game-header .game-title span:nth-child(2) {
       color: #2196F3; }
     .game-header .game-title span:nth-child(3) {
@@ -7795,13 +7814,27 @@ html {
       background-color: #2196F3;
       display: inline-block;
       margin-left: .125em; }
-      @media handheld, screen and (max-width: 520px) {
+      @media handheld, screen and (max-width: 414px) {
         .game-header .game-title div {
-          width: 20px;
-          height: 20px; } }
+          width: 35px;
+          height: 35px; } }
+      @media handheld, screen and (max-width: 375px) {
+        .game-header .game-title div {
+          width: 33px;
+          height: 33px; } }
+      @media handheld, screen and (max-width: 320px) {
+        .game-header .game-title div {
+          width: 25px;
+          height: 25px; } }
   .game-header .game-stats-container {
     width: 61%; }
-    @media handheld, screen and (max-width: 520px) {
+    @media handheld, screen and (max-width: 414px) {
+      .game-header .game-stats-container {
+        width: 80%; } }
+    @media handheld, screen and (max-width: 375px) {
+      .game-header .game-stats-container {
+        width: 75%; } }
+    @media handheld, screen and (max-width: 320px) {
       .game-header .game-stats-container {
         width: 65%; } }
     .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
@@ -7814,11 +7847,21 @@ html {
       background-color: #E91E63;
       transition: all .5s ease-in-out;
       overflow: hidden; }
-      @media handheld, screen and (max-width: 520px) {
+      @media handheld, screen and (max-width: 414px) {
         .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
-          padding: 2px 0 0;
+          width: 65px;
+          height: 65px;
+          padding: 5px 0 0; } }
+      @media handheld, screen and (max-width: 375px) {
+        .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
+          width: 60px;
+          height: 60px;
+          padding: 5px 0 0; } }
+      @media handheld, screen and (max-width: 320px) {
+        .game-header .game-stats-container .game-moves, .game-header .game-stats-container .game-wins, .game-header .game-stats-container .game-levels {
           width: 45px;
-          height: 45px; } }
+          height: 45px;
+          padding: 2px 0 0; } }
       .game-header .game-stats-container .game-moves > p, .game-header .game-stats-container .game-wins > p, .game-header .game-stats-container .game-levels > p {
         font-size: 1.25em;
         color: white;
@@ -7826,7 +7869,10 @@ html {
         .game-header .game-stats-container .game-moves > p + p, .game-header .game-stats-container .game-wins > p + p, .game-header .game-stats-container .game-levels > p + p {
           font-size: 1.75em;
           margin: 10px 0 0; }
-        @media handheld, screen and (max-width: 520px) {
+          @media handheld, screen and (max-width: 375px) {
+            .game-header .game-stats-container .game-moves > p + p, .game-header .game-stats-container .game-wins > p + p, .game-header .game-stats-container .game-levels > p + p {
+              margin: 5px 0 0; } }
+        @media handheld, screen and (max-width: 320px) {
           .game-header .game-stats-container .game-moves > p, .game-header .game-stats-container .game-wins > p, .game-header .game-stats-container .game-levels > p {
             font-size: .85em; }
             .game-header .game-stats-container .game-moves > p + p, .game-header .game-stats-container .game-wins > p + p, .game-header .game-stats-container .game-levels > p + p {
@@ -7834,10 +7880,10 @@ html {
               margin: 0; } }
     .game-header .game-stats-container .game-moves {
       margin-right: 15px; }
-    @media handheld, screen and (max-width: 520px) {
+    @media handheld, screen and (max-width: 320px) {
       .game-header .game-stats-container .game-levels {
         margin-right: .25em; } }
-    @media handheld, screen and (max-width: 520px) {
+    @media handheld, screen and (max-width: 320px) {
       .game-header .game-stats-container .game-wins {
         margin-right: 3px; } }
 
@@ -7855,9 +7901,12 @@ html {
   -o-justify-content: center;
   -ms-justify-content: center;
   justify-content: center; }
-  @media handheld, screen and (max-width: 520px) {
+  @media handheld, screen and (max-width: 320px) {
     .game-menu {
       margin: 15px 0; } }
+  @media handheld, screen and (min-height: 568px) {
+    .game-menu {
+      margin-top: 30px; } }
   .game-menu .redo, .game-menu .undo, .game-menu .restart {
     width: calc(100% / 3);
     color: #2196F3;
@@ -7969,7 +8018,7 @@ html {
         #game-container .game-message .options .left-option > a:hover, #game-container .game-message .options .right-option > a:hover, #game-container .game-message .options .bottom-option-1 > a:hover, #game-container .game-message .options .bottom-option-2 > a:hover {
           border-bottom: 1px solid white;
           cursor: pointer; }
-    @media handheld, screen and (max-width: 520px) {
+    @media handheld, screen and (max-width: 320px) {
       #game-container .game-message {
         margin-top: 0; }
         #game-container .game-message > p {
@@ -7986,14 +8035,30 @@ html {
     height: 470px;
     display: block;
     transition: height .25s ease-out; }
-    @media handheld, screen and (max-width: 520px) {
+    @media handheld, screen and (max-width: 414px) {
+      #game-container #board-container {
+        height: 360px; } }
+    @media handheld, screen and (max-width: 375px) {
+      #game-container #board-container {
+        height: 335px; } }
+    @media handheld, screen and (max-width: 320px) {
       #game-container #board-container {
         height: 280px; } }
-  @media handheld, screen and (max-width: 520px) {
+  @media handheld, screen and (max-width: 414px) {
     #game-container {
-      padding-top: 0; } }
+      margin-top: 35px; } }
+  @media handheld, screen and (max-width: 375px) {
+    #game-container {
+      margin-top: 25px; } }
+  @media handheld, screen and (min-height: 568px) and (max-width: 320px) {
+    #game-container {
+      margin-top: 45px; } }
+  @media handheld, screen and (max-height: 480px) and (max-width: 320px) {
+    #game-container {
+      padding-top: 0;
+      margin-top: 0; } }
 
-@media handheld, screen and (max-width: 520px) {
+@media handheld, screen and (max-width: 320px) {
   .loading-square {
     height: 280px;
     width: 280px;

@@ -1,5 +1,9 @@
-$mobile-width: 520px;
 $fonts: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$width-iphone4: 320px;
+$height-iphone4: 480px;
+$height-iphone5: 568px;
+$width-iphone6: 375px;
+$width-iphone6-plus: 414px;
 
 * {
   font: inherit;
@@ -26,7 +30,15 @@ html {
   width: 500px;
   transition: width .25s ease-out;
 
-  @media handheld, screen and (max-width: $mobile-width) {
+  @media handheld, screen and (max-width: $width-iphone6-plus) {
+    width: 390px;
+  }
+
+  @media handheld, screen and (max-width: $width-iphone6) {
+    width: 365px;
+  }
+
+  @media handheld, screen and (max-width: $width-iphone4) {
     width: 310px;
   }
 }

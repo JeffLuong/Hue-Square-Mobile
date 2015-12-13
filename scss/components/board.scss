@@ -61,7 +61,7 @@
       }
     }
 
-    @media handheld, screen and (max-width: $mobile-width) {
+    @media handheld, screen and (max-width: $width-iphone4) {
       margin-top: 0;
 
       > p {
@@ -95,18 +95,44 @@
     display: block;
     transition: height .25s ease-out;
 
-    @media handheld, screen and (max-width: $mobile-width) {
+    @media handheld, screen and (max-width: $width-iphone6-plus) {
+      height: 360px;
+    }
+
+    @media handheld, screen and (max-width: $width-iphone6) {
+      height: 335px;
+    }
+
+    @media handheld, screen and (max-width: $width-iphone4) {
       height: 280px;
     }
+
   }
 
-  @media handheld, screen and (max-width: $mobile-width) {
-    padding-top: 0;
+  @media handheld, screen and (max-width: $width-iphone6-plus) {
+    margin-top: 35px;
+  }
+
+  @media handheld, screen and (max-width: $width-iphone6) {
+    margin-top: 25px;
+  }
+
+  @media handheld, screen
+    and (min-height: $height-iphone5)
+    and (max-width: $width-iphone4) {
+      margin-top: 45px;
+  }
+
+  @media handheld, screen
+    and (max-height: 480px)
+    and (max-width: $width-iphone4) {
+      padding-top: 0;
+      margin-top: 0;
   }
 }
 
 
-@media handheld, screen and (max-width: $mobile-width) {
+@media handheld, screen and (max-width: $width-iphone4) {
 
   .loading-square {
     height: 280px;

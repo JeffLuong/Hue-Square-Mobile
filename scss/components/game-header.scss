@@ -9,14 +9,31 @@
     width: 60%;
     display: inline-block;
 
-    @media handheld, screen and (max-width: $mobile-width) {
-      font-size: 3em;
-      width: 40%;
+    @media handheld, screen and (max-width: $width-iphone6) {
+      font-size: 4.25em;
+      width: 55%;
+    }
+
+    @media handheld, screen and (max-width: $width-iphone4) {
+      font-size: 3.65em;
+      width: 50%;
     }
 
     span {
       &:first-child {
         color: $red;
+
+        @media handheld, screen and (max-width: $width-iphone6-plus) {
+          line-height: 1.315em;
+        }
+
+        @media handheld, screen and (max-width: $width-iphone6) {
+          line-height: 1.25em;
+        }
+
+        @media handheld, screen and (max-width: $width-iphone4) {
+          line-height: 1em;
+        }
       }
       &:nth-child(2) {
         color: $blue;
@@ -33,9 +50,19 @@
       display: inline-block;
       margin-left: .125em;
 
-      @media handheld, screen and (max-width: $mobile-width) {
-        width: 20px;
-        height: 20px;
+      @media handheld, screen and (max-width: $width-iphone6-plus) {
+        width: 35px;
+        height: 35px;
+      }
+
+      @media handheld, screen and (max-width: $width-iphone6) {
+        width: 33px;
+        height: 33px;
+      }
+
+      @media handheld, screen and (max-width: $width-iphone4) {
+        width: 25px;
+        height: 25px;
       }
     }
   }
@@ -43,10 +70,17 @@
   .game-stats-container {
     width: 61%;
 
-    @media handheld, screen and (max-width: $mobile-width) {
-      width: 65%;
+    @media handheld, screen and (max-width: $width-iphone6-plus) {
+      width: 80%;
     }
 
+    @media handheld, screen and (max-width: $width-iphone6) {
+      width: 75%;
+    }
+
+    @media handheld, screen and (max-width: $width-iphone4) {
+      width: 65%;
+    }
 
     .game-moves,
     .game-wins,
@@ -61,10 +95,22 @@
       transition: all .5s ease-in-out;
       overflow: hidden;
 
-      @media handheld, screen and (max-width: $mobile-width) {
-        padding: 2px 0 0;
+      @media handheld, screen and (max-width: $width-iphone6-plus) {
+        width: 65px;
+        height: 65px;
+        padding: 5px 0 0;
+      }
+
+      @media handheld, screen and (max-width: $width-iphone6) {
+        width: 60px;
+        height: 60px;
+        padding: 5px 0 0;
+      }
+
+      @media handheld, screen and (max-width: $width-iphone4) {
         width: 45px;
         height: 45px;
+        padding: 2px 0 0;
       }
 
       > p {
@@ -75,9 +121,13 @@
         + p {
           font-size: 1.75em;
           margin: 10px 0 0;
+
+          @media handheld, screen and (max-width: $width-iphone6) {
+            margin: 5px 0 0;
+          }
         }
 
-        @media handheld, screen and (max-width: $mobile-width) {
+        @media handheld, screen and (max-width: $width-iphone4) {
           font-size: .85em;
 
           + p {
@@ -93,13 +143,13 @@
     }
 
     .game-levels {
-      @media handheld, screen and (max-width: $mobile-width) {
+      @media handheld, screen and (max-width: $width-iphone4) {
         margin-right: .25em;
       }
     }
 
     .game-wins {
-      @media handheld, screen and (max-width: $mobile-width) {
+      @media handheld, screen and (max-width: $width-iphone4) {
         margin-right: 3px;
       }
     }
@@ -114,8 +164,12 @@
   @include flexbox-display-flex;
   @include flexbox-justify(center);
 
-  @media handheld, screen and (max-width: $mobile-width) {
+  @media handheld, screen and (max-width: $width-iphone4) {
     margin: 15px 0;
+  }
+
+  @media handheld, screen and (min-height: $height-iphone5) {
+    margin-top: 30px;
   }
 
   .redo,
