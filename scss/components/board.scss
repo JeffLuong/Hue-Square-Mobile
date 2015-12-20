@@ -61,6 +61,24 @@
       }
     }
 
+    @media handheld, screen and (max-width: $width-iphone6-plus) {
+      .options {
+        .left-option,
+        .right-option {
+          width: 45%
+        }
+      }
+    }
+
+    @media handheld, screen and (max-width: $width-iphone6) {
+      .options {
+        .left-option,
+        .right-option {
+          width: 45%
+        }
+      }
+    }
+
     @media handheld, screen and (max-width: $width-iphone4) {
       margin-top: 0;
 
@@ -74,7 +92,7 @@
 
         .left-option,
         .right-option {
-          width: 49%;
+          width: 45%;
         }
 
         .left-option,

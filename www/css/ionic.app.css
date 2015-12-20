@@ -7744,6 +7744,9 @@ html {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 200; }
 
+p {
+  margin: 0; }
+
 #main-container {
   margin: 0 auto;
   padding-top: 20px;
@@ -8018,6 +8021,12 @@ html {
         #game-container .game-message .options .left-option > a:hover, #game-container .game-message .options .right-option > a:hover, #game-container .game-message .options .bottom-option-1 > a:hover, #game-container .game-message .options .bottom-option-2 > a:hover {
           border-bottom: 1px solid white;
           cursor: pointer; }
+    @media handheld, screen and (max-width: 414px) {
+      #game-container .game-message .options .left-option, #game-container .game-message .options .right-option {
+        width: 45%; } }
+    @media handheld, screen and (max-width: 375px) {
+      #game-container .game-message .options .left-option, #game-container .game-message .options .right-option {
+        width: 45%; } }
     @media handheld, screen and (max-width: 320px) {
       #game-container .game-message {
         margin-top: 0; }
@@ -8027,7 +8036,7 @@ html {
         #game-container .game-message .options {
           padding-top: 20px; }
           #game-container .game-message .options .left-option, #game-container .game-message .options .right-option {
-            width: 49%; }
+            width: 45%; }
           #game-container .game-message .options .left-option > a, #game-container .game-message .options .right-option > a, #game-container .game-message .options .bottom-option-1 > a, #game-container .game-message .options .bottom-option-2 > a {
             font-size: 1.25em; } }
   #game-container #board-container {

@@ -39,6 +39,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       this.board          = prevState.board.savedBoard;
       this.gameOver       = prevState.gameOver;
       this.movedFromStart = true;
+      this.won            = prevState.wonRound;
       this.moves          = prevState.moves;
       this.aiMoves        = prevState.aiMoves;
       if (this.userStatsStored) {
@@ -516,7 +517,8 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       savedPosition: currPosition,
       aiMoves:       this.aiMoves,
       beatGame:      this.beatGame,
-      gameOver:      this.gameOver
+      gameOver:      this.gameOver,
+      wonRound:      this.won
     };
 
     var userStats = {
@@ -524,7 +526,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       level:     this.currLvl,
       wins:      this.wins
     }
-
+    console.log(currGame.gameOver, currGame.wonRound);
     // stores user stats
     this.data.storeUserStats(userStats);
     return currGame;

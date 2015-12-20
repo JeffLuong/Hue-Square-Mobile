@@ -8,10 +8,11 @@ angular.module('hueSquare')
       "</div>",
       link: function(scope, element, attr) {
           // Saved Game Data
-          var game       = scope.game.data,
-              currGame   = game.getCurrGame(),
+          var gameData   = scope.game.data,
+              currGame   = gameData.getCurrGame(),
               gameBeaten = currGame.beatGame,
-              gameOver   = currGame.gameOver;
+              gameOver   = currGame.gameOver,
+              wonRound   = currGame.wonRound;
 
           // Element Selectors && Text States
           var messageContainer  = document.querySelector(".game-message"),
@@ -28,55 +29,62 @@ angular.module('hueSquare')
               tryAgain          = "try again",
               skipPuzzle        = "skip puzzle";
 
-          if (gameOver && gameBeaten) {
-            console.log("Game over and game won...rendering message");
+          if (gameOver) {
             messageContainer.classList.toggle("game-over");
-            retryButton.classList.add("display-none");
-            nextButton.classList.add("display-none");
-            messageText.innerHTML = "You beat the game!";
-            restartGameButton.classList.add("block");
-          } else if (gameOver) {
-            console.log("Game over but game is not beaten...");
-            retryButton.innerHTML = playAgain;
-            nextButton.innerHTML = nextPuzzle;
-            messageContainer.classList.toggle("game-over");
-            messageText.innerHTML = winMessage;
+            if (gameBeaten && !wonRound) {
+              toggleBeatGameMessage();
+            } else if (!gameBeaten && wonRound) {
+              toggleWinMessage();
+            } else {
+              toggleLoseMessage();
+            }
           }
 
           // Event Listener
           $rootScope.$on("game.game-over", displayMessage);
+
+          function toggleWinMessage() {
+            retryButton.innerHTML = playAgain;
+            nextButton.innerHTML = nextPuzzle;
+            messageText.innerHTML = winMessage;
+          };
+
+          function toggleLoseMessage() {
+            retryButton.innerHTML = tryAgain;
+            nextButton.innerHTML = skipPuzzle;
+            messageText.innerHTML = loseMessage;
+            showSolButton.classList.add("block");
+          };
+
+          function toggleBeatGameMessage() {
+            retryButton.classList.add("display-none");
+            nextButton.classList.add("display-none");
+            messageText.innerHTML = beatGameMessage;
+            restartGameButton.classList.add("block");
+          };
+
+          function toggleClearMessage() {
+            retryButton.classList.remove("display-none");
+            nextButton.classList.remove("display-none");
+            showSolButton.classList.remove("block");
+            restartGameButton.classList.remove("block");
+          };
 
           function displayMessage(e, restart, won, wonGame) {
             var message = won ? winMessage : loseMessage,
                 options = won ? "next" : "retry";
 
             if (won && !wonGame && !restart) {
-              retryButton.innerHTML = playAgain;
-              nextButton.innerHTML = nextPuzzle;
-              messageText.innerHTML = message;
+              toggleWinMessage();
             } else if (!won && !wonGame && !restart) {
-              nextButton.innerHTML = skipPuzzle;
-              retryButton.innerHTML = tryAgain;
-              showSolButton.classList.add("block");
-              messageText.innerHTML = message;
+              toggleLoseMessage();
             } else if (won && wonGame && !restart) {
-              retryButton.classList.add("display-none");
-              nextButton.classList.add("display-none");
-              messageText.innerHTML = beatGameMessage;
-              restartGameButton.classList.add("block");
+              toggleBeatGameMessage();
             } else if (restart) {
-              clearSolution();
+              toggleClearMessage();
             }
 
             messageContainer.classList.toggle("game-over");
-          };
-
-
-          function clearSolution() {
-            retryButton.classList.remove("display-none");
-            nextButton.classList.remove("display-none");
-            showSolButton.classList.remove("block");
-            restartGameButton.classList.remove("block");
           };
       },
 
