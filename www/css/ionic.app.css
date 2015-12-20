@@ -7868,7 +7868,8 @@ p {
       .game-header .game-stats-container .game-moves > p, .game-header .game-stats-container .game-wins > p, .game-header .game-stats-container .game-levels > p {
         font-size: 1.25em;
         color: white;
-        margin: 0; }
+        margin: 0;
+        font-weight: 300; }
         .game-header .game-stats-container .game-moves > p + p, .game-header .game-stats-container .game-wins > p + p, .game-header .game-stats-container .game-levels > p + p {
           font-size: 1.75em;
           margin: 10px 0 0; }
@@ -7963,7 +7964,7 @@ p {
   #game-container .game-message {
     display: none;
     position: absolute;
-    background: rgba(219, 218, 238, 0.45);
+    background: rgba(150, 150, 150, 0.5);
     z-index: 100;
     margin: 15px;
     top: 0;
@@ -8000,7 +8001,8 @@ p {
       font-size: 3em;
       height: calc(100% / 2);
       padding-top: 100px;
-      color: white; }
+      color: white;
+      font-weight: 300; }
     #game-container .game-message .options {
       width: 100%;
       padding-top: 40px;
@@ -8017,17 +8019,21 @@ p {
         color: white;
         margin: 20px auto 0;
         font-size: 1.25em;
-        padding: 5px; }
+        padding: 5px;
+        font-weight: 400; }
         #game-container .game-message .options .left-option > a:hover, #game-container .game-message .options .right-option > a:hover, #game-container .game-message .options .bottom-option-1 > a:hover, #game-container .game-message .options .bottom-option-2 > a:hover {
           border-bottom: 1px solid white;
           cursor: pointer; }
     @media handheld, screen and (max-width: 414px) {
       #game-container .game-message .options .left-option, #game-container .game-message .options .right-option {
         width: 45%; } }
-    @media handheld, screen and (max-width: 375px) {
-      #game-container .game-message .options .left-option, #game-container .game-message .options .right-option {
-        width: 45%; } }
-    @media handheld, screen and (max-width: 320px) {
+    @media handheld, screen and (max-height: 568px) and (max-width: 320px) {
+      #game-container .game-message > p {
+        padding-top: 80px;
+        font-size: 2.5em; }
+      #game-container .game-message .options {
+        padding-top: 30px; } }
+    @media handheld, screen and (max-height: 480px) and (max-width: 320px) {
       #game-container .game-message {
         margin-top: 0; }
         #game-container .game-message > p {
@@ -8035,8 +8041,6 @@ p {
           font-size: 1.5em; }
         #game-container .game-message .options {
           padding-top: 20px; }
-          #game-container .game-message .options .left-option, #game-container .game-message .options .right-option {
-            width: 45%; }
           #game-container .game-message .options .left-option > a, #game-container .game-message .options .right-option > a, #game-container .game-message .options .bottom-option-1 > a, #game-container .game-message .options .bottom-option-2 > a {
             font-size: 1.25em; } }
   #game-container #board-container {

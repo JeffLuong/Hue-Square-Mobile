@@ -526,7 +526,7 @@ appModule.controller('gameManager', function($rootScope, $scope, Game, Board, Ti
       level:     this.currLvl,
       wins:      this.wins
     }
-    console.log(currGame.gameOver, currGame.wonRound);
+
     // stores user stats
     this.data.storeUserStats(userStats);
     return currGame;
